@@ -1,0 +1,137 @@
+<aside #mainSidebar class="main-sidebar sidebar-light-dark elevation-4">
+  <!-- Brand Logo -->
+  <a [routerLink]="['/']" class="brand-link">
+    <img
+      src="assets/img/log.png"
+      alt="Logo DTM READY" width="55px"
+    />
+    &nbsp;&nbsp;
+    <span class="brand-text font-weight-light">DTM | Delivery</span>
+  </a>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar user (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image" *ngIf="identity && identity.image">
+        <img
+        src="{{base + 'user/avatar/' + identity.image}}"
+          class="img-circle elevation-2"
+          alt="User Image"
+        />
+      </div>
+      <div class="info">
+        <a [routerLink]="['/profile']" class="d-block">{{identity.name}}</a>
+      </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <li class="nav-item">
+        <a [routerLink]="['/']" class="nav-link">
+          <i class="nav-icon fas fa-tachometer-alt"></i>
+          <p>
+            Inicio
+            <span class="right badge badge-success">To work</span>
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/empresa']" class="nav-link">
+          <i class="nav-icon fas fa-building"></i>
+          <p>
+            Empresa
+            <i class="right fas fa-angle-right"></i>
+          </p>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a [routerLink]="['/producto']" class="nav-link">
+          <i class="nav-icon fas fa-boxes"></i>
+          <p>
+            Producto
+             <i class="right fas fa-angle-right"></i>
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/repartidor']" class="nav-link">
+          <i class="nav-icon fa fa-people-carry"></i>
+          <p>
+            Repartidor
+          </p>
+          <i class="right fas fa-angle-right"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/cliente']" class="nav-link">
+          <i class="nav-icon fas fa-user"></i>
+          <p>
+            Cliente
+            <i class="right fas fa-angle-right"></i>
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/solicitud']" class="nav-link">
+          <i class="nav-icon fas fa-edit"></i>
+          <p>
+            Pedido
+            <i class="right fas fa-angle-right"></i>
+          </p>
+        </a>
+      </li>
+     
+      <li class="nav-header">EMPRESA</li>
+      <li class="nav-item">
+        <a [routerLink]="['/beneficios']" class="nav-link">
+          <i class="nav-icon fas fa-address-card"></i>
+          <p> 
+            Beneficios
+            <i class="right fas fa-angle-right"></i>
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/noticias']" class="nav-link">
+          <i class="nav-icon far fa-newspaper"></i>
+          <p> 
+            Noticias
+            <i class="right fas fa-angle-right"></i>
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/blank']" class="nav-link">
+          <i class="nav-icon fas fa-file-contract"></i>
+          <p> 
+            Reportes
+            <i class="right fas fa-angle-right"></i>
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/blank']" class="nav-link">
+          <i class="nav-icon fas fa-chart-line"></i>
+          <p> 
+            Estadísticas
+            <i class="right fas fa-angle-right"></i>
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/empresa']" class="nav-link">
+          <i class="nav-icon fas fa-building"></i>
+          <p> 
+            Parametros
+            <i class="right fas fa-angle-right"></i>
+          </p>
+        </a>
+      </li>
+    </ul>
+
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>

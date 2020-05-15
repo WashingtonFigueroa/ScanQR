@@ -1,0 +1,155 @@
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>{{title}}</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a [routerLink]="'[/]'">Inicio</a></li>
+            <li class="breadcrumb-item active">{{title}}</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-info card-outline">
+            <form #createUserForm="ngForm" (ngSubmit)="onSubmit(createUserForm)">
+              <div class="card-body">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-md-4">       
+                      <div class="form-group btn-sm">
+                        <label> <small class="requeridos">☼</small> Cédula / Ruc::</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt "></i></span>
+                          </div>
+                          <input type="number" name="cedula" class="form-control" #cedula="ngModel" [(ngModel)]="user.cedula"
+                          required>
+                        <small *ngIf="!cedula.valid && cedula.touched" class="invalid-feedback d-block">Campo Incorrecto</small>
+                        </div>
+                      </div>
+                      <div class="form-group btn-sm">
+                        <label> <small class="requeridos">☼</small> Nombres:</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user "></i></span>
+                          </div>
+                          <input type="text" name="name" class="form-control" #name="ngModel" [(ngModel)]="user.name"
+                          required pattern="[a-zA-Z ]*">
+                        <small *ngIf="!name.valid && name.touched" class="invalid-feedback d-block">Campo Incorrecto</small>
+                        </div>
+                      </div>
+                      <div class="form-group btn-sm">
+                        <label> <small class="requeridos">☼</small> Email:</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-envelope-square "></i></span>
+                          </div>
+                          <input type="email" name="email" class="form-control" #email="ngModel" [(ngModel)]="user.email"
+                          required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                        <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">Campo Incorrecto</small>
+                        </div>
+                      </div>
+                      <div class="form-group btn-sm">
+                        <label> <small class="requeridos">☼</small> Dirección:</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-map-marked-alt "></i></span>
+                          </div>
+                          <input type="text" name="direccion" class="form-control" #direccion="ngModel"
+                          [(ngModel)]="user.direccion" required>
+                        <small *ngIf="!direccion.valid && direccion.touched" class="invalid-feedback d-block">Campo Incorrecto</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group btn-sm">
+                        <label> <small class="requeridos">☼</small> Teléfono:</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-phone-volume "></i></span>
+                          </div>
+                          <input type="number" name="telefono" class="form-control" #telefono="ngModel"
+                          [(ngModel)]="user.telefono" required>
+                        <small *ngIf="!telefono.valid && telefono.touched" class="invalid-feedback d-block">Campo Incorrecto</small>
+                        </div>
+                      </div>
+                      <div *ngIf="title === 'Crear Usuario'">
+                        <div class="form-group btn-sm">
+                          <label> <small class="requeridos">☼</small> Contraseña:</label>    
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-key "></i></span>
+                            </div>
+                            <input type="password" name="password" class="form-control" #password="ngModel"
+                            [(ngModel)]="user.password" required minlength="6">
+                          <small *ngIf="!password.valid && password.touched" class="invalid-feedback d-block">
+                          La contraseña debe tener 6 caracteres minimo.</small>
+                          </div>
+                        </div>
+                        <div class="form-group btn-sm">
+                          <label> <small class="requeridos">☼</small> Repetir Contraseña:</label>    
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-key "></i></span>
+                            </div>
+                            <input type="password" name="password2" class="form-control" #password2="ngModel"
+                            [(ngModel)]="user.password2" required minlength="6">
+                          <small *ngIf="!password2.valid && password2.touched" class="invalid-feedback d-block"> 
+                          La contraseña debe tener 6 caracteres minimo.</small>
+                          </div>
+                        </div>
+                      </div>
+                       
+
+                      <div class="form-group btn-sm">
+                        <label>Fecha Nacimiento:</label>     
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-calendar-alt "></i></span>
+                          </div>
+                          <p-calendar class="lf-calendar" name="fecha_nacimiento" #fecha_nacimiento="ngModel" [(ngModel)]="user.fecha_nacimiento" dateFormat="yy-mm-dd" 
+                          [locale]="es" inputStyleClass="primeNgCalendarInput" [monthNavigator]="true" [yearNavigator]="true" 
+                          yearRange="1940:2005" required></p-calendar>
+                          <small *ngIf="!fecha_nacimiento.valid && fecha_nacimiento.touched" class="invalid-feedback d-block"> Ingrese fecha de nacimiento</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                          <div class="form-group btn-sm">
+                            <label for="image">Seleccione Foto:</label>
+                            <angular-file-uploader [config]="afuConfig" [resetUpload]=resetVar
+                              (ApiResponse)="avatarUpload($event)">
+                            </angular-file-uploader>
+                          </div>
+
+                          <div class="contenedor-div botones-abajo-derecha">
+                            <button type="submit" class="btn btn-success btn-sm" [disabled]="!createUserForm.form.valid">
+                              <i class="fas fa-save"></i>&nbsp;&nbsp; {{title}} </button>
+                              &nbsp;&nbsp; &nbsp;&nbsp;
+                            <button type="button" class="btn btn-danger btn-sm" routerLink="/usuario">
+                            <i class="fas fa-arrow-left"></i>&nbsp;&nbsp; Cancelar</button>
+                          </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+             
+            </form>
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>

@@ -1,0 +1,171 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "../node_modules/bootstrap/dist/css/bootstrap.css";
+@import "../node_modules//font-awesome/css/font-awesome.min.css";
+@import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+@import "../node_modules//ionicons/css/ionicons.min.css";
+@import "../node_modules/admin-lte/dist/css/adminlte.min.css";
+
+@import '~ngx-toastr/toastr';
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+.requeridos {
+  color: #ff0745;
+}
+
+.contenedor-div{
+  position:relative;
+}
+
+.botones-abajo-derecha{
+  position:absolute;
+  bottom:5px;
+  right:10px;
+}
+
+.botones-abajo{
+  position:absolute;
+  right:10px;
+}
+
+body{
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1{
+  font-size: 38px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+}
+
+p-calendar.lf-calendar .ui-datepicker-header.ui-widget-header.ui-helper-clearfix.ui-corner-all {
+  background: none !important;
+  border-bottom: none;
+}
+
+p-calendar.lf-calendar .ui-datepicker .ui-datepicker-title {
+  font-weight: 800;
+  font-size: 15px;
+  color: #212121;
+  /*line-height: 18px;*/
+  height: 1px;
+}
+
+p-calendar.lf-calendar .ui-datepicker.ui-widget .ui-datepicker-calendar {
+  margin: 0px;
+  margin-top: 15px;
+  /*margin-bottom: 15px;*/
+}
+
+p-calendar.lf-calendar .ui-datepicker.ui-widget .ui-datepicker-calendar td a {
+  font-weight: 400;
+  font-size: 13px;
+  color: #212121;
+  line-height: 18px;
+  padding: 1px !important;
+}
+
+p-calendar.lf-calendar .ui-datepicker-header.ui-widget-header {
+  border-bottom: none;
+}
+
+p-calendar.lf-calendar .ui-datepicker.ui-widget .ui-datepicker-calendar td a.ui-state-highlight {
+  background-color: #ffffff !important;
+  color: #212121 !important;
+  border: 1px solid #205081;
+}
+p-calendar.lf-calendar .ui-datepicker.ui-widget .ui-datepicker-calendar td a.ui-state-active{
+  background-color: #205081 !important;
+  color: #ffffff !important;
+}
+p-calendar.lf-calendar .ui-datepicker.ui-widget .ui-datepicker-calendar td {
+  border-bottom: none !important;
+}
+
+p-calendar.lf-calendar .ui-datepicker .ui-datepicker-calendar td:not(.ui-state-disabled) a:hover {
+  color: #FFF !important;
+  background-color: #205081 !important;
+}
+
+p-calendar.lf-calendar .ui-datepicker.ui-widget .ui-datepicker-calendar thead th {
+  background-color: #FFFFFF !important;
+}
+
+
+/*p-calendar header previous and next icons styling starts here*/
+
+p-calendar.lf-calendar .fa-angle-left::before {
+  content: '\f0d9' !important;
+  color: #205081;
+}
+
+p-calendar.lf-calendar .fa-angle-right::before {
+  content: '\f0da' !important;
+  color: #205081;
+}
+
+p-calendar.lf-calendar .ui-inputtext:enabled:hover {
+  border-color: #c4d0db !important;
+}
+
+
+p-calendar.lf-calendar .ui-datepicker td {
+  padding: 5px !important;
+}
+
+p-calendar.lf-calendar .ui-datepicker.ui-widget.ui-widget-content {
+  padding: 15px;
+  width: 300px;
+  height: 300px;
+}
+
+p-calendar.lf-calendar a.ui-datepicker-prev:hover {
+  background-color: #FFFFFF !important;
+}
+
+p-calendar.lf-calendar a.ui-datepicker-next:hover {
+  background-color: #FFFFFF !important;
+}
+
+p-calendar.lf-calendar .ui-calendar button {
+  left: 0px;
+  color: #c4d0db !important;
+}
+
+p-calendar.lf-calendar .ui-inputtext {
+  padding-left: 10px !important;
+  border: 1px solid #c4d0db;
+}
+
+p-calendar.lf-calendar .ui-inputtext.ui-widget.ui-state-default.ui-corner-all {
+  padding-left: 35px !important;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+p-calendar.lf-calendar input::-webkit-input-placeholder {
+  color: #989898 !important;
+  font-style: italic;
+}
+
+p-calendar.lf-calendar input:-ms-input-placeholder {
+  color: #989898 !important;
+  font-style: italic !important;
+}
+
+p-calendar.lf-calendar .ui-button {
+  /* border: 1px solid #2399e5; */
+  /*color: #FFFFFF;*/
+  /*background: #2399e5;*/
+  -webkit-transition: background-color .2s;
+  -moz-transition: background-color .2s;
+  transition: background-color .2s;
+  background: transparent !important;
+  color: #205081 !important;
+  border: none !important;
+}
+

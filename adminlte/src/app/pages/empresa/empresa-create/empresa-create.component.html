@@ -1,0 +1,162 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>{{title}}</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+            <li class="breadcrumb-item active">{{title}}</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-info card-outline">
+            <form #createEmpresaForm="ngForm" (ngSubmit)="onSubmit(createEmpresaForm)">
+              <div class="card-body">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-md-4">       
+                      <div class="form-group btn-sm">
+                        <label> <small class="requeridos">☼</small>  Nombre Empresa:</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-building"></i></span>
+                          </div>
+                          <input type="text" name="nombre" class="form-control" #nombre="ngModel" [(ngModel)]="empresa.nombre" required>
+                        <small *ngIf="!nombre.valid && nombre.touched" class="invalid-feedback d-block"> El nombre no es
+                          valida</small>
+                        </div>
+                      </div>
+                      <div class="form-group btn-sm">
+                        <label>Eslogan:</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-ad"></i></span>
+                          </div>
+                          <input type="text" name="eslogan" class="form-control" #eslogan="ngModel" [(ngModel)]="empresa.eslogan">
+                        </div>
+                      </div>
+                      <div class="form-group btn-sm">
+                        <label>Actividad Económica:</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-bullseye"></i></span>
+                          </div>
+                          <input type="text" name="actividad" class="form-control" #actividad="ngModel" [(ngModel)]="empresa.actividad">
+                        </div>
+                      </div>
+                      <div class="form-group btn-sm">
+                        <label><small class="requeridos">☼</small>  Dirección:</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
+                          </div>
+                          <input type="text" name="direccion" class="form-control" #direccion="ngModel" [(ngModel)]="empresa.direccion" required >
+                        <small *ngIf="!direccion.valid && direccion.touched" class="invalid-feedback d-block"> La dirección no es valido</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group btn-sm">
+                        <label><small class="requeridos">☼</small>  Teléfono:</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
+                          </div>
+                          <input type="number" name="telefono" class="form-control" #telefono="ngModel" [(ngModel)]="empresa.telefono"
+                          required pattern="[0-9]{8,12}">
+                        <small *ngIf="!telefono.valid && telefono.touched" class="invalid-feedback d-block"> El teléfono no es
+                          valido</small>
+                        </div>
+                      </div>
+                      <div class="form-group btn-sm">
+                        <label><small class="requeridos">☼</small>  Email:</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
+                          </div>
+                          <input type="email" name="email" class="form-control" #email="ngModel" [(ngModel)]="empresa.email"
+                          required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                        <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block"> El email no es
+                          valido</small>
+                        </div>
+                      </div>
+                      <div class="form-group btn-sm">
+                        <label>Web:</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-at"></i></span>
+                          </div>
+                          <input type="url" name="web" class="form-control" #web="ngModel" [(ngModel)]="empresa.web" pattern="https?://.+">
+                          <small *ngIf="!web.valid && web.touched" class="invalid-feedback d-block"> La web no es
+                            valido</small>
+                        </div>
+                      </div>
+                      <div class="form-group btn-sm">
+                        <label>Coordenadas:</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
+                          </div>
+                          <input type="text" name="coordenadas" class="form-control" #coordenadas="ngModel" [(ngModel)]="empresa.coordenadas">
+                        </div>
+                      </div>                      
+                    </div>
+                    <div class="col-md-4">   
+                      <div class="form-group btn-sm">
+                        <label>Detalle:</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-file-alt"></i></span>
+                          </div>
+                          <textarea name="detalle" class="form-control" #detalle="ngModel" [(ngModel)]="empresa.detalle"></textarea>
+                        </div>
+                      </div>
+                      <div *ngIf=" title === 'Editar Empresa'" class="form-group btn-sm" >
+                        <label><small class="requeridos">☼</small>  Seleccione Estado:</label>    
+                        <div class="input-group">
+                          <label class="container">Estado
+                            <input  type="checkbox" checkbox="true" name="estado"  #estado="ngModel" [(ngModel)]="empresa.estado">
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="form-group btn-sm">
+                        <label for="logo">Seleccione Logo:</label>
+                        <angular-file-uploader [config]="afuConfig" [resetUpload]=resetVar
+                          (ApiResponse)="avatarUpload($event)">
+                        </angular-file-uploader>
+                      </div>      
+                      
+                      <div class="contenedor-div botones-abajo-derecha">
+                        <button type="submit" class="btn btn-success btn-sm" [disabled]="!createEmpresaForm.form.valid">
+                          <i class="fas fa-save"></i>&nbsp;&nbsp; {{title}} </button>
+                          &nbsp;&nbsp; &nbsp;&nbsp;
+                        <button type="button" class="btn btn-danger btn-sm" routerLink="/empresa">
+                        <i class="fas fa-arrow-left"></i>&nbsp;&nbsp; Cancelar</button>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div> 
+             
+            </form>
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>

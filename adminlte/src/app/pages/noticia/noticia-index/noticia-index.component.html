@@ -1,0 +1,119 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Noticias</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+            <li class="breadcrumb-item active">Noticias</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-header">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                        </div>
+                        <input type="text" class="form-control"  placeholder="Buscador..." (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>
+                </div>
+            <p-table #dt [columns]="cols" [value]="noticias" [responsive]="true" [paginator]="true" [rows]="5" >
+              <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th style="width:50px" class="text-center">
+                            ID
+                        </th>
+                        <th  class="text-center">
+                            Empresa
+                        </th>
+                        <th  class="text-center">
+                            Autor
+                        </th> 
+                        <th  class="text-center">
+                            Foto
+                        </th> 
+                        <th  class="text-center">
+                            Noticia
+                        </th> 
+                        <th  class="text-center">
+                            Fecha Fin
+                        </th> 
+                        <th class="text-center" style="width:160px" >
+                            <button class="btn btn-info btn-sm" routerLink="/noticias/create"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar</button>
+                        </th>                     
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-noticia>
+                  <tr>
+                    <td style="width:50px">
+                      {{noticia.noticia_id}}
+                    </td>
+                    <td>{{noticia.empresa.nombre}}</td>
+                    <td>{{noticia.user.name}}</td>
+
+                    <td class="text-center">
+                      <span *ngIf="!noticia.imagen" class="badge badge-danger">Sin imagen</span>
+                      <div class="text-center" *ngIf="noticia.imagen">
+                        <img src="{{base + 'noticia/imagen/' + noticia.imagen}}" alt="User" width="75px"/>
+                      </div>
+                    </td>
+                    <td>{{noticia.nombre}}</td> 
+                    <td>{{noticia.fecha_fin}}</td>
+                    <td class="text-center" style="width:160px">
+                    <label *ngIf="noticia.estado" class="btn-sm" style="color: steelblue; width:30%" title="Activo"><i class="fas fa-check"></i></label>
+                    <label *ngIf="!noticia.estado" class="btn-sm" style="color: tomato; width:30%" title="Inactivo"><i class="far fa-times-circle"></i></label>
+                   
+                    &nbsp;&nbsp;
+                            <button class="btn btn-warning  btn-sm" routerLink="/noticias/edit/{{noticia.noticia_id}}" title="Editar Noticia"><i class="fas fa-edit"></i></button>
+                            &nbsp;&nbsp;
+                              <!-- Button to Open the Modal -->
+                              <button type="button"class="btn btn-danger  btn-sm" data-toggle="modal" [attr.data-target]="'#myModal'+noticia.noticia_id">
+                                <i class="fas fa-trash-alt"></i>
+                              </button>
+
+                              <!-- The Modal -->
+                              <div class="modal" id="myModal{{noticia.noticia_id}}">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                      <h4 class="modal-title">¿Esta seguro de eliminar la Noticia?</h4>
+                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                      La noticia ha eliminar es: {{noticia.nombre}}
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                      <button class="btn btn-danger  btn-sm" (click)="deleteNoticia(noticia.noticia_id)" data-dismiss="modal">Eliminar</button>
+
+                                      <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                                    </div>
+
+                                  </div>
+                                </div>
+                              </div>
+                          </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+      </div>
+    </div>
+    </div>
+  </section>
+
+
