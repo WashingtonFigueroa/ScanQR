@@ -1,0 +1,87 @@
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Cargos</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+            <li class="breadcrumb-item active">Cargos</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-header">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                        </div>
+                        <input type="text" class="form-control"  placeholder="Buscador..." (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>
+                </div>
+                <p-table #dt [columns]="cols" [value]="cargos" [responsive]="true" [paginator]="true" [rows]="10" >
+                  <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th style="width:50px" class="text-center">
+                            ID
+                        </th>
+                        <th  class="text-center">
+                            Cargo
+                        </th> 
+                        <th  class="text-center">
+                            Descripcion
+                        </th> 
+                        <th class="text-center" style="width:160px" >
+                            <button class="btn btn-info btn-sm" routerLink="/cargo/create"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar</button>
+                        </th>                     
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-cargo>
+                  <tr>
+                    <td style="width:50px">
+                      {{cargo.cargo_id}}
+                    </td>
+                    <td>{{cargo.nombre}}</td>
+                    <td>{{cargo.descripcion}}</td>
+                    <td class="text-center" style="width:160px">
+                    <label *ngIf="cargo.estado" class="btn-sm" style="color: steelblue; width:30%" title="Activo"><i class="fas fa-check"></i></label>
+                    <label *ngIf="!cargo.estado" class="btn-sm" style="color: tomato; width:30%" title="Inactivo"><i class="far fa-times-circle"></i></label>
+                    &nbsp;&nbsp;
+                            <button class="btn btn-warning  btn-sm" routerLink="/cargo/edit/{{cargo.cargo_id}}" title="Editar Persona"><i class="fas fa-edit"></i></button>
+                            &nbsp;&nbsp;
+                              <button type="button"class="btn btn-danger  btn-sm" data-toggle="modal" [attr.data-target]="'#myModal'+cargo.cargo_id">
+                                <i class="fas fa-trash-alt"></i>
+                              </button>
+                              <div class="modal" id="myModal{{cargo.cargo_id}}">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h4 class="modal-title">¿Esta seguro de eliminar el cargo?</h4>
+                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                      La cargo ha eliminar es: {{cargo.nombre}}
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button class="btn btn-danger  btn-sm" (click)="deleteCargo(cargo.cargo_id)" data-dismiss="modal">Eliminar</button>
+                                      <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                          </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+      </div>
+    </div>
+    </div>
+  </section>
+
+

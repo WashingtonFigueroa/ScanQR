@@ -1,15 +1,12 @@
 <div class="login-box" style="background-color: rgba(255, 255, 255, 0.200);">
   <div class="login-logo">
-    <!-- <a href="#"><b>DTM </b>READY</a> -->
-    <img src="./../../assets/img/logo.png" alt="" width="90%">
-    <br><br>
+    <!-- <img src="./../../assets/img/logo.png" alt="" width="90%"> -->
+    <h3>Running Time</h3>
+    <br>
   </div>
-  <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Inicia sesión para comenzar</p>
-
-      <!-- <form [formGroup]="loginForm"> -->
         <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="form-signin">  
         <div class="input-group mb-3">
           <input type="email" name="email" class="form-control" #email="ngModel" [(ngModel)]="user.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Ingrese Email" autofocus="autofocus">
@@ -29,26 +26,17 @@
           </div>
         <small *ngIf="!password.valid && password.touched" class="invalid-feedback d-block"> La contraseña no es valido</small>
         </div>
-        <div class="row">
-          <div class="col-8">
-            <div class="custom-control custom-checkbox">
-              <label for="rememberMe">NORDENT RX</label>
-            </div>
-          </div>
-          <!-- /.col -->
-          <div class="col-4">            
-            <input type="submit" value="Entrar" class="btn btn-primary btn-block btn-flat" [disabled]="!loginForm.form.valid" />				
-          </div>
-          <!-- /.col -->
+        <div class="mb-1 text-center">
+          <br>
+            <button type="submit" class="btn btn-info btn-sm" [disabled]="!loginForm.form.valid">
+              <i class="fa fa-lock-open"></i>&nbsp;&nbsp; Iniciar Sesión </button>				
         </div>
       </form>
       <br>
       <hr>
       <p class="mb-1 text-center">
-        <a href="https://dtmowed.org/" target="_blank">Copyright ©℗® <strong>DTMOWED CIA. LTDA.</strong></a>
+        <a href="https://dtmowed.org/" target="_blank">Copyright © DTMOWED CIA. LTDA.</a>
       </p>
-
     </div>
-    <!-- /.login-card-body -->
   </div>
 </div>
