@@ -21,14 +21,14 @@
         />
       </div>
       <div class="info">
-        <a [routerLink]="['/profile']" class="d-block">{{identity.name}}</a>
+        {{identity.nombre}}
       </div>
     </div>
 
     <!-- Sidebar Menu -->
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <li class="nav-item">
-        <a [routerLink]="['/']" class="nav-link">
+        <a [routerLink]="['/dashboard']" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
             Inicio
