@@ -11,7 +11,7 @@ class QR extends Model
 
     protected $table = 'qrs';
     protected $fillable = [
-        'qr',
+        'codqr',
         'nombre',
         'tiempo',
         'estado'

@@ -1,12 +1,9 @@
 export class Qr {
     constructor(
-        // tslint:disable-next-line: variable-name
-        public qr_id: number,
-        public codigo: string,
+        public id: number,
+        public codqr: string,
         public nombre: string,
-        public fecha: string,
-        public horaingreso: string,
-        public horasalida: string,
-        public tentativa: any
+        public tiempo: number,
+        public estado: string
     ) {}
 }

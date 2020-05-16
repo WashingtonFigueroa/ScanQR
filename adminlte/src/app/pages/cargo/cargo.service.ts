@@ -46,5 +46,4 @@ export class CargoService {
                                         .set('Authorization', token);
       return this.http.delete(this.url + 'cargo/' + id, {headers: headerss});
     }
-
 }

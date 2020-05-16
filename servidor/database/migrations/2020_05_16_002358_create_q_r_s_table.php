@@ -15,10 +15,10 @@ class CreateQRSTable extends Migration
     {
         Schema::create('qrs', function (Blueprint $table) {
             $table->id();
-            $table->string('qr');
-            $table->string('nombre');
+            $table->string('codqr')->unique();
+            $table->string('nombre')->nullable();
             $table->integer('tiempo')->unsigned();
-            $table->string('estado');
+            $table->string('estado')->default('Inactivo');
             $table->softDeletes();
             $table->timestamps();
         });

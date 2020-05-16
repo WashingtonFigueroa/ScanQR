@@ -1,1 +1,86 @@
-<p>qr-create works!</p>
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>{{title}}</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+            <li class="breadcrumb-item active">{{title}}</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-info card-outline">
+            <form #createQrForm="ngForm" (ngSubmit)="onSubmit(createQrForm)">
+              <div class="card-body">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-md-12">       
+                      <div class="form-group btn-sm">
+                        <label> <small class="requeridos">☼</small> Códigos QR:</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-qrcode"></i></span>
+                          </div>
+                          <input type="text" name="codqr" class="form-control" #codqr="ngModel" [(ngModel)]="qr.codqr" required>
+                        <small *ngIf="!codqr.valid && codqr.touched" class="invalid-feedback d-block"> El código es obligatorio</small>
+                        </div>
+                      </div>
+                      <div class="form-group btn-sm">
+                        <label>Nombre:</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                          </div>
+                          <input type="text" name="nombre" class="form-control" #nombre="ngModel" [(ngModel)]="qr.nombre">
+                        </div>
+                      </div>
+
+                      <div class="form-group btn-sm">
+                        <label> <small class="requeridos">☼</small> Tiempo en Minutos:</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                          </div>
+                          <input type="number" name="tiempo" class="form-control" #tiempo="ngModel" [(ngModel)]="qr.tiempo" required>
+                        <small *ngIf="!tiempo.valid && tiempo.touched" class="invalid-feedback d-block"> El tiempo es obligatorio</small>
+                        </div>
+                      </div>
+                           
+                      <div class="form-group btn-sm" >
+                        <label><small class="requeridos">☼</small>  Seleccione Estado:</label>    
+                        <div class="input-group">
+                            <select name="estado" class="form-control" #estado="ngModel" [(ngModel)]="qr.estado">
+                                <option value="Inactivo">Inactivo</option>
+                                <option value="Activo">Activo</option>
+                              </select>
+                        </div>
+                      </div>
+                     <br>
+                    </div>
+                    <div class="contenedor-div botones-abajo-derecha">
+
+                        <button type="submit" class="btn btn-success btn-sm" [disabled]="!createQrForm.form.valid">
+                          <i class="fas fa-save"></i>&nbsp;&nbsp; {{title}} </button>
+                          &nbsp;&nbsp; &nbsp;&nbsp;
+                        <button type="button" class="btn btn-danger btn-sm" routerLink="/qr">
+                        <i class="fas fa-arrow-left"></i>&nbsp;&nbsp; Cancelar</button>
+                      </div>
+
+                  </div>
+                </div>
+              </div> 
+             
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

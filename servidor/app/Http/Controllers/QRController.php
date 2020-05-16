@@ -35,7 +35,7 @@ class QRController extends Controller
         $params_array = json_decode($json, true);
         if (!empty($params_array)) {
             $validate = \Validator::make($params_array, [
-                'qr' => 'required',
+                'codqr' => 'required',
                 'nombre' => 'required',
                 'tiempo' => 'required',
                 'estado' => 'required'
@@ -44,7 +44,7 @@ class QRController extends Controller
                 $data = array('code' => 400, 'status' => 'error', 'message' => 'No se ha guardado el qr');
             } else {
                 $qr = new Empresa();
-                $qr->qr = $params_array['qr'];
+                $qr->codqr = $params_array['codqr'];
                 $qr->nombre = $params_array['nombre'];
                 $qr->tiempo = $params_array['tiempo'];
                 $qr->estado = $params_array['estado'];
@@ -63,7 +63,7 @@ class QRController extends Controller
         $params_array = json_decode($json, true);
         if (!empty($params_array)) {
         $validate = \Validator::make($params_array, [
-            'qr' => 'required',
+            'codqr' => 'required',
             'nombre' => 'required',
             'tiempo' => 'required',
             'estado' => 'required'
