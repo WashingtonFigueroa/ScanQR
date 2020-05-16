@@ -7,29 +7,33 @@
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Inicia sesión para comenzar</p>
-        <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="form-signin">  
+      <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="form-signin">
         <div class="input-group mb-3">
-          <input type="email" name="email" class="form-control" #email="ngModel" [(ngModel)]="user.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Ingrese Email" autofocus="autofocus">
+          <input type="email" name="email" class="form-control" #email="ngModel" [(ngModel)]="user.email" required
+                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Ingrese Email" autofocus="autofocus">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
-        <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block"> El email no es valido</small>
+          <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block"> El email no es valido</small>
         </div>
         <div class="input-group mb-3">
-          <input type="password" name="password" class="form-control" #password="ngModel" [(ngModel)]="user.password" required placeholder="Ingrese Contraseña">
+          <input type="password" name="password" class="form-control" #password="ngModel" [(ngModel)]="user.password"
+                 required placeholder="Ingrese Contraseña">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
-        <small *ngIf="!password.valid && password.touched" class="invalid-feedback d-block"> La contraseña no es valido</small>
+          <small *ngIf="!password.valid && password.touched" class="invalid-feedback d-block"> La contraseña no es
+            valido</small>
         </div>
         <div class="mb-1 text-center">
           <br>
-            <button type="submit" class="btn btn-info btn-sm" [disabled]="!loginForm.form.valid">
-              <i class="fa fa-lock-open"></i>&nbsp;&nbsp; Iniciar Sesión </button>				
+          <button type="submit" class="btn btn-info btn-sm" [disabled]="loginForm.form.invalid">
+            <i class="fa fa-lock-open"></i>&nbsp;&nbsp; Iniciar Sesión
+          </button>
         </div>
       </form>
       <br>

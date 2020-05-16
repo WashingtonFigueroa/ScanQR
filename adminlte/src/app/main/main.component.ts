@@ -49,7 +49,7 @@ export class MainComponent implements OnInit, DoCheck {
   loadUser() {
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
-    if (!this.identity) {
+    if (!this.token) {
       this.router.navigate(['login']);
     }
   }

@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {Component, OnInit, OnDestroy, Renderer2} from '@angular/core';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
 
-import { ToastrService } from 'ngx-toastr';
-import { User } from '../models/user';
-import { LoginService } from './login.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
+import {User} from '../models/user';
+import {LoginService} from './login.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,12 +12,13 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-public title: string;
-public user: User;
-public token;
-public identity;
+  public title: string;
+  public user: User;
+  public token;
+  public identity;
 
   public loginForm: FormGroup;
+
   constructor(
     private loginService: LoginService,
     private route: ActivatedRoute,
@@ -33,27 +34,37 @@ public identity;
   }
 
   onSubmit(form) {
-    this.loginService.signup(this.user).subscribe(response => {
-      if (response.status !== 'error') {
-          this.token = response;
-          // objeto usuario
-          this.loginService.signup(this.user, true).subscribe(response2 => {
-            this.identity = response2;
-            localStorage.setItem('token', this.token);
-            localStorage.setItem('identity', JSON.stringify(this.identity));
-            this.toastr.success('Bienvenid@!', this.identity.name);
-            this.router.navigate(['/']);
-          }, error => {
+    this.loginService.login(this.user)
+      .subscribe((response: any) => {
+        console.log(response);
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('identity', JSON.stringify(response.identity));
+        this.router.navigate(['dashboard']);
+        this.toastr.success('Accediendo al sistema', 'Acceso Concedido');
+      }, () => {
+        this.toastr.error('Credenciales Incorrectas', 'Acceso Denegado');
+      });
+    /*    this.loginService.signup(this.user).subscribe(response => {
+          if (response.status !== 'error') {
+              this.token = response;
+              // objeto usuario
+              this.loginService.signup(this.user, true).subscribe(response2 => {
+                this.identity = response2;
+                localStorage.setItem('token', this.token);
+                localStorage.setItem('identity', JSON.stringify(this.identity));
+                this.toastr.success('Bienvenid@!', this.identity.name);
+                this.router.navigate(['/']);
+              }, error => {
+                this.toastr.error('Uppp!', 'Credenciales Incorrectas!');
+              });
+          } else {
             this.toastr.error('Uppp!', 'Credenciales Incorrectas!');
-          });
-      } else {
-        this.toastr.error('Uppp!', 'Credenciales Incorrectas!');
-        form.reset();
-      }
-    },  error => {
-      this.toastr.error('Uppp!', 'Credenciales Incorrectas!');
-      form.reset();
-    });
+            form.reset();
+          }
+        },  error => {
+          this.toastr.error('Uppp!', 'Credenciales Incorrectas!');
+          form.reset();
+        });*/
   }
 
   logout() {
