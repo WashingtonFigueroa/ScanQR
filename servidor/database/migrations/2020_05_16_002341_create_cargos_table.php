@@ -17,6 +17,7 @@ class CreateCargosTable extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('descripcion');
+            $table->boolean('estado')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });

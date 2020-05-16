@@ -12,7 +12,8 @@ class Cargo extends Model
     protected $table = 'cargos';
     protected $fillable = [
         'nombre',
-        'descripcion'
+        'descripcion',
+        'estado'
     ];
     protected $dates = ['deleted_at'];
 }
