@@ -17,4 +17,9 @@ class QR extends Model
         'estado'
     ];
     protected $dates = ['deleted_at'];
+
+    public function historias()
+    {
+        return $this->hasMany('App\Historial');
+    }
 }
