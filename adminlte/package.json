@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "~9.0.1",
     "@angular/router": "~9.0.1",
     "@ng-select/ng-select": "^4.0.0",
+    "@zxing/ngx-scanner": "^3.0.0",
     "angular-file-uploader": "^5.0.2",
     "bootstrap": "^4.4.1",
     "core-js": "^2.5.4",
