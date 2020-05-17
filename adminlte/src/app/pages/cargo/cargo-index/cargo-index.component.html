@@ -33,13 +33,13 @@
                         </th>
                         <th  class="text-center">
                             Cargo
-                        </th> 
+                        </th>
                         <th  class="text-center">
                             Descripcion
-                        </th> 
+                        </th>
                         <th class="text-center" style="width:160px" >
                             <button class="btn btn-info btn-sm" routerLink="/cargo/create"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar</button>
-                        </th>                     
+                        </th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-cargo>
@@ -55,7 +55,7 @@
                     &nbsp;&nbsp;
                             <button class="btn btn-warning  btn-sm" routerLink="/cargo/edit/{{cargo.cargo_id}}" title="Editar Persona"><i class="fas fa-edit"></i></button>
                             &nbsp;&nbsp;
-                              <button type="button"class="btn btn-danger  btn-sm" data-toggle="modal" [attr.data-target]="'#myModal'+cargo.cargo_id">
+                              <button type="button"class="btn btn-danger  btn-sm" data-toggle="modal" [attr.data-target]="'#myModal'+cargo.id">
                                 <i class="fas fa-trash-alt"></i>
                               </button>
                               <div class="modal" id="myModal{{cargo.cargo_id}}">

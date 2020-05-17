@@ -34,6 +34,7 @@ export class CargoCreateComponent implements OnInit {
   }
 
   onSubmit(form) {
+    console.log(this.cargo);
     this.cargoService.guardar(this.token, this.cargo).subscribe(response => {
       if (response.status === 'success') {
         this.toastr.success('Ok.', 'cargo Registrado');
