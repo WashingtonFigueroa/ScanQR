@@ -45,7 +45,7 @@
                 <ng-template pTemplate="body" let-rowData let-cargo>
                   <tr>
                     <td style="width:50px">
-                      {{cargo.cargo_id}}
+                      {{cargo.id}}
                     </td>
                     <td>{{cargo.nombre}}</td>
                     <td>{{cargo.descripcion}}</td>
@@ -53,12 +53,12 @@
                     <label *ngIf="cargo.estado" class="btn-sm" style="color: steelblue; width:30%" title="Activo"><i class="fas fa-check"></i></label>
                     <label *ngIf="!cargo.estado" class="btn-sm" style="color: tomato; width:30%" title="Inactivo"><i class="far fa-times-circle"></i></label>
                     &nbsp;&nbsp;
-                            <button class="btn btn-warning  btn-sm" routerLink="/cargo/edit/{{cargo.cargo_id}}" title="Editar Persona"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-warning  btn-sm" routerLink="/cargo/edit/{{cargo.id}}" title="Editar Persona"><i class="fas fa-edit"></i></button>
                             &nbsp;&nbsp;
                               <button type="button"class="btn btn-danger  btn-sm" data-toggle="modal" [attr.data-target]="'#myModal'+cargo.id">
                                 <i class="fas fa-trash-alt"></i>
                               </button>
-                              <div class="modal" id="myModal{{cargo.cargo_id}}">
+                              <div class="modal" id="myModal{{cargo.id}}">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
                                     <div class="modal-header">
@@ -69,7 +69,7 @@
                                       La cargo ha eliminar es: {{cargo.nombre}}
                                     </div>
                                     <div class="modal-footer">
-                                      <button class="btn btn-danger  btn-sm" (click)="deleteCargo(cargo.cargo_id)" data-dismiss="modal">Eliminar</button>
+                                      <button class="btn btn-danger  btn-sm" (click)="deleteCargo(cargo.id)" data-dismiss="modal">Eliminar</button>
                                       <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
                                     </div>
                                   </div>

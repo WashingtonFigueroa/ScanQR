@@ -15,35 +15,35 @@ export class QrService {
   constructor( private http: HttpClient ) {
     }
 
-    getQrs(): Observable <any> {
-      const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    getQrs(token): Observable<any> {
+      const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+        .set('Authorization', token);
       return this.http.get(this.url + 'qr', {headers: headerss});
     }
-
-    show(id): Observable <any> {
-      const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+  
+    show(token, id): Observable<any> {
+      const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', token);
       return this.http.get(this.url + 'qr/' + id, {headers: headerss});
     }
-
-    guardar(token, qr): Observable <any> {
-      const json = JSON.stringify(qr);
-      const params = 'json=' + json;
-      const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-                                        .set('Authorization', token);
-      return this.http.post(this.url + 'qr', params, {headers: headerss});
+  
+    guardar(token, qr): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/json')
+        .set('Authorization', token);
+      return this.http.post(this.url + 'qr', qr, {headers: headers});
     }
-
-    update(token, qr, id): Observable <any> {
+  
+    update(token, qr, id): Observable<any> {
       const json = JSON.stringify(qr);
       const params = 'json=' + json;
       const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-                                        .set('Authorization', token);
+        .set('Authorization', token);
       return this.http.put(this.url + 'qr/' + id, params, {headers: headerss});
     }
-
-    delete(token, id): Observable <any> {
+  
+    delete(token, id): Observable<any> {
       const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-                                        .set('Authorization', token);
+        .set('Authorization', token);
       return this.http.delete(this.url + 'qr/' + id, {headers: headerss});
     }
 }

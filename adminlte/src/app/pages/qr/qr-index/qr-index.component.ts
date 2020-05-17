@@ -29,7 +29,7 @@ export class QrIndexComponent implements OnInit {
   }
 
   getqrs() {
-    this.qrService.getQrs().subscribe(response => {
+    this.qrService.getQrs(this.token).subscribe(response => {
       console.log(response.status);
       if (response.status === 'success') {
         this.qrs = response.qrs;

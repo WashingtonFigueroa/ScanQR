@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\QR;
 use Illuminate\Http\Request;
+use Validator;
 
 class QRController extends Controller
 {
@@ -31,30 +32,20 @@ class QRController extends Controller
 
     public function store(Request $request)
     {
-        $json= $request->input('json', null);
-        $params_array = json_decode($json, true);
-        if (!empty($params_array)) {
-            $validate = \Validator::make($params_array, [
-                'codqr' => 'required',
-                'nombre' => 'required',
-                'tiempo' => 'required',
-                'estado' => 'required'
+        $validate = Validator::make($request->all(), [
+            'codqr' => 'required',
+            'nombre' => 'required',
+            'tiempo' => 'required',
+            'estado' => 'required'
+        ]);
+        if ($validate->fails()) {
+            return response()->json([
+                'code' => 400, 'status' => 'error', 'message' => 'No se ha guardado el qr'
             ]);
-            if ($validate->fails()) {
-                $data = array('code' => 400, 'status' => 'error', 'message' => 'No se ha guardado el qr');
-            } else {
-                $qr = new Empresa();
-                $qr->codqr = $params_array['codqr'];
-                $qr->nombre = $params_array['nombre'];
-                $qr->tiempo = $params_array['tiempo'];
-                $qr->estado = $params_array['estado'];
-                $qr->save();
-                $data = array( 'code' => 200, 'status' => 'success', 'qr' => $qr);
-            }
         } else {
-            $data = array( 'code' => 400, 'status' => 'error', 'message' => 'No has enviado ningun dato');
+            $qr = QR::create($request->all());
+            return response()->json(['code' => 200, 'status' => 'success', 'qr' => $qr], 201);
         }
-        return response()->json($data, $data['code']);
     }
 
     public function update(Request $request, $id)

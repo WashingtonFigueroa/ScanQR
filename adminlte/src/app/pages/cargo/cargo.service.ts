@@ -21,8 +21,9 @@ export class CargoService {
     return this.http.get(this.url + 'cargo', {headers: headerss});
   }
 
-  show(id): Observable<any> {
-    const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+  show(token, id): Observable<any> {
+    const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    .set('Authorization', token);
     return this.http.get(this.url + 'cargo/' + id, {headers: headerss});
   }
 

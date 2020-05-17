@@ -34,7 +34,7 @@ export class CargoIndexComponent implements OnInit {
       if (response.status === 'success') {
         this.cargos = response.cargos;
         this.cols = [
-            { field: 'cargo_id', header: 'ID' },
+            { field: 'id', header: 'ID' },
             { field: 'nombre', header: 'Nombre' },
             { field: 'descripcion', header: 'Descripción' },
             { field: 'estado', header: 'Estado' }
@@ -48,7 +48,7 @@ export class CargoIndexComponent implements OnInit {
   }
 
   selectCarWithButton(car: Cargo) {
-    console.log(car.cargo_id);
+    console.log(car.id);
   }
 
   deleteCargo(id) {

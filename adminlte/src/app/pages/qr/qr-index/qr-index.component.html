@@ -28,8 +28,8 @@
                 <p-table #dt [columns]="cols" [value]="qrs" [responsive]="true" [paginator]="true" [rows]="10" >
                   <ng-template pTemplate="header" let-columns>
                     <tr>
-                        <th style="width:50px" class="text-center">
-                            ID
+                        <th style="width:150px" class="text-center">
+                            Id Código
                         </th>
                         <th  class="text-center">
                             Tiempo
@@ -44,14 +44,16 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-qr>
                   <tr>
-                    <td style="width:50px">
+                    <td style="width:150px">
                       {{qr.id}}
                     </td>
                     <td>{{qr.tiempo}}</td>
-                    <td>
-                        <label *ngIf="qr.estado" class="btn-sm" style="color: steelblue; width:30%" title="Activo"><i class="fas fa-check"></i></label>
-                        <label *ngIf="!qr.estado" class="btn-sm" style="color: tomato; width:30%" title="Inactivo"><i class="far fa-times-circle"></i></label>
+                    <td *ngIf="qr.estado === 'Activo'">
+                        <label  class="btn-sm" style="color: steelblue; width:30%" title="Activo"><i class="fas fa-check"></i></label>
                     </td>
+                    <td *ngIf="qr.estado !== 'Activo'">
+                      <label  class="btn-sm" style="color: brown; width:30%" title="Activo"><i class="fas fa-check"></i></label>
+                  </td>
                     <td class="text-center" style="width:160px">
                             <button class="btn btn-warning  btn-sm" routerLink="/qr/edit/{{qr.id}}" title="Editar Qr"><i class="fas fa-edit"></i></button>
                             &nbsp;&nbsp;
