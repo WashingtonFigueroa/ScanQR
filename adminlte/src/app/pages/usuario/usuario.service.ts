@@ -16,14 +16,6 @@ export class UsuarioService {
     constructor( private http: HttpClient ) {
     }
 
-    getRepartidores(): Observable <any> {
-      const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-      return this.http.get(this.url + 'user/repartidores', {headers: headerss});
-    }
-    getClientes(): Observable <any> {
-      const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-      return this.http.get(this.url + 'user/clientes', {headers: headerss});
-    }
     getUser(): Observable <any> {
       const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
       return this.http.get(this.url + 'user/index', {headers: headerss});

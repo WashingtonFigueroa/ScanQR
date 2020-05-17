@@ -30,8 +30,7 @@ export class CargoIndexComponent implements OnInit {
   }
 
   getcargos() {
-    this.cargoService.getCargos().subscribe(response => {
-      console.log(response.status);
+    this.cargoService.getCargos(this.token).subscribe(response => {
       if (response.status === 'success') {
         this.cargos = response.cargos;
         this.cols = [

@@ -15,8 +15,9 @@ export class CargoService {
   constructor( private http: HttpClient ) {
     }
 
-    getCargos(): Observable <any> {
-      const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    getCargos(token): Observable <any> {
+      const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', token);
       return this.http.get(this.url + 'cargo', {headers: headerss});
     }
 
