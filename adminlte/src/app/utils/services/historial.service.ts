@@ -13,7 +13,11 @@ export class HistorialService {
   }
 
   index() {
-    return this.http.get(`${this.servidor}historial`);
+    return this.http.get(`${this.servidor}historial`, {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    });
   }
 
   store(data: any) {

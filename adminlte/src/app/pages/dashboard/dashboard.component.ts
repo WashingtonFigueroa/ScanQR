@@ -10,6 +10,7 @@ import {ToastrService} from 'ngx-toastr';
 export class DashboardComponent implements OnInit {
 
   codigo: string = '';
+  enabled = true;
 
   constructor(private historialService: HistorialService,
               private toastr: ToastrService) {
@@ -19,26 +20,30 @@ export class DashboardComponent implements OnInit {
   }
 
   scanned($event) {
-    this.codigo = $event;
-    this.historialService.store({
-      codigo: $event
-    }).subscribe((response: {
-      tiempo_transcurrido: string,
-      type: string,
-      observacion: string,
-    }) => {
-      console.log(response);
-      switch (response.type) {
-        case 'info':
-          this.toastr.info(response.observacion);
-          break;
-        case 'success':
-          this.toastr.success(response.observacion);
-          break;
-        case 'error':
-          this.toastr.error(response.observacion);
-          break;
-      }
-    })
+    setTimeout(() => {
+      this.codigo = $event;
+      this.enabled = false;
+      this.historialService.store({
+        codigo: $event
+      }).subscribe((response: {
+        tiempo_transcurrido: string,
+        type: string,
+        observacion: string,
+      }) => {
+        this.codigo = '';
+        console.log(response);
+        switch (response.type) {
+          case 'info':
+            this.toastr.info(response.observacion, 'INGRESO');
+            break;
+          case 'success':
+            this.toastr.success(response.observacion, 'SALIDA');
+            break;
+          case 'error':
+            this.toastr.error(response.observacion, 'ERROR');
+            break;
+        }
+      })
+    }, 1000);
   }
 }
