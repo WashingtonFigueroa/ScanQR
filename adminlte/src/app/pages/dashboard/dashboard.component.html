@@ -17,7 +17,10 @@
   <div class="row">
     <div class="col-md-12">
       <div class="scanner">
-        <zxing-scanner [formats]="['QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX']"></zxing-scanner>
+        <zxing-scanner  (scanSuccess)="scanned($event)" [formats]="['QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX']"></zxing-scanner>
+        <div class="alert alert-info">
+          {{ codigo }}
+        </div>
       </div>
       <!--			<button type="button" class="btn btn-info btn-sm btn-block">
               Leer Codigo

@@ -1,1 +1,36 @@
-<p>reportes works!</p>
+<div class="container">
+  <br>
+  <div class="card">
+    <div class="card-header">
+      HISTORIAL
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>N.</th>
+            <th>Codigo</th>
+            <th>Ingreso</th>
+            <th>Salida</th>
+            <th>Salida Tentativa</th>
+            <th>Tiempo Presente</th>
+            <th>Estado</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let record of historial; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ record.nombre }}</td>
+            <td>{{ record.ingreso }}</td>
+            <td>{{ record.salida }}</td>
+            <td>{{ record.salida_tentativa }}</td>
+            <td>{{ record.tiempo }}</td>
+            <td>{{ record.estado }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

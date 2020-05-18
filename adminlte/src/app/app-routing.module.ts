@@ -71,6 +71,10 @@ const routes: Routes = [
           {path: 'edit/:id', component: EmpresaEditComponent},
         ]
       },
+      {
+        path: 'reportes',
+        component: ReportesComponent
+      },
       {path: 'dashboard', component: DashboardComponent}
     ]
   },

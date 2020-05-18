@@ -15,7 +15,7 @@
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image" *ngIf="identity && identity.image">
         <img
-        src="{{base + 'user/avatar/' + identity.image}}"
+          src="{{base + 'user/avatar/' + identity.image}}"
           class="img-circle elevation-2"
           alt="User Image"
         />
@@ -40,16 +40,16 @@
         <a [routerLink]="['/qr']" class="nav-link">
           <i class="nav-icon fas fa-qrcode"></i>
           <p>
-             Código QR
+            Código QR
             <i class="right fas fa-angle-right"></i>
           </p>
         </a>
       </li>
       <li class="nav-header">Historial</li>
       <li class="nav-item">
-        <a [routerLink]="['/beneficios']" class="nav-link">
+        <a [routerLink]="['/reportes']" class="nav-link">
           <i class="nav-icon fas fa-address-card"></i>
-          <p> 
+          <p>
             Reporte
             <i class="right fas fa-angle-right"></i>
           </p>
