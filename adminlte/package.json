@@ -23,6 +23,7 @@
     "@ng-select/ng-select": "^4.0.0",
     "@zxing/ngx-scanner": "^3.0.0",
     "angular-file-uploader": "^5.0.2",
+    "angularx-qrcode": "^2.1.1",
     "bootstrap": "^4.4.1",
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",

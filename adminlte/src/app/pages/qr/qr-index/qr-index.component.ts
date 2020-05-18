@@ -15,13 +15,14 @@ export class QrIndexComponent implements OnInit {
   public token;
   public qrs: Qr;
   public cols: any[];
-
+  public myAngularxQrCode: string = null;
   constructor(
     private toastr: ToastrService,
     private qrService: QrService,
     private loginService: LoginService
   ) {
     this.token = this.loginService.getToken();
+    this.myAngularxQrCode = 'Your QR code data string';
   }
 
   ngOnInit(): void {

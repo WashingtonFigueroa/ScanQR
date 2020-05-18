@@ -28,13 +28,13 @@
                 <p-table #dt [columns]="cols" [value]="qrs" [responsive]="true" [paginator]="true" [rows]="10" >
                   <ng-template pTemplate="header" let-columns>
                     <tr>
-                        <th style="width:150px" class="text-center">
-                            Id Código
+                        <th style="width:80px" class="text-center">
+                          Código
                         </th>
-                        <th style="width:150px" class="text-center">
+                        <th style="width:100px" class="text-center">
                           Estado
                       </th> 
-                        <th  class="text-center">
+                        <th style="width:150px" class="text-center">
                           QR
                         </th> 
                         <th  class="text-center">
@@ -50,17 +50,21 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-qr>
                   <tr>
-                    <td style="width:150px" class="text-center">
+                    <td style="width:80px" class="text-center">
                       {{qr.id}}
                     </td>
-                    <td *ngIf="qr.estado === 'Activo'" style="width:150px" class="text-center">
+                    <td *ngIf="qr.estado === 'Activo'" style="width:100px" class="text-center">
                       <span class="right badge badge-success">Activo</span>
                     </td>
-                    <td *ngIf="qr.estado !== 'Activo'" style="width:150px" class="text-center">
+                    <td *ngIf="qr.estado !== 'Activo'" style="width:100px" class="text-center">
                       <span class="right badge badge-warning">Inactivo</span>
                   </td>
                    
-                    <td>{{qr.codqr}}</td>
+                    <!-- <td>{{qr.codqr}}</td> -->
+                    <td style="width:150px" class="text-center">
+                      <qrcode [qrdata]="myAngularxQrCode" [width]="100" [errorCorrectionLevel]="'M'"></qrcode>
+                    </td>
+
                     <td>{{qr.nombre}}</td>
                     <td style="width:150px" class="text-center">{{qr.tiempo}}</td>
                     <td class="text-center" style="width:160px">

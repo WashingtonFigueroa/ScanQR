@@ -45,6 +45,7 @@ import {QrIndexComponent} from './pages/qr/qr-index/qr-index.component';
 import {QrEditComponent} from './pages/qr/qr-edit/qr-edit.component';
 import {QrCreateComponent} from './pages/qr/qr-create/qr-create.component';
 import {ZXingScannerModule} from '@zxing/ngx-scanner';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import {ZXingScannerModule} from '@zxing/ngx-scanner';
     TableModule,
     NgSelectModule,
     CalendarModule,
-    ZXingScannerModule
+    ZXingScannerModule,
+    QRCodeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
