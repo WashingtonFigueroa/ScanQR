@@ -39,6 +39,9 @@ export class DashboardComponent implements OnInit {
           case 'success':
             this.toastr.success(response.observacion, 'SALIDA');
             break;
+          case 'warning':
+            this.toastr.warning(response.observacion, 'RETRASO');
+            break;
           case 'error':
             this.toastr.error(response.observacion, 'ERROR');
             break;

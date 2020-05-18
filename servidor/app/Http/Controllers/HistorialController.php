@@ -67,7 +67,7 @@ class HistorialController extends Controller
                             $historial2->estado = "SALIDA CON RETRASO DE {$tiempo2} MIN.";
                             return response()->json([
                                 'tiempo_transcurrido' => $historial2->tiempo,
-                                'type' => 'error',
+                                'type' => 'warning',
                                 'observacion' => 'Con retraso de ' . $tiempo2 . ' minutos'
                             ]);
                         }
