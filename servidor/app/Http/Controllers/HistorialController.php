@@ -51,17 +51,17 @@ class HistorialController extends Controller
     public function buscarHistorial()
     {
         $input = \request()->all();
-        $response = [];
+        $response = null;
         switch ($input['estado']) {
             case 'INGRESO':
                 $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
-                    ->where('estado', 'INGRESO')
+                    ->where('estado', '=', 'INGRESO')
                     ->where('nombre', 'like', $input['codigo'])
                     ->get();
                 break;
             case 'SALIDA':
                 $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
-                    ->where('estado', 'SALIDA')
+                    ->where('estado', '=', 'SALIDA')
                     ->where('nombre', 'like', $input['codigo'])
                     ->get();
                 break;
