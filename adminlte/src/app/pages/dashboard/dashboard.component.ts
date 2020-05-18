@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HistorialService} from '../../utils/services/historial.service';
 import {ToastrService} from 'ngx-toastr';
 import {Historial} from '../../models/historial';
+import {LoginService} from '../../login/login.service';
 
 
 interface Stats {
@@ -23,6 +24,7 @@ export class DashboardComponent implements OnInit {
   stats: Stats = null;
   ingresos: Historial[] = null;
 
+  usuario = null;
   message: {
     class: string,
     text: string,
@@ -30,10 +32,12 @@ export class DashboardComponent implements OnInit {
   } = null;
 
   constructor(private historialService: HistorialService,
+              private loginService: LoginService,
               private toastr: ToastrService) {
   }
 
   ngOnInit() {
+    this.usuario = this.loginService.getIdentity();
     this.historialService.stats()
       .subscribe((stats: Stats) => {
         this.stats = stats;

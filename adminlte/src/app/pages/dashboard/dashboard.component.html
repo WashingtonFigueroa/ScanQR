@@ -13,7 +13,8 @@
     </div>
   </div>
 </div>
-<div class="container-fluid">
+{{ usuario | json}}
+<div class="container-fluid" *ngIf="usuario !== null && usuario.cargo.nombre === 'Técnico Logístico'">
   <div class="row">
     <div class="col-md-12">
       <div class="scanner" *ngIf="!enabledMessage">
@@ -83,9 +84,10 @@
     </div>
     <div class="row">
       <div class="offset-lg-3 col-lg-6">
+        <h3 class="text-center">INGRESOS DE HOY</h3>
         <div class="table-responsive">
-          <table class="table table-striped bg-dark">
-            <thead>
+          <table class="table table-striped">
+            <thead class="bg-dark">
             <tr>
               <th>N.</th>
               <th>CÓDIGO</th>
@@ -96,7 +98,7 @@
             <tr *ngFor="let ingreso of ingresos; let i = index">
               <td>{{ i + 1 }}</td>
               <td>{{ ingreso.nombre }}</td>
-              <td>{{ ingreso.ingreso | date: 'dd/MM/Y HH:mm:ss' }}</td>
+              <td>{{ ingreso.ingreso | date: 'dd/MM/y HH:mm:ss' }}</td>
             </tr>
             </tbody>
           </table>
