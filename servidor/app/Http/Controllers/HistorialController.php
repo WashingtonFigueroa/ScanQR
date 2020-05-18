@@ -51,6 +51,7 @@ class HistorialController extends Controller
     public function buscarHistorial()
     {
         $input = \request()->all();
+        $input['hasta'] = Carbon::parse($input['hasta'])->addDay();
         $response = null;
         switch ($input['estado']) {
             case 'INGRESO':
