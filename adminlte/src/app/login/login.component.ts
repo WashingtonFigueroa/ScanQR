@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.title = 'Identificate';
-    this.user = new User(1, 'ROLE_USER', '', '', '', '', '', '', '', '', '');
+    this.user = new User(1, 1, '', '', '', '', '', '', '', '', '');
   }
 
   ngOnInit() {
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   onSubmit(form) {
     this.loginService.login(this.user)
       .subscribe((response: any) => {
-        console.log(response);
+       // console.log(response);
         localStorage.setItem('token', response.token);
         localStorage.setItem('identity', JSON.stringify(response.identity));
         this.router.navigate(['dashboard']);
@@ -44,27 +44,6 @@ export class LoginComponent implements OnInit {
       }, () => {
         this.toastr.error('Credenciales Incorrectas', 'Acceso Denegado');
       });
-    /*    this.loginService.signup(this.user).subscribe(response => {
-          if (response.status !== 'error') {
-              this.token = response;
-              // objeto usuario
-              this.loginService.signup(this.user, true).subscribe(response2 => {
-                this.identity = response2;
-                localStorage.setItem('token', this.token);
-                localStorage.setItem('identity', JSON.stringify(this.identity));
-                this.toastr.success('Bienvenid@!', this.identity.name);
-                this.router.navigate(['/']);
-              }, error => {
-                this.toastr.error('Uppp!', 'Credenciales Incorrectas!');
-              });
-          } else {
-            this.toastr.error('Uppp!', 'Credenciales Incorrectas!');
-            form.reset();
-          }
-        },  error => {
-          this.toastr.error('Uppp!', 'Credenciales Incorrectas!');
-          form.reset();
-        });*/
   }
 
   logout() {

@@ -35,6 +35,7 @@ export class QrIndexComponent implements OnInit {
         this.qrs = response.qrs;
         this.cols = [
             { field: 'id', header: 'Qr' },
+            { field: 'nombre', header: 'Nombre' },
             { field: 'tiempo', header: 'Tiempo' },
             { field: 'estado', header: 'Estado' }
         ];

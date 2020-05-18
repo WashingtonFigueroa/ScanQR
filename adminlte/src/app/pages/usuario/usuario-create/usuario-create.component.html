@@ -31,7 +31,7 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt "></i></span>
                           </div>
-                          <input type="number" name="cedula" class="form-control" #cedula="ngModel" [(ngModel)]="user.cedula"
+                          <input type="text" name="cedula" class="form-control" #cedula="ngModel" [(ngModel)]="user.cedula"
                           required>
                         <small *ngIf="!cedula.valid && cedula.touched" class="invalid-feedback d-block">Campo Incorrecto</small>
                         </div>
@@ -42,9 +42,9 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-user "></i></span>
                           </div>
-                          <input type="text" name="name" class="form-control" #name="ngModel" [(ngModel)]="user.name"
+                          <input type="text" name="nombre" class="form-control" #nombre="ngModel" [(ngModel)]="user.nombre"
                           required pattern="[a-zA-Z ]*">
-                        <small *ngIf="!name.valid && name.touched" class="invalid-feedback d-block">Campo Incorrecto</small>
+                        <small *ngIf="!nombre.valid && nombre.touched" class="invalid-feedback d-block">Campo Incorrecto</small>
                         </div>
                       </div>
                       <div class="form-group btn-sm">
@@ -116,14 +116,31 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-calendar-alt "></i></span>
                           </div>
-                          <p-calendar class="lf-calendar" name="fecha_nacimiento" #fecha_nacimiento="ngModel" [(ngModel)]="user.fecha_nacimiento" dateFormat="yy-mm-dd" 
-                          [locale]="es" inputStyleClass="primeNgCalendarInput" [monthNavigator]="true" [yearNavigator]="true" 
-                          yearRange="1940:2005" required></p-calendar>
-                          <small *ngIf="!fecha_nacimiento.valid && fecha_nacimiento.touched" class="invalid-feedback d-block"> Ingrese fecha de nacimiento</small>
+                          <input type="date" name="fecha_nacimiento" class="form-control" #fecha_nacimiento="ngModel"
+                          [(ngModel)]="user.fecha_nacimiento">
                         </div>
                       </div>
                     </div>
                     <div class="col-md-4">
+
+                      <div class="form-group" *ngIf="cargos !== null">
+                        <label><small class="requeridos">☼</small> Seleccione Cargo:</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend ">
+                            <span class="input-group-text"><i class="fas fa-building "></i></span>
+                          </div>
+                          <ng-select [items]="cargos"
+                            class="custom"
+                            style="width: 86%;"
+                            name="cargo_id"
+                            #cargo_id="ngModel" [(ngModel)]="user.cargo_id"
+                            bindLabel="nombre"
+                            bindValue="id"
+                            required>
+                            </ng-select>
+                          <small *ngIf="!cargo_id.valid && cargo_id.touched" class="invalid-feedback d-block"> Campo Obligatorio</small>
+                        </div>
+                      </div>   
                           <div class="form-group btn-sm">
                             <label for="image">Seleccione Foto:</label>
                             <angular-file-uploader [config]="afuConfig" [resetUpload]=resetVar

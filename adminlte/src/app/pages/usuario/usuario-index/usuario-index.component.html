@@ -27,7 +27,7 @@
                         <input type="text" class="form-control"  placeholder="Buscador..." (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
                     </div>
                 </div>
-            <p-table #dt [columns]="cols" [value]="users" [responsive]="true" [paginator]="true" [rows]="5" >
+            <p-table #dt [columns]="cols" [value]="usuarios" [responsive]="true" [paginator]="true" [rows]="5" >
               <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th style="width:110px" class="text-center">
@@ -64,20 +64,20 @@
                         <img src="{{base + 'user/avatar/' + user.image}}" alt="User" width="50px"/>
                       </div>
                     </td>
-                    <td>{{user.name}}</td>
+                    <td>{{user.nombre}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.direccion}}</td>
                     <td>{{user.telefono}}</td>
                     <td class="text-center" style="width:160px">
-                            <button class="btn btn-warning  btn-sm" routerLink="/usuario/edit/{{user.user_id}}" title="Editar Persona"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-warning  btn-sm" routerLink="/usuario/edit/{{user.id}}" title="Editar Persona"><i class="fas fa-edit"></i></button>
                             &nbsp;&nbsp;
                               <!-- Button to Open the Modal -->
-                              <button type="button"class="btn btn-danger  btn-sm" data-toggle="modal" [attr.data-target]="'#myModal'+user.user_id">
+                              <button type="button"class="btn btn-danger  btn-sm" data-toggle="modal" [attr.data-target]="'#myModal'+user.id">
                                 <i class="fas fa-trash-alt"></i>
                               </button>
 
                               <!-- The Modal -->
-                              <div class="modal" id="myModal{{user.user_id}}">
+                              <div class="modal" id="myModal{{user.id}}">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
 
@@ -89,12 +89,12 @@
 
                                     <!-- Modal body -->
                                     <div class="modal-body">
-                                      El usuario {{user.name}} sera eliminado.
+                                      El usuario {{user.nombre}} sera eliminado.
                                     </div>
 
                                     <!-- Modal footer -->
                                     <div class="modal-footer">
-                                      <button class="btn btn-danger  btn-sm" (click)="deleteRepartidor(user.user_id)" data-dismiss="modal">Eliminar</button>
+                                      <button class="btn btn-danger  btn-sm" (click)="deleteRepartidor(user.id)" data-dismiss="modal">Eliminar</button>
 
                                       <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
                                     </div>

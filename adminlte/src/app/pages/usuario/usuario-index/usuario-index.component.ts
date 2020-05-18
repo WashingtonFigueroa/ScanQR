@@ -14,7 +14,7 @@ export class UsuarioIndexComponent implements OnInit {
 
   public base = environment.servidor;
   public token;
-  public users: User;
+  public usuarios: User;
   public cols: any[];
 
   constructor(
@@ -30,10 +30,9 @@ export class UsuarioIndexComponent implements OnInit {
   }
 
   getUser() {
-    this.usuarioService.getUser().subscribe(response => {
+    this.usuarioService.getUsuarios(this.token).subscribe(response => {
       if (response.status === 'success') {
-        this.users = response.users;
-        console.log(this.users);
+        this.usuarios = response.usuarios;
         this.cols = [
             { field: 'cedula', header: 'Cedula' },
             { field: 'name', header: 'Nombre' },
@@ -52,7 +51,7 @@ export class UsuarioIndexComponent implements OnInit {
   }
 
   selectCarWithButton(car: User) {
-    console.log(car.user_id);
+    console.log(car.id);
   }
 
   deleteRepartidor(id) {

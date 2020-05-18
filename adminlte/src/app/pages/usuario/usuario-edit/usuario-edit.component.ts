@@ -5,6 +5,8 @@ import { User } from 'src/app/models/user';
 import { UsuarioService } from '../../usuario/usuario.service';
 import { LoginService } from 'src/app/login/login.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CargoService } from '../../cargo/cargo.service';
+import { Cargo } from 'src/app/models/cargo';
 
 @Component({
   selector: 'app-usuario-edit',
@@ -16,7 +18,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class UsuarioEditComponent implements OnInit {
   public title: string;
   public user: User;
-  public userid: number;
+  public cargos: Cargo;
+  public id: number;
   public identity;
   public token;
   public base = environment.servidor;
@@ -52,37 +55,27 @@ export class UsuarioEditComponent implements OnInit {
     private loginService: LoginService,
     private toastr: ToastrService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cargoService: CargoService
   ) {
     this.title = 'Editar Usuario';
-    this.user = new User(1, 'role_admin', '', '', '', '', '', '', '', null, '');
+    this.user = new User(1, 1, '', '', '', '', '', '', '', null, '');
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
 
     this.route.params.subscribe((param: any) => {
-      this.userid = param.id;
-      this.usuarioService.show(this.userid)
+      this.id = param.id;
+      this.usuarioService.show(this.token, this.id)
           .subscribe((res: any) => {
               this.user = res.user;
+              console.log(this.user);
           });
   });
 
   }
 
   ngOnInit() {
-    this.es = {
-      firstDayOfWeek: 0,
-      dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-      dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
-      dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
-      monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto',
-       'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-      monthNamesShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
-      today: 'Today',
-      clear: 'Clear',
-      dateFormat: 'mm/dd/yy',
-      weekHeader: 'Wk'
-  };
+    this.getCargos();
   }
 
   avatarUpload(datos) {
@@ -96,7 +89,7 @@ export class UsuarioEditComponent implements OnInit {
     let date = JSON.stringify(this.user.fecha_nacimiento);
     date = date.slice(1, 11);
     this.user.fecha_nacimiento = date;
-    this.usuarioService.modificar(this.token, this.user, this.user.user_id).subscribe(response => {
+    this.usuarioService.update(this.token, this.user, this.user.id).subscribe(response => {
       if (response.status === 'success') {
         this.toastr.success('Ok.', 'Datos Actualizados');
         form.reset();
@@ -109,4 +102,15 @@ export class UsuarioEditComponent implements OnInit {
     });
   }
 
+  getCargos() {
+    this.cargoService.getCargos(this.token).subscribe(response => {
+      if (response.status === 'success') {
+        this.cargos = response.cargos;
+      } else {
+        console.log('error');
+      }
+    }, error => {
+      console.log(error);
+    });
+  }
 }

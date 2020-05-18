@@ -16,43 +16,36 @@ export class UsuarioService {
     constructor( private http: HttpClient ) {
     }
 
-    getUser(): Observable <any> {
-      const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-      return this.http.get(this.url + 'user/index', {headers: headerss});
-    }
-
-    show(id): Observable <any> {
-      const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-      return this.http.get(this.url + 'show/' + id, {headers: headerss});
-    }
-
-    register(user): Observable <any> {
-      const json = JSON.stringify(user);
-      const params = 'json=' + json;
-      const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-      return this.http.post(this.url + 'register', params, {headers: headerss});
-    }
-
-    update(token, user): Observable <any> {
-      const json = JSON.stringify(user);
-      const params = 'json=' + json;
+    getUsuarios(token): Observable<any> {
       const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-                                        .set('Authorization', token);
-      return this.http.put(this.url + 'user/update', params, {headers: headerss});
+        .set('Authorization', token);
+      return this.http.get(this.url + 'usuarios', {headers: headerss});
     }
 
-    modificar(token, user, id): Observable <any> {
-      const json = JSON.stringify(user);
+    show(token, id): Observable<any> {
+      const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', token);
+      return this.http.get(this.url + 'usuarios/' + id, {headers: headerss}); 
+    }
+
+    guardar(token, usuario): Observable<any> {
+      const headerss = new HttpHeaders().set('Content-Type', 'application/json')
+        .set('Authorization', token);
+      return this.http.post(this.url + 'usuarios', usuario, {headers: headerss});
+    }
+
+    update(token, usuario, id): Observable<any> {
+      const json = JSON.stringify(usuario);
       const params = 'json=' + json;
       const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-                                        .set('Authorization', token);
-      return this.http.put(this.url + 'user/modificar/' + id, params, {headers: headerss});
+        .set('Authorization', token);
+      return this.http.put(this.url + 'usuarios/' + id, params, {headers: headerss});
     }
 
-    delete(token, id): Observable <any> {
+    delete(token, id): Observable<any> {
       const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-                                        .set('Authorization', token);
-      return this.http.delete(this.url + 'user/delete/' + id, {headers: headerss});
+        .set('Authorization', token);
+      return this.http.delete(this.url + 'usuarios/' + id, {headers: headerss});
     }
 
     validaCedula(dato) {

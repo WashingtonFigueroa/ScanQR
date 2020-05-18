@@ -5,6 +5,8 @@ import { LoginService } from 'src/app/login/login.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { UsuarioService } from '../../usuario/usuario.service';
+import { Cargo } from 'src/app/models/cargo';
+import { CargoService } from '../../cargo/cargo.service';
 
 @Component({
   selector: 'app-usuario-create',
@@ -15,6 +17,7 @@ export class UsuarioCreateComponent implements OnInit {
   public title: string;
   public cedula: string;
   public user: User;
+  public cargos: Cargo;
   public identity;
   public token;
   public base = environment.servidor;
@@ -49,15 +52,17 @@ export class UsuarioCreateComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private loginService: LoginService,
-    private userService: UsuarioService
+    private userService: UsuarioService,
+    private cargoService: CargoService
   ) {
     this.title = 'Crear Usuario';
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
-    this.user = new User(1, 'role_admin', '', '', '', '', '', '', '', null, '');
+    this.user = new User(1, 1, '', '', '', '', '', '', '', null, '');
   }
 
   ngOnInit(): void {
+    this.getCargos();
     this.es = {
       firstDayOfWeek: 0,
       dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
@@ -86,7 +91,7 @@ export class UsuarioCreateComponent implements OnInit {
         let date = JSON.stringify(this.user.fecha_nacimiento);
         date = date.slice(1, 11);
         this.user.fecha_nacimiento = date;
-        this.userService.register(this.user).subscribe(response => {
+        this.userService.guardar(this.token, this.user).subscribe(response => {
           if (response.status === 'success') {
             this.toastr.success('Ok.', 'Usuario Registrado');
             form.reset();
@@ -106,5 +111,17 @@ export class UsuarioCreateComponent implements OnInit {
     //   this.toastr.error('Uppp!', 'Cedula Incorrecta');
     //   this.user.cedula = '';
     // }
+  }
+
+  getCargos() {
+    this.cargoService.getCargos(this.token).subscribe(response => {
+      if (response.status === 'success') {
+        this.cargos = response.cargos;
+      } else {
+        console.log('error');
+      }
+    }, error => {
+      console.log(error);
+    });
   }
 }
