@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
   enabledMessage: boolean = false;
   stats: Stats = null;
   ingresos: Historial[] = null;
-
+  now = new Date();
   usuario = null;
   message: {
     class: string,

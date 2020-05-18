@@ -48,6 +48,34 @@ class HistorialController extends Controller
         return response()->json($ingresos, 200);
     }
 
+    public function buscarHistorial()
+    {
+        $input = \request()->all();
+        $response = [];
+        switch ($input['estado']) {
+            case 'INGRESO':
+                $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
+                    ->where('estado', 'INGRESO')
+                    ->where('nombre', 'like', $input['codigo'])
+                    ->get();
+                break;
+            case 'SALIDA':
+                $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
+                    ->where('estado', 'SALIDA')
+                    ->where('nombre', 'like', $input['codigo'])
+                    ->get();
+                break;
+            case 'RETRASO':
+                $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
+                    ->where('estado', '<>', 'INGRESO')
+                    ->where('estado', '<>', 'SALIDA')
+                    ->where('nombre', 'like', $input['codigo'])
+                    ->get();
+                break;
+        }
+        return response()->json($response, 200);
+    }
+
     public function show($id)
     {
         $historia = Historial::where('id', '=', $id)->first();

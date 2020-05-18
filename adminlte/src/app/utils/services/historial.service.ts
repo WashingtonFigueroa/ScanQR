@@ -36,6 +36,14 @@ export class HistorialService {
     });
   }
 
+  buscarHistorial(data: any) {
+    return this.http.post(`${this.servidor}buscar-historial`, data, {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    });
+  }
+
   store(data: any) {
     return this.http.post(`${this.servidor}historial`, data, {
       headers: {

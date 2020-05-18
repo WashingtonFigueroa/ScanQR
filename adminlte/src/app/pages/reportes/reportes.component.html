@@ -5,9 +5,38 @@
       HISTORIAL
     </div>
     <div class="card-body">
+      <form [formGroup]="buscarGroup">
+        <div class="row">
+          <div class="col-lg-3">
+            <input type="date" formControlName="desde" name="desde" class="form-control">
+          </div>
+          <div class="col-lg-3">
+            <input type="date" formControlName="hasta" name="hasta" class="form-control">
+          </div>
+          <div class="col-lg-2">
+            <select name="estado" id="estado" formControlName="estado" class="form-control">
+              <option value="INGRESO">INGRESOS</option>
+              <option value="SALIDA">SALIDAS</option>
+              <option value="RETRASO">RETRASOS</option>
+            </select>
+          </div>
+          <div class="col-lg-2">
+            <input type="text" class="form-control" name="codigo" formControlName="codigo">
+          </div>
+          <div class="col-lg-2 text-center">
+            <button class="btn btn-primary" (click)="buscar()" [disabled]="buscarGroup.invalid">
+              <span class="fa fa-search"></span>
+            </button> &nbsp;&nbsp;
+            <button class="btn btn-danger" (click)="reload()" [disabled]="buscarGroup.invalid">
+              <span class="fa fa-power-off"></span>
+            </button>
+          </div>
+        </div>
+      </form>
+      <br>
       <div class="table-responsive">
         <table class="table table-striped">
-          <thead>
+          <thead class="bg-dark">
           <tr>
             <th>N.</th>
             <th>Codigo</th>

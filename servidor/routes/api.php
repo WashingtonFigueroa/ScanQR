@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('details', 'UserController@details');
     Route::get('stats', 'HistorialController@stats');
     Route::get('ingresos-hoy', 'HistorialController@ingresosHoy');
+    Route::post('buscar-historial', 'HistorialController@buscarHistorial');
     Route::apiResources([
         'usuarios' => 'UserController',
         'cargo' => 'CargoController',
