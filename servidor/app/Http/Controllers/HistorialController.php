@@ -31,9 +31,9 @@ class HistorialController extends Controller
     public function store(Request $request)
     {
         $codigo = $request->input('codigo');
-        $qr_exists = QR::where('qr', '=', $codigo)->where('estado', 'Activo')->exists();
+        $qr_exists = QR::where('codqr', '=', $codigo)->where('estado', 'Activo')->exists();
         if ($qr_exists) {
-            $qr = QR::where('qr', '=', $codigo)->first();
+            $qr = QR::where('codqr', '=', $codigo)->first();
             $now = Carbon::now();
             $salida_tentativa = $now->addMinutes($qr['tiempo'])->toDateTimeString();
             $existeRegistros = Historial::where('qr_id', $qr['id'])
@@ -66,7 +66,7 @@ class HistorialController extends Controller
                 } else {
                     Historial::create([
                         'qr_id' => $qr['id'],
-                        'nombre' => $qr['nombre'],
+                        'nombre' => $qr['codqr'],
                         'ingreso' => Carbon::now()->toDateTimeString(),
                         'tiempo' => $qr['tiempo'],
                         'salida_tentativa' => $salida_tentativa,
@@ -81,7 +81,7 @@ class HistorialController extends Controller
             } else {
                 Historial::create([
                     'qr_id' => $qr['id'],
-                    'nombre' => $qr['nombre'],
+                    'nombre' => $qr['codqr'],
                     'ingreso' => Carbon::now()->toDateTimeString(),
                     'tiempo' => $qr['tiempo'],
                     'salida_tentativa' => $salida_tentativa,

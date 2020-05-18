@@ -17,6 +17,10 @@ export class HistorialService {
   }
 
   store(data: any) {
-    return this.http.post(`${this.servidor}historial`, data);
+    return this.http.post(`${this.servidor}historial`, data, {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    });
   }
 }
