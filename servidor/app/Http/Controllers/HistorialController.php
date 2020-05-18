@@ -69,6 +69,7 @@ class HistorialController extends Controller
                         'nombre' => $qr['codqr'],
                         'ingreso' => Carbon::now()->toDateTimeString(),
                         'tiempo' => $qr['tiempo'],
+                        'salida' => Carbon::now()->toDateTimeString(),
                         'salida_tentativa' => $salida_tentativa,
                         'estado' => 'INGRESO'
                     ]);
@@ -84,6 +85,7 @@ class HistorialController extends Controller
                     'nombre' => $qr['codqr'],
                     'ingreso' => Carbon::now()->toDateTimeString(),
                     'tiempo' => $qr['tiempo'],
+                    'salida' => Carbon::now()->toDateTimeString(),
                     'salida_tentativa' => $salida_tentativa,
                     'estado' => 'INGRESO'
                 ]);
