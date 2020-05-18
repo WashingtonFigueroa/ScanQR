@@ -20,6 +20,7 @@ class Historial extends Model
         'estado',
     ];
     protected $dates = ['deleted_at'];
+
     public function qr()
     {
         return $this->belongsTo('App\QR', 'id');

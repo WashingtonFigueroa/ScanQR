@@ -56,20 +56,20 @@ class HistorialController extends Controller
             case 'INGRESO':
                 $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
                     ->where('estado', '=', 'INGRESO')
-                    ->where('nombre', 'like', $input['codigo'])
+                    ->where('nombre', 'like', "%{$input['codigo']}%")
                     ->get();
                 break;
             case 'SALIDA':
                 $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
                     ->where('estado', '=', 'SALIDA')
-                    ->where('nombre', 'like', $input['codigo'])
+                    ->where('nombre', 'like', "%{$input['codigo']}%")
                     ->get();
                 break;
             case 'RETRASO':
                 $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
                     ->where('estado', '<>', 'INGRESO')
                     ->where('estado', '<>', 'SALIDA')
-                    ->where('nombre', 'like', $input['codigo'])
+                    ->where('nombre', 'like', "%{$input['codigo']}%")
                     ->get();
                 break;
         }

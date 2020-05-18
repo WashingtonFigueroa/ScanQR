@@ -22,7 +22,7 @@ export class ReportesComponent implements OnInit {
       desde: new FormControl(null, [Validators.required]),
       hasta: new FormControl(null, [Validators.required]),
       estado: new FormControl(null, [Validators.required]),
-      codigo: new FormControl(null),
+      codigo: new FormControl(''),
     });
     this.historialService.index()
       .subscribe((historial: Historial[]) => {
