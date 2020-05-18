@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment.prod';
-import { ToastrService } from 'ngx-toastr';
-import { User } from 'src/app/models/user';
-import { UsuarioService } from '../../usuario/usuario.service';
-import { LoginService } from 'src/app/login/login.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CargoService } from '../../cargo/cargo.service';
-import { Cargo } from 'src/app/models/cargo';
+import {Component, OnInit} from '@angular/core';
+import {environment} from 'src/environments/environment.prod';
+import {ToastrService} from 'ngx-toastr';
+import {User} from 'src/app/models/user';
+import {UsuarioService} from '../../usuario/usuario.service';
+import {LoginService} from 'src/app/login/login.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CargoService} from '../../cargo/cargo.service';
+import {Cargo} from 'src/app/models/cargo';
 
 @Component({
   selector: 'app-usuario-edit',
@@ -17,7 +17,7 @@ import { Cargo } from 'src/app/models/cargo';
 })
 export class UsuarioEditComponent implements OnInit {
   public title: string;
-  public user: User;
+  public user: User = null;
   public cargos: Cargo;
   public id: number;
   public identity;
@@ -29,10 +29,10 @@ export class UsuarioEditComponent implements OnInit {
     multiple: false,
     formatsAllowed: '.jpg, .png, .gif',
     maxSize: '50',
-    uploadAPI:  {
+    uploadAPI: {
       url: this.base + 'user/upload',
       headers: {
-     'Authorization' : this.loginService.getToken()
+        'Authorization': this.loginService.getToken()
       }
     },
     theme: 'attachPin',
@@ -59,23 +59,23 @@ export class UsuarioEditComponent implements OnInit {
     private cargoService: CargoService
   ) {
     this.title = 'Editar Usuario';
-    this.user = new User(1, 1, '', '', '', '', '', '', '', null, '');
+//    this.user = new User(1, 1, '', '', '', '', '', '', '', null, '');
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
 
-    this.route.params.subscribe((param: any) => {
-      this.id = param.id;
-      this.usuarioService.show(this.token, this.id)
-          .subscribe((res: any) => {
-              this.user = res.user;
-              console.log(this.user);
-          });
-  });
 
   }
 
   ngOnInit() {
     this.getCargos();
+    this.route.params.subscribe((param: any) => {
+      this.id = param.id;
+      this.usuarioService.show(this.token, this.id)
+        .subscribe((res: any) => {
+          this.user = res.usuario;
+        });
+    });
+
   }
 
   avatarUpload(datos) {
@@ -83,7 +83,8 @@ export class UsuarioEditComponent implements OnInit {
     this.user.image = data.image;
   }
 
-  resetVar() {}
+  resetVar() {
+  }
 
   onSubmit(form) {
     let date = JSON.stringify(this.user.fecha_nacimiento);

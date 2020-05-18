@@ -22,14 +22,14 @@
           <tr *ngFor="let record of historial; let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ record.nombre }}</td>
-            <td>{{ record.ingreso | date: 'dd/MM/y H:m:s' }}</td>
+            <td>{{ record.ingreso | date: 'dd/MM/y HH:mm:ss' }}</td>
             <td>
               <span *ngIf="record.ingreso === record.salida"> - </span>
               <span *ngIf="record.ingreso !== record.salida">
-              {{ record.salida | date: 'dd/MM/y H:m:s'}}
+              {{ record.salida | date: 'dd/MM/y HH:mm:ss'}}
               </span>
             </td>
-            <td>{{ record.salida_tentativa | date: 'dd/MM/y H:m:s'}}</td>
+            <td>{{ record.salida_tentativa | date: 'dd/MM/y HH:mm:ss'}}</td>
             <td>{{ record.tiempo }} min.</td>
             <td>
               <span [class.text-danger]="record.estado === 'SALIDA'">
