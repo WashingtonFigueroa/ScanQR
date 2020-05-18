@@ -46,21 +46,22 @@ class HistorialController extends Controller
                     ->orderBy('id', 'desc')
                     ->first();
                 if ($historial->estado === 'INGRESO') {
-                    $historial->estado = 'SALIDA';
-                    $historial->salida = Carbon::now()->toDateTimeString();
-                    $historial->tiempo = Carbon::now()->diffInMinutes(Carbon::parse($historial->ingreso));
-                    $historial->save();
-                    if ($qr->tiempo >= $historial->tiempo) {
+                    $historial2 = Historial::find($historial['id']);
+                    $historial2->estado = 'SALIDA';
+                    $historial2->salida = Carbon::now()->toDateTimeString();
+                    $historial2->tiempo = Carbon::now()->diffInMinutes(Carbon::parse($historial2->ingreso));
+                    $historial2->save();
+                    if ($qr->tiempo >= $historial2->tiempo) {
                         return response()->json([
-                            'tiempo_transcurrido' => $historial->tiempo,
+                            'tiempo_transcurrido' => $historial2->tiempo,
                             'type' => 'success',
-                            'observacion' => 'En hora, le quedaban ' . $qr->tiempo - $historial->tiempo . ' minutos restantes'
+                            'observacion' => 'En hora, le quedaban ' . $qr->tiempo - $historial2->tiempo . ' minutos restantes'
                         ]);
                     } else {
                         return response()->json([
-                            'tiempo_transcurrido' => $historial->tiempo,
+                            'tiempo_transcurrido' => $historial2->tiempo,
                             'type' => 'error',
-                            'observacion' => 'Con retraso de ' . $historial->tiempo - $qr->tiempo . ' minutos'
+                            'observacion' => 'Con retraso de ' . $historial2->tiempo - $qr->tiempo . ' minutos'
                         ]);
                     }
                 } else {
