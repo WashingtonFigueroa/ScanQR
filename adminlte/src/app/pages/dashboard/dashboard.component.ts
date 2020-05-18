@@ -10,6 +10,12 @@ import {ToastrService} from 'ngx-toastr';
 export class DashboardComponent implements OnInit {
 
   enabledMessage: boolean = false;
+  stats: {
+    habilitados: number,
+    ingreso: number,
+    salida: number,
+    salida_retraso: number
+  } = null;
   message: {
     class: string,
     text: string,
@@ -21,6 +27,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.historialService.stats()
+      .subscribe((stats) => {
+        this.stats = stats;
+      });
   }
 
   reset() {
@@ -29,6 +39,8 @@ export class DashboardComponent implements OnInit {
   }
 
   scanned($event) {
+    const audio = new Audio('assets/pip.mp3');
+    audio.play();
     this.historialService.store({
       codigo: $event
     }).subscribe((response: {

@@ -20,6 +20,14 @@ export class HistorialService {
     });
   }
 
+  stats() {
+    return this.http.get(`${this.servidor}stats`, {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    });
+  }
+
   store(data: any) {
     return this.http.post(`${this.servidor}historial`, data, {
       headers: {

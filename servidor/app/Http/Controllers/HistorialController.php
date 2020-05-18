@@ -17,6 +17,30 @@ class HistorialController extends Controller
         return response()->json($historial, 200);
     }
 
+    public function stats()
+    {
+        $habilitados = QR::where('estado', 'Activo')->count();
+        $ingreso = Historial::whereDate('created_at', Carbon::now()->toDateString())
+            ->where('estado', 'INGRESO')
+            ->distinct('qr_id')
+            ->count();
+        $salida = Historial::whereDate('created_at', Carbon::now()->toDateString())
+            ->where('estado', 'SALIDA')
+            ->distinct('qr_id')
+            ->count();
+        $salida_retraso = Historial::whereDate('created_at', Carbon::now()->toDateString())
+            ->where('estado', '<>', 'INGRESO')
+            ->where('estado', '<>', 'SALIDA')
+            ->distinct('qr_id')
+            ->count();
+        return response()->json([
+            'habilitados' => $habilitados,
+            'ingreso' => $ingreso,
+            'salida' => $salida,
+            'salida_retraso' => $salida_retraso,
+        ], 200);
+    }
+
     public function show($id)
     {
         $historia = Historial::where('id', '=', $id)->first();
