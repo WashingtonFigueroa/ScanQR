@@ -1,102 +1,110 @@
 <section class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1>QRs</h1>
-        </div>
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a routerLink="/dashboard">Inicio</a></li>
-            <li class="breadcrumb-item active">QRs</li>
-          </ol>
-        </div>
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>QRs</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a routerLink="/dashboard">Inicio</a></li>
+          <li class="breadcrumb-item active">QRs</li>
+        </ol>
       </div>
     </div>
-  </section>
-  <section class="content">
-    <div class="container-fluid">
-      <div class="card">
-        <div class="card-header">
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-search"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  placeholder="Buscador..." (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
-                    </div>
-                </div>
-                <p-table #dt [columns]="cols" [value]="qrs" [responsive]="true" [paginator]="true" [rows]="10" >
-                  <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th style="width:80px" class="text-center">
-                          Código
-                        </th>
-                        <th style="width:100px" class="text-center">
-                          Estado
-                      </th> 
-                        <th style="width:150px" class="text-center">
-                          QR
-                        </th> 
-                        <th  class="text-center">
-                          Nombre
-                      </th> 
-                      <th style="width:150px" class="text-center">
-                            Tiempo
-                        </th> 
-                        <th class="text-center" style="width:160px" >
-                            <button class="btn btn-info btn-sm" routerLink="/qr/create"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar</button>
-                        </th>                     
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-rowData let-qr>
-                  <tr>
-                    <td style="width:80px" class="text-center">
-                      {{qr.id}}
-                    </td>
-                    <td *ngIf="qr.estado === 'Activo'" style="width:100px" class="text-center">
-                      <span class="right badge badge-success">Activo</span>
-                    </td>
-                    <td *ngIf="qr.estado !== 'Activo'" style="width:100px" class="text-center">
-                      <span class="right badge badge-warning">Inactivo</span>
-                  </td>
-                   
-                    <!-- <td>{{qr.codqr}}</td> -->
-                    <td style="width:150px" class="text-center">
-                      <qrcode [qrdata]="qr.codqr" [width]="100" [errorCorrectionLevel]="'M'"></qrcode>
-                    </td>
+  </div>
+</section>
+<section class="content">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header">
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-search"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="Buscador..."
+                   (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+          </div>
+        </div>
+        <p-table #dt [columns]="cols" [value]="qrs" [responsive]="true" [paginator]="true" [rows]="10">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th style="width:80px" class="text-center">
+                Código
+              </th>
+              <th style="width:100px" class="text-center">
+                Estado
+              </th>
+              <th style="width:150px" class="text-center">
+                QR
+              </th>
+              <th class="text-center">
+                Nombre
+              </th>
+              <th style="width:150px" class="text-center">
+                Tiempo
+              </th>
+              <th class="text-center" style="width:160px">
+                <button class="btn btn-info btn-sm" routerLink="/qr/create"><i class="fas fa-plus"></i>&nbsp;&nbsp;
+                  Agregar
+                </button>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-qr>
+            <tr>
+              <td style="width:80px" class="text-center">
+                {{qr.id}}
+              </td>
+              <td *ngIf="qr.estado === 'Activo'" style="width:100px" class="text-center">
+                <span class="right badge badge-success">Activo</span>
+              </td>
+              <td *ngIf="qr.estado !== 'Activo'" style="width:100px" class="text-center">
+                <span class="right badge badge-warning">Inactivo</span>
+              </td>
 
-                    <td>{{qr.nombre}}</td>
-                    <td style="width:150px" class="text-center">{{qr.tiempo}}</td>
-                    <td class="text-center" style="width:160px">
-                            <button class="btn btn-warning  btn-sm" routerLink="/qr/edit/{{qr.id}}" title="Editar Qr"><i class="fas fa-edit"></i></button>
-                            &nbsp;&nbsp;
-                              <button type="button"class="btn btn-danger  btn-sm" data-toggle="modal" [attr.data-target]="'#myModal'+qr.id">
-                                <i class="fas fa-trash-alt"></i>
-                              </button>
-                              <div class="modal" id="myModal{{qr.id}}">
-                                <div class="modal-dialog">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h4 class="modal-title">¿Esta seguro de eliminar el QR?</h4>
-                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-                                    <div class="modal-body">
-                                      EL QR ha eliminar es : {{qr.id}}
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button class="btn btn-danger  btn-sm" (click)="deleteQr(qr.id)" data-dismiss="modal">Eliminar</button>
-                                      <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                          </td>
-                    </tr>
-                </ng-template>
-            </p-table>
+              <!-- <td>{{qr.codqr}}</td> -->
+              <td style="width:150px" class="text-center">
+                <qrcode [qrdata]="qr.codqr" id="qr-{{qr.id}}" [width]="100" [errorCorrectionLevel]="'M'"></qrcode>
+              </td>
+
+              <td>{{qr.nombre}}</td>
+              <td style="width:150px" class="text-center">{{qr.tiempo}}</td>
+              <td class="text-center" style="width:160px">
+                <button class="btn btn-primary btn-sm" (click)="print(qr)" pTooltip="Imprimir QR"><i
+                  class="fa fa-print"></i></button>&nbsp;&nbsp;
+                <button class="btn btn-warning btn-sm" routerLink="/qr/edit/{{qr.id}}" title="Editar Qr"><i
+                  class="fas fa-edit"></i></button>
+                &nbsp;&nbsp;
+                <button type="button" class="btn btn-danger  btn-sm" data-toggle="modal"
+                        [attr.data-target]="'#myModal'+qr.id">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+                <div class="modal" id="myModal{{qr.id}}">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title">¿Esta seguro de eliminar el QR?</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                      <div class="modal-body">
+                        EL QR ha eliminar es : {{qr.id}}
+                      </div>
+                      <div class="modal-footer">
+                        <button class="btn btn-danger  btn-sm" (click)="deleteQr(qr.id)" data-dismiss="modal">Eliminar
+                        </button>
+                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
       </div>
     </div>
-    </div>
-  </section>
+  </div>
+</section>
 
 

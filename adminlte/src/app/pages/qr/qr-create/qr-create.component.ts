@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment.prod';
-import { ToastrService } from 'ngx-toastr';
-import { LoginService } from 'src/app/login/login.service';
-import { Router } from '@angular/router';
-import { Qr } from 'src/app/models/qr';
-import { QrService } from '../qr.service';
+import {Component, OnInit} from '@angular/core';
+import {environment} from 'src/environments/environment.prod';
+import {ToastrService} from 'ngx-toastr';
+import {LoginService} from 'src/app/login/login.service';
+import {Router} from '@angular/router';
+import {Qr} from 'src/app/models/qr';
+import {QrService} from '../qr.service';
 
 @Component({
   selector: 'app-qr-create',
@@ -28,8 +28,9 @@ export class QrCreateComponent implements OnInit {
     this.title = 'Crear Qr';
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
-    this.qr = new Qr (1, '', '', 1, 'Inactivo');
+    this.qr = new Qr(1, '', '', 1, 'Inactivo');
   }
+
   ngOnInit(): void {
   }
 

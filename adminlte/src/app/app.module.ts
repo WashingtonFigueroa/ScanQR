@@ -46,6 +46,7 @@ import {QrEditComponent} from './pages/qr/qr-edit/qr-edit.component';
 import {QrCreateComponent} from './pages/qr/qr-create/qr-create.component';
 import {ZXingScannerModule} from '@zxing/ngx-scanner';
 import { QRCodeModule } from 'angularx-qrcode';
+import {TooltipModule} from 'primeng';
 
 @NgModule({
   declarations: [
@@ -77,26 +78,27 @@ import { QRCodeModule } from 'angularx-qrcode';
     QrEditComponent,
     QrCreateComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot({
-      timeOut: 10000,
-      positionClass: 'toast-bottom-right',
-      preventDuplicates: true
-    }),
-    FormsModule,
-    HttpClientModule,
-    AngularFileUploaderModule,
-    DropdownModule,
-    TableModule,
-    NgSelectModule,
-    CalendarModule,
-    ZXingScannerModule,
-    QRCodeModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot({
+            timeOut: 10000,
+            positionClass: 'toast-bottom-right',
+            preventDuplicates: true
+        }),
+        FormsModule,
+        HttpClientModule,
+        AngularFileUploaderModule,
+        DropdownModule,
+        TableModule,
+        NgSelectModule,
+        CalendarModule,
+        ZXingScannerModule,
+        QRCodeModule,
+        TooltipModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
