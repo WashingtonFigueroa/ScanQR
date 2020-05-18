@@ -49,13 +49,13 @@ class HistorialController extends Controller
                     $historial2 = Historial::find($historial['id']);
                     $historial2->estado = 'SALIDA';
                     $historial2->salida = Carbon::now()->toDateTimeString();
-                    $historial2->tiempo = Carbon::now()->diffInMinutes(Carbon::parse($historial2->ingreso));
+                    $historial2->tiempo = (int)Carbon::now()->diffInMinutes(Carbon::parse($historial2->ingreso));
                     $historial2->save();
-                    if ($qr->tiempo >= $historial2->tiempo) {
+                    if ((int)$qr->tiempo >= (int)$historial2->tiempo) {
                         return response()->json([
                             'tiempo_transcurrido' => $historial2->tiempo,
                             'type' => 'success',
-                            'observacion' => 'En hora, le quedaban ' . $qr->tiempo - $historial2->tiempo . ' minutos restantes'
+                            'observacion' => 'En hora, le quedaban ' . (int)$qr->tiempo - (int)$historial2->tiempo . ' minutos restantes'
                         ]);
                     } else {
                         return response()->json([
