@@ -1,64 +1,75 @@
-<section class="content-header">
-  <div class="container-fluid">
-    <div class="row mb-2"> 
-      <div class="col-sm-6">
-        <h1>Historial</h1>
-      </div>
-      <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a routerLink="/dashboard">Inicio</a></li>
-          <li class="breadcrumb-item active">Historial</li>
-        </ol>
+<div class="container">
+  <br>
+  <div class="card">
+    <div class="card-header">
+      HISTORIAL
+    </div>
+    <div class="card-body">
+      <form [formGroup]="buscarGroup">
+        <div class="row">
+          <div class="col-lg-3">
+            <input type="date" formControlName="desde" name="desde" class="form-control">
+          </div>
+          <div class="col-lg-3">
+            <input type="date" formControlName="hasta" name="hasta" class="form-control">
+          </div>
+          <div class="col-lg-2">
+            <select name="estado" id="estado" formControlName="estado" class="form-control">
+              <option value="TODOS">TODOS</option>
+              <option value="INGRESO">INGRESOS</option>
+              <option value="SALIDA">SALIDAS</option>
+              <option value="RETRASO">RETRASOS</option>
+            </select>
+          </div>
+          <div class="col-lg-2">
+            <input type="text" class="form-control" name="codigo" formControlName="codigo">
+          </div>
+          <div class="col-lg-2 text-center">
+            <button class="btn btn-primary" (click)="buscar()" [disabled]="buscarGroup.invalid">
+              <span class="fa fa-search"></span>
+            </button> &nbsp;&nbsp;
+            <button class="btn btn-danger" (click)="reload()" [disabled]="buscarGroup.invalid">
+              <span class="fa fa-power-off"></span>
+            </button>
+          </div>
+        </div>
+      </form>
+      <br>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class="bg-dark">
+          <tr>
+            <th>N.</th>
+            <th>Codigo</th>
+            <th>Ingreso</th>
+            <th>Salida</th>
+            <th>Salida Tentativa</th>
+            <th>Tiempo Presente</th>
+            <th>Estado</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let record of historial; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ record.nombre }}</td>
+            <td>{{ record.ingreso | date: 'dd/MM/y HH:mm:ss' }}</td>
+            <td>
+              <span *ngIf="record.ingreso === record.salida"> - </span>
+              <span *ngIf="record.ingreso !== record.salida">
+              {{ record.salida | date: 'dd/MM/y HH:mm:ss'}}
+              </span>
+            </td>
+            <td>{{ record.salida_tentativa | date: 'dd/MM/y HH:mm:ss'}}</td>
+            <td>{{ record.tiempo }} min.</td>
+            <td>
+              <span [class.text-success]="record.estado === 'INGRESO'">
+              {{ record.estado }}
+              </span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-</section>
-<section class="content">
-  <div class="container-fluid">
-      <div class="card">
-        <div class="card-header">
-          HISTORIAL
-        </div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-              <tr>
-                <th>N.</th>
-                <th>Codigo</th>
-                <th>Ingreso</th>
-                <th>Salida</th>
-                <th>Salida Tentativa</th>
-                <th>Tiempo Presente</th>
-                <th>Estado</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let record of historial; let i = index">
-                <td>{{ i + 1 }}</td>
-                <td>{{ record.nombre }}</td>
-                <td>{{ record.ingreso | date: 'dd/MM/y HH:mm:ss' }}</td>
-                <td>
-                  <span *ngIf="record.ingreso === record.salida"> - </span>
-                  <span *ngIf="record.ingreso !== record.salida">
-                  {{ record.salida | date: 'dd/MM/y HH:mm:ss'}}
-                  </span>
-                </td>
-                <td>{{ record.salida_tentativa | date: 'dd/MM/y HH:mm:ss'}}</td>
-                <td>{{ record.tiempo }} min.</td>
-                <td>
-                  <span [class.text-danger]="record.estado === 'SALIDA'">
-                  {{ record.estado }}
-                  </span>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-  </div>
-</section>
-
-
-
+</div>

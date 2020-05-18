@@ -13,15 +13,18 @@
     </div>
   </div>
 </div>
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="usuario !== null && usuario.cargo.nombre === 'Técnico Logístico'">
   <div class="row">
     <div class="col-md-12">
-      <div class="scanner">
+      <div class="scanner" *ngIf="!enabledMessage">
         <zxing-scanner (scanSuccess)="scanned($event)"
                        [formats]="['QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX']"></zxing-scanner>
-        <div class="alert alert-info">
-          {{ codigo }}
-        </div>
+      </div>
+      <div class="alert alert-{{message.class}}" *ngIf="enabledMessage" (click)="reset()">
+        <h4 class="alert-heading">{{ message.heading}}</h4>
+        <p>
+          {{ message.text }}
+        </p>
       </div>
       <!--			<button type="button" class="btn btn-info btn-sm btn-block">
               Leer Codigo
@@ -36,8 +39,8 @@
       <div class="col-lg-3 col-6">
         <div class="small-box bg-info">
           <div class="inner">
-            <h3>150</h3>
-            <p>Numero de Ticket</p>
+            <h3>{{ stats?.habilitados }}</h3>
+            <p>Tickets Habilitados</p>
           </div>
           <div class="icon">
             <i class="ion ion-arrow-graph-up-left"></i>
@@ -47,9 +50,8 @@
       <div class="col-lg-3 col-6">
         <div class="small-box bg-success">
           <div class="inner">
-            <h3>50</h3>
-
-            <p>Ticket Activos</p>
+            <h3>{{ stats?.ingreso }}</h3>
+            <p>Ingresos de Hoy</p>
           </div>
           <div class="icon">
             <i class="ion ion-happy"></i>
@@ -59,9 +61,8 @@
       <div class="col-lg-3 col-6">
         <div class="small-box bg-warning">
           <div class="inner">
-            <h3>100</h3>
-
-            <p>Ticket Inactivos</p>
+            <h3>{{ stats?.salida }}</h3>
+            <p>Salidas a Tiempo de Hoy</p>
           </div>
           <div class="icon">
             <i class="ion ion-android-archive"></i>
@@ -71,13 +72,35 @@
       <div class="col-lg-3 col-6">
         <div class="small-box bg-danger">
           <div class="inner">
-            <h3>2</h3>
-
-            <p>Ticket Iresponsables</p>
+            <h3>{{ stats?.salida_retraso }}</h3>
+            <p>Salidas con Retraso de Hoy</p>
           </div>
           <div class="icon">
             <i class="ion ion-sad"></i>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="offset-lg-3 col-lg-6">
+        <h3 class="text-center">INGRESOS DE HOY {{ now | date: 'dd/MM/y'  }}</h3>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead class="bg-dark">
+            <tr>
+              <th>N.</th>
+              <th>CÓDIGO</th>
+              <th>INGRESO</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let ingreso of ingresos; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ ingreso.nombre }}</td>
+              <td>{{ ingreso.ingreso | date: 'HH:mm:ss' }}</td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

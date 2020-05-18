@@ -114,7 +114,7 @@ export class UsuarioCreateComponent implements OnInit {
   }
 
   getCargos() {
-    this.cargoService.getCargos(this.token).subscribe(response => {
+    this.cargoService.getListaCargos(this.token).subscribe(response => {
       if (response.status === 'success') {
         this.cargos = response.cargos;
       } else {

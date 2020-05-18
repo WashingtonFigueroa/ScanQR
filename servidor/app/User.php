@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'cargo_id','nombre', 'password', 'email', 'cedula', 'direccion', 'telefono', 'fecha_nacimiento', 'image'
+        'cargo_id', 'nombre', 'password', 'email', 'cedula', 'direccion', 'telefono', 'fecha_nacimiento', 'image'
     ];
 
     /**
@@ -41,5 +41,12 @@ class User extends Authenticatable
     public function cargo()
     {
         return $this->belongsTo('App\Cargo', 'id');
+    }
+
+    protected $appends = ['cargo'];
+
+    public function getCargoAttribute()
+    {
+        return Cargo::find($this->cargo_id);
     }
 }

@@ -19,6 +19,17 @@ class CargoController extends Controller
         return response()->json($data, $data['code']);
     }
 
+    public function listaCargos()
+    {
+        $cargos = Cargo::where('estado','1')->get();
+        if (is_object($cargos)) {
+            $data = array('code' => 200, 'status' => 'success', 'cargos' => $cargos);
+        } else {
+            $data = array('code' => 404, 'status' => 'error', 'message' => 'Lista Vacia');
+        }
+        return response()->json($data, $data['code']);
+    }
+
     public function show($id)
     {
         $cargo = Cargo::where('id', '=', $id)->first();

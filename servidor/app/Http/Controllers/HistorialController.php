@@ -17,6 +17,71 @@ class HistorialController extends Controller
         return response()->json($historial, 200);
     }
 
+    public function stats()
+    {
+        $habilitados = QR::where('estado', 'Activo')->count();
+        $ingreso = Historial::whereDate('created_at', Carbon::now()->toDateString())
+            ->where('estado', 'INGRESO')
+            ->distinct('qr_id')
+            ->count();
+        $salida = Historial::whereDate('created_at', Carbon::now()->toDateString())
+            ->where('estado', 'SALIDA')
+            ->count();
+        $salida_retraso = Historial::whereDate('created_at', Carbon::now()->toDateString())
+            ->where('estado', '<>', 'INGRESO')
+            ->where('estado', '<>', 'SALIDA')
+            ->count();
+        return response()->json([
+            'habilitados' => $habilitados,
+            'ingreso' => $ingreso,
+            'salida' => $salida,
+            'salida_retraso' => $salida_retraso,
+        ], 200);
+    }
+
+    public function ingresosHoy()
+    {
+        $ingresos = Historial::whereDate('created_at', Carbon::now()->toDateString())
+            ->where('estado', 'INGRESO')
+            ->orderBy('id', 'desc')
+            ->get();
+        return response()->json($ingresos, 200);
+    }
+
+    public function buscarHistorial()
+    {
+        $input = \request()->all();
+        $input['hasta'] = Carbon::parse($input['hasta'])->addDay();
+        $response = null;
+        switch ($input['estado']) {
+            case 'INGRESO':
+                $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
+                    ->where('estado', '=', 'INGRESO')
+                    ->where('nombre', 'like', "%{$input['codigo']}%")
+                    ->get();
+                break;
+            case 'SALIDA':
+                $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
+                    ->where('estado', '=', 'SALIDA')
+                    ->where('nombre', 'like', "%{$input['codigo']}%")
+                    ->get();
+                break;
+            case 'RETRASO':
+                $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
+                    ->where('estado', '<>', 'INGRESO')
+                    ->where('estado', '<>', 'SALIDA')
+                    ->where('nombre', 'like', "%{$input['codigo']}%")
+                    ->get();
+                break;
+            case 'TODOS':
+                $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
+                    ->where('nombre', 'like', "%{$input['codigo']}%")
+                    ->get();
+                break;
+        }
+        return response()->json($response, 200);
+    }
+
     public function show($id)
     {
         $historia = Historial::where('id', '=', $id)->first();
@@ -65,6 +130,7 @@ class HistorialController extends Controller
                         } else {
                             $tiempo2 = $historial2->tiempo - $qr->tiempo;
                             $historial2->estado = "SALIDA CON RETRASO DE {$tiempo2} MIN.";
+                            $historial2->save();
                             return response()->json([
                                 'tiempo_transcurrido' => $historial2->tiempo,
                                 'type' => 'warning',
@@ -113,8 +179,8 @@ class HistorialController extends Controller
         } else {
             return response()->json([
                 'tiempo_transcurrido' => 0,
-                'type' => 'error',
-                'observacion' => 'Espere unos segundos....'
+                'type' => 'timeout',
+                'observacion' => 'Espere unos segundos...'
             ]);
         }
     }

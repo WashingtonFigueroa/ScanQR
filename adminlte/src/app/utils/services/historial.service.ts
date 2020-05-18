@@ -20,6 +20,30 @@ export class HistorialService {
     });
   }
 
+  stats() {
+    return this.http.get(`${this.servidor}stats`, {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    });
+  }
+
+  ingresosHoy() {
+    return this.http.get(`${this.servidor}ingresos-hoy`, {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    });
+  }
+
+  buscarHistorial(data: any) {
+    return this.http.post(`${this.servidor}buscar-historial`, data, {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    });
+  }
+
   store(data: any) {
     return this.http.post(`${this.servidor}historial`, data, {
       headers: {
