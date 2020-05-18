@@ -81,5 +81,27 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="offset-lg-3 col-lg-6">
+        <div class="table-responsive">
+          <table class="table table-striped bg-dark">
+            <thead>
+            <tr>
+              <th>N.</th>
+              <th>CÓDIGO</th>
+              <th>INGRESO</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let ingreso of ingresos; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ ingreso.nombre }}</td>
+              <td>{{ ingreso.ingreso | date: 'dd/MM/Y HH:mm:ss' }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

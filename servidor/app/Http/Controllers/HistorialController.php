@@ -39,6 +39,15 @@ class HistorialController extends Controller
         ], 200);
     }
 
+    public function ingresosHoy()
+    {
+        $ingresos = Historial::whereDate('created_at', Carbon::now()->toDateString())
+            ->where('estado', 'INGRESO')
+            ->orderBy('id', 'desc')
+            ->get();
+        return response()->json($ingresos, 200);
+    }
+
     public function show($id)
     {
         $historia = Historial::where('id', '=', $id)->first();

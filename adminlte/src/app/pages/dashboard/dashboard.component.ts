@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HistorialService} from '../../utils/services/historial.service';
 import {ToastrService} from 'ngx-toastr';
+import {Historial} from '../../models/historial';
 
 
 interface Stats {
@@ -20,6 +21,7 @@ export class DashboardComponent implements OnInit {
 
   enabledMessage: boolean = false;
   stats: Stats = null;
+  ingresos: Historial[] = null;
 
   message: {
     class: string,
@@ -36,12 +38,20 @@ export class DashboardComponent implements OnInit {
       .subscribe((stats: Stats) => {
         this.stats = stats;
       });
+    this.historialService.ingresosHoy()
+      .subscribe((ingresos: Historial[]) => {
+        this.ingresos = ingresos;
+      });
   }
 
   reload() {
     this.historialService.stats()
       .subscribe((stats: Stats) => {
         this.stats = stats;
+      });
+    this.historialService.ingresosHoy()
+      .subscribe((ingresos: Historial[]) => {
+        this.ingresos = ingresos;
       });
   }
 
