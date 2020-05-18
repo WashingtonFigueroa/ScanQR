@@ -39,8 +39,8 @@ export class ReportesComponent implements OnInit {
 
   buscar() {
     this.historialService.buscarHistorial(this.buscarGroup.value)
-      .subscribe(() => {
-
+      .subscribe((historial: Historial[]) => {
+        this.historial = historial;
       });
   }
 

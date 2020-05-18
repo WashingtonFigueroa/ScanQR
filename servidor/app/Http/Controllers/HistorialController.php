@@ -73,6 +73,11 @@ class HistorialController extends Controller
                     ->where('nombre', 'like', "%{$input['codigo']}%")
                     ->get();
                 break;
+            case 'TODOS':
+                $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
+                    ->where('nombre', 'like', "%{$input['codigo']}%")
+                    ->get();
+                break;
         }
         return response()->json($response, 200);
     }
