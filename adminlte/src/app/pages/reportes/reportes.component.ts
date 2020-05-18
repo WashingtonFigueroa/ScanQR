@@ -31,6 +31,7 @@ export class ReportesComponent implements OnInit {
   }
 
   reload() {
+    this.buscarGroup.reset();
     this.historialService.index()
       .subscribe((historial: Historial[]) => {
         this.historial = historial;
