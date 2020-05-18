@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {HistorialService} from '../../utils/services/historial.service';
+import {Historial} from '../../models/historial';
 
 @Component({
   selector: 'app-reportes',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportesComponent implements OnInit {
 
-  constructor() { }
+  historial: Historial[] = [];
+
+  constructor(private historialService: HistorialService) {
+  }
 
   ngOnInit(): void {
+    this.historialService.index()
+      .subscribe((historial: Historial[]) => {
+        this.historial = historial;
+      });
   }
+
 
 }

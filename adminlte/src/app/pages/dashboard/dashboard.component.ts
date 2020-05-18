@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {HistorialService} from '../../utils/services/historial.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,13 +9,36 @@ import {Component, OnInit} from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() {
+  codigo: string = '';
+
+  constructor(private historialService: HistorialService,
+              private toastr: ToastrService) {
   }
 
   ngOnInit() {
   }
 
-  render($event) {
-    console.log($event)
+  scanned($event) {
+    this.codigo = $event;
+    this.historialService.store({
+      codigo: $event
+    }).subscribe((response: {
+      tiempo_transcurrido: string,
+      type: string,
+      observacion: string,
+    }) => {
+      console.log(response);
+      switch (response.type) {
+        case 'info':
+          this.toastr.info(response.observacion);
+          break;
+        case 'success':
+          this.toastr.success(response.observacion);
+          break;
+        case 'error':
+          this.toastr.error(response.observacion);
+          break;
+      }
+    })
   }
 }
