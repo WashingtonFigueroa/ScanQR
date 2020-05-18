@@ -26,12 +26,10 @@ class HistorialController extends Controller
             ->count();
         $salida = Historial::whereDate('created_at', Carbon::now()->toDateString())
             ->where('estado', 'SALIDA')
-            ->distinct('qr_id')
             ->count();
         $salida_retraso = Historial::whereDate('created_at', Carbon::now()->toDateString())
             ->where('estado', '<>', 'INGRESO')
             ->where('estado', '<>', 'SALIDA')
-            ->distinct('qr_id')
             ->count();
         return response()->json([
             'habilitados' => $habilitados,

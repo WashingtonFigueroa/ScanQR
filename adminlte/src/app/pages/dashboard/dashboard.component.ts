@@ -2,20 +2,25 @@ import {Component, OnInit} from '@angular/core';
 import {HistorialService} from '../../utils/services/historial.service';
 import {ToastrService} from 'ngx-toastr';
 
+
+interface Stats {
+  habilitados: number;
+  ingreso: number;
+  salida: number;
+  salida_retraso: number;
+}
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
+
 export class DashboardComponent implements OnInit {
 
   enabledMessage: boolean = false;
-  stats: {
-    habilitados: number,
-    ingreso: number,
-    salida: number,
-    salida_retraso: number
-  } = null;
+  stats: Stats = null;
+
   message: {
     class: string,
     text: string,
@@ -28,7 +33,14 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.historialService.stats()
-      .subscribe((stats) => {
+      .subscribe((stats: Stats) => {
+        this.stats = stats;
+      });
+  }
+
+  reload() {
+    this.historialService.stats()
+      .subscribe((stats: Stats) => {
         this.stats = stats;
       });
   }
@@ -86,6 +98,7 @@ export class DashboardComponent implements OnInit {
           };
           break;
       }
+      this.reload();
     })
   }
 }
