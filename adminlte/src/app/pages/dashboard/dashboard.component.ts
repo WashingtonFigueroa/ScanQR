@@ -10,6 +10,12 @@ import {ToastrService} from 'ngx-toastr';
 export class DashboardComponent implements OnInit {
 
   codigo: string = '';
+  enabledMessage: boolean = false;
+  message: {
+    class: string,
+    text: string,
+    heading: string
+  } = null;
 
   constructor(private historialService: HistorialService,
               private toastr: ToastrService) {
@@ -18,35 +24,63 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
-  scanned($event) {
-    setTimeout(() => {
-      this.codigo = $event;
+  reset() {
+    this.enabledMessage = false;
+    this.message = null;
+  }
 
-      this.historialService.store({
-        codigo: $event
-      }).subscribe((response: {
-        tiempo_transcurrido: string,
-        type: string,
-        observacion: string,
-      }) => {
-        this.codigo = '';
-        if (response.observacion !== 'Espere unos segundos....') {
-          switch (response.type) {
-            case 'info':
-              this.toastr.info(response.observacion, 'INGRESO');
-              break;
-            case 'success':
-              this.toastr.success(response.observacion, 'SALIDA');
-              break;
-            case 'warning':
-              this.toastr.warning(response.observacion, 'RETRASO');
-              break;
-            case 'error':
-              this.toastr.error(response.observacion, 'ERROR');
-              break;
-          }
-        }
-      })
-    }, 1000);
+  scanned($event) {
+    this.codigo = $event;
+    this.historialService.store({
+      codigo: $event
+    }).subscribe((response: {
+      tiempo_transcurrido: string,
+      type: string,
+      observacion: string,
+    }) => {
+      this.codigo = '';
+      switch (response.type) {
+        case 'info':
+          this.toastr.info(response.observacion, 'INGRESO');
+          this.enabledMessage = true;
+          this.message = {
+            class: 'info',
+            text: response.observacion,
+            heading: 'INGRESO'
+          };
+          break;
+        case 'success':
+          this.toastr.success(response.observacion, 'SALIDA');
+          this.enabledMessage = true;
+          this.message = {
+            class: 'success',
+            text: response.observacion,
+            heading: 'SALIDA EXITOSA'
+          };
+          break;
+        case 'warning':
+          this.toastr.warning(response.observacion, 'RETRASO');
+          this.enabledMessage = true;
+          this.message = {
+            class: 'warning',
+            text: response.observacion,
+            heading: 'SALIDA CON RETRASO'
+          };
+          break;
+        case 'error':
+          this.toastr.error(response.observacion, 'ERROR');
+          this.enabledMessage = true;
+          this.message = {
+            class: 'danger',
+            text: response.observacion,
+            heading: 'ERROR'
+          };
+          break;
+        case 'timeout':
+          this.enabledMessage = false;
+          this.message = null;
+          break;
+      }
+    })
   }
 }

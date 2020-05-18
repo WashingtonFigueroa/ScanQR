@@ -113,8 +113,8 @@ class HistorialController extends Controller
         } else {
             return response()->json([
                 'tiempo_transcurrido' => 0,
-                'type' => 'error',
-                'observacion' => 'Espere unos segundos....'
+                'type' => 'timeout',
+                'observacion' => 'Espere unos segundos...'
             ]);
         }
     }
