@@ -30,15 +30,18 @@
             <p-table #dt [columns]="cols" [value]="usuarios" [responsive]="true" [paginator]="true" [rows]="5" >
               <ng-template pTemplate="header" let-columns>
                     <tr>
-                        <th style="width:110px" class="text-center">
-                            Documento
+                        <th style="width:50px" class="text-center">
+                            #
                         </th>
                         <th  class="text-center">
                             Foto
                         </th> 
                         <th  class="text-center">
                             Nombres
-                        </th>  
+                        </th> 
+                        <th  class="text-center">
+                          Cargo
+                      </th> 
                         <th  class="text-center">
                             Email
                         </th> 
@@ -55,8 +58,8 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-user>
                   <tr>
-                    <td style="width:110px">
-                      {{user.cedula}}
+                    <td style="width:50px">
+                      {{user.id}}
                     </td>
                     <td class="text-center">
                       <span *ngIf="!user.image" class="badge badge-danger">Sin imagen</span>
@@ -65,6 +68,7 @@
                       </div>
                     </td>
                     <td>{{user.nombre}}</td>
+                    <td>{{user.cargo.nombre}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.direccion}}</td>
                     <td>{{user.telefono}}</td>

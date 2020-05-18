@@ -1,6 +1,6 @@
 <section class="content-header">
     <div class="container-fluid">
-      <div class="row mb-2">
+      <div class="row mb-2"> 
         <div class="col-sm-6">
           <h1>Cargos</h1>
         </div>
@@ -31,6 +31,9 @@
                         <th style="width:50px" class="text-center">
                             ID
                         </th>
+                        <th style="width:150px" class="text-center">
+                          Estado
+                      </th>
                         <th  class="text-center">
                             Cargo
                         </th>
@@ -47,12 +50,15 @@
                     <td style="width:50px">
                       {{cargo.id}}
                     </td>
+                    <td *ngIf="cargo.estado === 1" style="width:150px" class="text-center">
+                      <span class="right badge badge-success">Activo</span>
+                    </td>
+                    <td *ngIf="cargo.estado !== 1" style="width:150px" class="text-center">
+                      <span class="right badge badge-warning">Inactivo</span>
+                  </td>
                     <td>{{cargo.nombre}}</td>
                     <td>{{cargo.descripcion}}</td>
                     <td class="text-center" style="width:160px">
-                    <label *ngIf="cargo.estado" class="btn-sm" style="color: steelblue; width:30%" title="Activo"><i class="fas fa-check"></i></label>
-                    <label *ngIf="!cargo.estado" class="btn-sm" style="color: tomato; width:30%" title="Inactivo"><i class="far fa-times-circle"></i></label>
-                    &nbsp;&nbsp;
                             <button class="btn btn-warning  btn-sm" routerLink="/cargo/edit/{{cargo.id}}" title="Editar Persona"><i class="fas fa-edit"></i></button>
                             &nbsp;&nbsp;
                               <button type="button"class="btn btn-danger  btn-sm" data-toggle="modal" [attr.data-target]="'#myModal'+cargo.id">

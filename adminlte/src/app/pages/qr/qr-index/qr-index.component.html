@@ -31,17 +31,17 @@
                         <th style="width:150px" class="text-center">
                             Id Código
                         </th>
+                        <th style="width:150px" class="text-center">
+                          Estado
+                      </th> 
                         <th  class="text-center">
                           QR
                         </th> 
                         <th  class="text-center">
                           Nombre
                       </th> 
-                      <th  class="text-center">
+                      <th style="width:150px" class="text-center">
                             Tiempo
-                        </th> 
-                        <th  class="text-center">
-                            Estado
                         </th> 
                         <th class="text-center" style="width:160px" >
                             <button class="btn btn-info btn-sm" routerLink="/qr/create"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar</button>
@@ -50,18 +50,19 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-qr>
                   <tr>
-                    <td style="width:150px">
+                    <td style="width:150px" class="text-center">
                       {{qr.id}}
                     </td>
+                    <td *ngIf="qr.estado === 'Activo'" style="width:150px" class="text-center">
+                      <span class="right badge badge-success">Activo</span>
+                    </td>
+                    <td *ngIf="qr.estado !== 'Activo'" style="width:150px" class="text-center">
+                      <span class="right badge badge-warning">Inactivo</span>
+                  </td>
+                   
                     <td>{{qr.codqr}}</td>
                     <td>{{qr.nombre}}</td>
-                    <td>{{qr.tiempo}}</td>
-                    <td *ngIf="qr.estado === 'Activo'">
-                        <label  class="btn-sm" style="color: steelblue; width:30%" title="Activo"><i class="fas fa-check"></i></label>
-                    </td>
-                    <td *ngIf="qr.estado !== 'Activo'">
-                      <label  class="btn-sm" style="color: brown; width:30%" title="Activo"><i class="fas fa-check"></i></label>
-                  </td>
+                    <td style="width:150px" class="text-center">{{qr.tiempo}}</td>
                     <td class="text-center" style="width:160px">
                             <button class="btn btn-warning  btn-sm" routerLink="/qr/edit/{{qr.id}}" title="Editar Qr"><i class="fas fa-edit"></i></button>
                             &nbsp;&nbsp;

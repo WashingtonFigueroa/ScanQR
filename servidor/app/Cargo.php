@@ -16,4 +16,9 @@ class Cargo extends Model
         'estado'
     ];
     protected $dates = ['deleted_at'];
+
+    public function usuarios()
+    {
+        return $this->hasMany('App\User');
+    }
 }

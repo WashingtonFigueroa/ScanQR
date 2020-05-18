@@ -19,9 +19,11 @@ use Illuminate\Support\Facades\Route;
 });*/
 Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
+Route::get('/user/avatar/{filename}','UserController@getImage');
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::post('details', 'API\UserController@details');
+    Route::post('/user/upload','UserController@upload');
     Route::apiResources([
         'usuarios' => 'UserController',
         'cargo' => 'CargoController',
@@ -29,5 +31,5 @@ Route::group(['middleware' => 'auth:api'], function(){
         'historial' => 'HistorialController' 
     ]);
 });
-
+ 
 
