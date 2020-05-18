@@ -9,7 +9,6 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class DashboardComponent implements OnInit {
 
-  codigo: string = '';
   enabledMessage: boolean = false;
   message: {
     class: string,
@@ -30,7 +29,6 @@ export class DashboardComponent implements OnInit {
   }
 
   scanned($event) {
-    this.codigo = $event;
     this.historialService.store({
       codigo: $event
     }).subscribe((response: {
@@ -38,7 +36,6 @@ export class DashboardComponent implements OnInit {
       type: string,
       observacion: string,
     }) => {
-      this.codigo = '';
       switch (response.type) {
         case 'info':
           this.toastr.info(response.observacion, 'INGRESO');
@@ -75,10 +72,6 @@ export class DashboardComponent implements OnInit {
             text: response.observacion,
             heading: 'ERROR'
           };
-          break;
-        case 'timeout':
-          this.enabledMessage = false;
-          this.message = null;
           break;
       }
     })

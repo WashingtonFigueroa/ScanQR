@@ -65,6 +65,7 @@ class HistorialController extends Controller
                         } else {
                             $tiempo2 = $historial2->tiempo - $qr->tiempo;
                             $historial2->estado = "SALIDA CON RETRASO DE {$tiempo2} MIN.";
+                            $historial2->save();
                             return response()->json([
                                 'tiempo_transcurrido' => $historial2->tiempo,
                                 'type' => 'warning',

@@ -32,7 +32,7 @@
             <td>{{ record.salida_tentativa | date: 'dd/MM/y HH:mm:ss'}}</td>
             <td>{{ record.tiempo }} min.</td>
             <td>
-              <span [class.text-danger]="record.estado === 'SALIDA'">
+              <span [class.text-success]="record.estado === 'INGRESO'">
               {{ record.estado }}
               </span>
             </td>
