@@ -28,7 +28,7 @@ export class QrCreateComponent implements OnInit {
     this.title = 'Crear Qr';
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
-    this.qr = new Qr(1, '', '', 1, 'Inactivo');
+    this.qr = new Qr(1, '', '', 1, 'Activo');
   }
 
   ngOnInit(): void {

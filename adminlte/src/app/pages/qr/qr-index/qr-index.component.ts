@@ -14,9 +14,9 @@ import * as jsPDF from 'jspdf'
 export class QrIndexComponent implements OnInit {
   public base = environment.servidor;
   public token;
+  public identity;
   public qrs: Qr;
   public cols: any[];
-  public myAngularxQrCode: string = null;
 
   constructor(
     private toastr: ToastrService,
@@ -24,7 +24,7 @@ export class QrIndexComponent implements OnInit {
     private loginService: LoginService
   ) {
     this.token = this.loginService.getToken();
-    this.myAngularxQrCode = 'Your QR code data string';
+    this.identity = this.loginService.getIdentity();
   }
 
   ngOnInit(): void {
@@ -80,6 +80,7 @@ export class QrIndexComponent implements OnInit {
     pdf.text(13, 30, qr.nombre, 'center');
     pdf.output('dataurlnewwindow', `QR ${qr.nombre}.pdf`);
   }
+  
 }
 
 

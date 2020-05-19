@@ -45,7 +45,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $usuarios = User::all()->load('cargo');
+        $usuarios = User::all();
         if (is_object($usuarios)) {
             $data = array('code' => 200, 'status' => 'success', 'usuarios' => $usuarios);
         } else {

@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         // cargo
         $cargos = [
-            'Sadmin',
+            'Administrador',
             'Coordinador General',
             'Técnico Logístico'
         ];
@@ -37,7 +37,6 @@ class DatabaseSeeder extends Seeder
                 'telefono' => '0969191290',
                 'fecha_nacimiento' => '',
                 'image' => ''
-
                 ]
         );
     }

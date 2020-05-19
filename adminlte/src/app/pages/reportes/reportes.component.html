@@ -25,28 +25,28 @@
       <form [formGroup]="buscarGroup">
         <div class="row">
           <div class="col-lg-3">
-            <input type="date" formControlName="desde" name="desde" class="form-control">
+            <input type="date" formControlName="desde" name="desde" class="form-control" [ngModel]="today | date:'yyyy-MM-dd'">
           </div>
           <div class="col-lg-3">
-            <input type="date" formControlName="hasta" name="hasta" class="form-control">
+            <input type="date" formControlName="hasta" name="hasta" class="form-control" [ngModel]="today | date:'yyyy-MM-dd'">
           </div>
           <div class="col-lg-2">
-            <select name="estado" id="estado" formControlName="estado" class="form-control">
-              <option value="TODOS">TODOS</option>
+            <select name="estado" id="estado" formControlName="estado" class="form-control" >
+              <option value="TODOS" selected>TODOS</option>
               <option value="INGRESO">INGRESOS</option>
               <option value="SALIDA">SALIDAS</option>
               <option value="RETRASO">RETRASOS</option>
             </select>
           </div>
           <div class="col-lg-2">
-            <input type="text" class="form-control" name="codigo" formControlName="codigo">
+            <input type="text" class="form-control" name="codigo" formControlName="codigo" placeholder="Ingrese Código">
           </div>
           <div class="col-lg-2 text-center">
             <button class="btn btn-primary" (click)="buscar()" [disabled]="buscarGroup.invalid">
               <span class="fa fa-search"></span>
             </button> &nbsp;&nbsp;
-            <button class="btn btn-danger" (click)="reload()" [disabled]="buscarGroup.invalid">
-              <span class="fa fa-power-off"></span>
+            <button class="btn btn-success" (click)="reload()" [disabled]="buscarGroup.invalid">
+              <span class="fa fa-sync-alt"></span>
             </button>
           </div>
         </div>
@@ -54,10 +54,10 @@
       <br>
       <div class="table-hover table-responsive table-sm">
         <table class="table table-striped">
-          <thead class="btn-info">
+          <thead>
           <tr>
             <th>N.</th>
-            <th class="text-center">Codigo</th>
+            <th class="text-center">Código</th>
             <th>Ingreso</th>
             <th>Salida</th>
             <th>Salida Tentativa</th>

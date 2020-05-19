@@ -9,12 +9,13 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./reportes.component.scss']
 })
 export class ReportesComponent implements OnInit {
-
+  public today: Date;
   historial: Historial[] = [];
   buscarGroup: FormGroup;
 
   constructor(private historialService: HistorialService,
               private fb: FormBuilder) {
+                this.today = new Date();
   }
 
   ngOnInit(): void {

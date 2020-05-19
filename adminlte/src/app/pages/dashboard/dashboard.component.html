@@ -6,7 +6,7 @@
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+          <li class="breadcrumb-item"><a routerLink="/dashboard">Inicio</a></li>
           <li class="breadcrumb-item active">Registro</li>
         </ol>
       </div>
@@ -26,13 +26,9 @@
           {{ message.text }}
         </p>
       </div>
-      <!--			<button type="button" class="btn btn-info btn-sm btn-block">
-              Leer Codigo
-            </button>-->
     </div>
   </div>
 </div>
-<hr>
 <section class="content">
   <div class="container-fluid">
     <div class="row">
@@ -81,28 +77,37 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="offset-lg-3 col-lg-6">
-        <h6 class="text-center">INGRESOS DE HOY {{ now | date: 'dd/MM/y'  }}</h6>
-        <div class="table-responsive table-sm">
-          <table class="table table-striped ">
-            <thead class="btn-info">
-            <tr>
-              <th>N.</th>
-              <th>Código</th>
-              <th>Ingreso</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let ingreso of ingresos; let i = index">
-              <td>{{ i + 1 }}</td>
-              <td>{{ ingreso.nombre }}</td>
-              <td>{{ ingreso.ingreso | date: 'HH:mm:ss' }}</td>
-            </tr>
-            </tbody>
-          </table>
+    <section class="content">
+      <div class="container-fluid">
+      <div class="card card-info card-outline">
+        <div class="row">
+          <div class="offset-lg-3 col-lg-6">
+            <br>
+            <h6 class="text-center">INGRESOS DE HOY {{ now | date: 'dd/MM/y'  }}</h6>
+            <br>
+            <div class="table-hover table-responsive table-sm">
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th class="text-center">Código</th>
+                  <th>Nombre</th>
+                  <th>Ingreso</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let ingreso of ingresos; let i = index">
+                  <td class="text-center">{{ ingreso.qr_id }}</td>
+                  <td>{{ ingreso.nombre }}</td>
+                  <td>{{ ingreso.ingreso | date: 'HH:mm:ss' }}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+      </div>
+   </section>
+    <br>
   </div>
 </section>

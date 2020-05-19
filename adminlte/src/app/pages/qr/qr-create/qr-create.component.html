@@ -23,7 +23,7 @@
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-md-12">
-                    <div class="form-group btn-sm">
+                    <div class="form-group btn-sm" *ngIf="identity.cargo_id === 1">
                       <label> <small class="requeridos">☼</small> Códigos QR:</label>
                       <div class="input-group">
                         <div class="input-group-prepend">
