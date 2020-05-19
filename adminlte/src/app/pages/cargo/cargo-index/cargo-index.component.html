@@ -17,13 +17,24 @@
   <div class="container-fluid">
     <div class="card">
       <div class="card-header">
-        <div class="form-group">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="fas fa-search"></i></span>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-10">
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="Buscador..."
+                         (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                </div>
+              </div>
             </div>
-            <input type="text" class="form-control" placeholder="Buscador..."
-                   (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+            <div class="col-md-2 text-center">
+              <button class="btn btn-info btn-sm btn-block" routerLink="/cargo/create"><i class="fas fa-plus"></i>&nbsp;&nbsp;
+                Agregar
+              </button>
+            </div>
           </div>
         </div>
         <p-table #dt [columns]="cols" [value]="cargos" [responsive]="true" [paginator]="true" [rows]="10">
@@ -42,9 +53,7 @@
                 Descripcion
               </th>
               <th class="text-center" style="width:160px">
-                <button class="btn btn-info btn-sm" routerLink="/cargo/create"><i class="fas fa-plus"></i>&nbsp;&nbsp;
-                  Agregar
-                </button>
+                Acciones
               </th>
             </tr>
           </ng-template>

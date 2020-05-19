@@ -3,7 +3,7 @@
   <a [routerLink]="['/dashboard']" class="brand-link">
     <img
       src="assets/img/log.png"
-      alt="Logo DTM READY" width="55px"
+      alt="Logo DTM READY" height="40px"
     />
     &nbsp;&nbsp;
     <span class="brand-text font-weight-light">Running Time</span>
@@ -29,33 +29,34 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <li class="nav-item">
         <a [routerLink]="['/dashboard']" class="nav-link">
-          <i class="nav-icon fas fa-tachometer-alt"></i>
-          <p>
+          <i class="fas fa-tachometer-alt"></i>
+          <p>&nbsp;&nbsp;
             Inicio
             <span class="right badge badge-success">Scanner QR</span>
           </p>
         </a>
       </li>
-      <li class="nav-item">
-        <a [routerLink]="['/qr']" class="nav-link">
-          <i class="nav-icon fas fa-qrcode"></i>
-          <p>
-            Código QR
-            <i class="right fas fa-angle-right"></i>
-          </p>
-        </a>
-      </li>
-      <li class="nav-header">Historial</li>
-      <li class="nav-item">
-        <a [routerLink]="['/reportes']" class="nav-link">
-          <i class="nav-icon fas fa-address-card"></i>
-          <p>
-            Reporte
-            <i class="right fas fa-angle-right"></i>
-          </p>
-        </a>
-      </li>
-
+      <div *ngIf="identity.cargo_id != 3">
+        <li class="nav-item">
+          <a [routerLink]="['/qr']" class="nav-link">
+            <i class="fas fa-qrcode"></i>
+            <p>&nbsp;&nbsp;
+              Código QR
+              <i class="right fas fa-angle-right"></i>
+            </p>
+          </a>
+        </li>
+        <li class="nav-header">Historial</li>
+        <li class="nav-item">
+          <a [routerLink]="['/reportes']" class="nav-link">
+            <i class="fas fa-address-card"></i>
+            <p>&nbsp;&nbsp;
+              Reporte
+              <i class="right fas fa-angle-right"></i>
+            </p>
+          </a>
+        </li>
+      </div>
     </ul>
 
   </div>

@@ -1,8 +1,25 @@
-<div class="container">
-  <br>
-  <div class="card">
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Historial</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a routerLink="/dashboard">Inicio</a></li>
+          <li class="breadcrumb-item active">Historial</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="content">
+  <div class="container-fluid">
+  <div class="card card-info card-outline">
     <div class="card-header">
-      HISTORIAL
+      Filtrar Ingresos
     </div>
     <div class="card-body">
       <form [formGroup]="buscarGroup">
@@ -35,12 +52,12 @@
         </div>
       </form>
       <br>
-      <div class="table-responsive">
+      <div class="table-hover table-responsive table-sm">
         <table class="table table-striped">
-          <thead class="bg-dark">
+          <thead class="btn-info">
           <tr>
             <th>N.</th>
-            <th>Codigo</th>
+            <th class="text-center">Codigo</th>
             <th>Ingreso</th>
             <th>Salida</th>
             <th>Salida Tentativa</th>
@@ -51,7 +68,7 @@
           <tbody>
           <tr *ngFor="let record of historial; let i = index">
             <td>{{ i + 1 }}</td>
-            <td>{{ record.nombre }}</td>
+            <td class="text-center">{{ record.qr_id }}</td>
             <td>{{ record.ingreso | date: 'dd/MM/y HH:mm:ss' }}</td>
             <td>
               <span *ngIf="record.ingreso === record.salida"> - </span>
@@ -72,4 +89,5 @@
       </div>
     </div>
   </div>
-</div>
+  </div> 
+</section>

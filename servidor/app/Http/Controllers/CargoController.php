@@ -10,7 +10,8 @@ class CargoController extends Controller
 {
     public function index()
     {
-        $cargos = Cargo::all();
+        $cargos = Cargo::all()
+        ->whereNotIn('id', [1]);
         if (is_object($cargos)) {
             $data = array('code' => 200, 'status' => 'success', 'cargos' => $cargos);
         } else {
@@ -21,7 +22,9 @@ class CargoController extends Controller
 
     public function listaCargos()
     {
-        $cargos = Cargo::where('estado','1')->get();
+        $cargos = Cargo::where('estado','1')
+        ->whereNotIn('id', [1])
+        ->get();
         if (is_object($cargos)) {
             $data = array('code' => 200, 'status' => 'success', 'cargos' => $cargos);
         } else {
