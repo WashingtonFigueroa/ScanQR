@@ -91,15 +91,11 @@ export class UsuarioEditComponent implements OnInit {
     date = date.slice(1, 11);
     this.user.fecha_nacimiento = date;
     this.usuarioService.update(this.token, this.user, this.user.id).subscribe(response => {
-      if (response.status === 'success') {
-        this.toastr.success('Ok.', 'Datos Actualizados');
-        form.reset();
-        this.router.navigate(['/usuario']);
-      } else {
-        this.toastr.error('Uppp!', response.message);
-      }
+      this.toastr.success('Ok.', 'Datos Actualizados');
+      form.reset();
+      this.router.navigate(['/usuario']);
     }, error => {
-      this.toastr.error('Uppp!', 'comuniquese con el Administrador');
+      this.toastr.error('Ups!', 'Comuniquese con el Administrador');
     });
   }
 

@@ -140,7 +140,7 @@ class HistorialController extends Controller
                     } else {
                         Historial::create([
                             'qr_id' => $qr['id'],
-                            'nombre' => $qr['codqr'],
+                            'nombre' => $qr['nombre'],
                             'ingreso' => Carbon::now()->toDateTimeString(),
                             'tiempo' => 0,
                             'salida' => Carbon::now()->toDateTimeString(),
@@ -156,7 +156,7 @@ class HistorialController extends Controller
                 } else {
                     Historial::create([
                         'qr_id' => $qr['id'],
-                        'nombre' => $qr['codqr'],
+                        'nombre' => $qr['nombre'],
                         'ingreso' => Carbon::now()->toDateTimeString(),
                         'tiempo' => 0,
                         'salida' => Carbon::now()->toDateTimeString(),
