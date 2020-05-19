@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use File;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Storage;
 use Validator;
 
 class UserController extends Controller
@@ -37,6 +39,7 @@ class UserController extends Controller
             'identity' => $user
         ], $this->successStatus);
     }
+
     public function details()
     {
         $user = Auth::user();
@@ -55,7 +58,7 @@ class UserController extends Controller
     }
 
     public function show($id)
-    { 
+    {
         $usuario = User::where('id', '=', $id)->first();
         if (is_object($usuario)) {
             $data = array('code' => 200, 'status' => 'success', 'usuario' => $usuario);
@@ -84,25 +87,9 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        $json = $request->input('json', null);
-        $params_array = json_decode($json, true);
-        if (!empty($params_array)) {
-            $validate = Validator::make($params_array, [
-                'nombre' => 'required'
-            ]);
-            if ($validate->fails()) {
-                $data = array('code' => 400, 'status' => 'error', 'message' => 'No se ha guardado el usuario');
-            } else {
-                unset($params_array['id']);
-                unset($params_array['created_at']);
-                unset($params_array['updated_at']);
-                $usuario = User::where('id', '=', $id)->update($params_array);
-                $data = array('code' => 200, 'status' => 'success', 'usuario' => $usuario);
-            }
-        } else {
-            $data = array('code' => 400, 'status' => 'error', 'message' => 'No has enviado ningun dato');
-        }
-        return response()->json($data, $data['code']);
+        $user = User::find($id);
+        $user->update($request->all());
+        return response()->json($user, 200);
     }
 
     public function destroy($id, Request $request)
@@ -120,7 +107,7 @@ class UserController extends Controller
     public function upload(Request $request)
     {
         $image = $request->file('file0');
-        $validate = \Validator::make($request->all(),[
+        $validate = Validator::make($request->all(), [
             'file0' => 'required|image|mimes:jpg,jpeg,png,gif'
         ]);
         if (!$image || $validate->fails()) {
@@ -130,25 +117,26 @@ class UserController extends Controller
                 'message' => 'Error al subir la imagen'
             );
         } else {
-            $image_name = time().$image->getClientOriginalName();
-            \Storage::disk('users')->put($image_name, \File::get($image));
+            $image_name = time() . $image->getClientOriginalName();
+            Storage::disk('users')->put($image_name, File::get($image));
             $data = array(
                 'code' => 200,
                 'status' => 'success',
                 'image' => $image_name
             );
-        } 
+        }
         return response()->json($data, $data['code']);
     }
 
-    public function getImage ($filename) {
-        $isset = \Storage::disk('users')->exists($filename);
+    public function getImage($filename)
+    {
+        $isset = Storage::disk('users')->exists($filename);
         if ($isset) {
-            $file = \Storage::disk('users')->get($filename);
+            $file = Storage::disk('users')->get($filename);
             return new Response($file, 200);
         } else {
-            $data = array('code' => 404,'status' => 'error','message' => 'Imagen no Existe');
-        return response()->json($data, $data['code']);
+            $data = array('code' => 404, 'status' => 'error', 'message' => 'Imagen no Existe');
+            return response()->json($data, $data['code']);
         }
     }
 
