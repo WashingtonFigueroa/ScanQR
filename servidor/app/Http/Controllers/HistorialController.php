@@ -97,9 +97,94 @@ class HistorialController extends Controller
     {
         $codigo = $request->input('codigo');
         $currentTime = Carbon::now();
-        $latest = Historial::orderBy('id', 'desc')->first()->updated_at;
+        if (Historial::count() > 0) {
+            $latest = Historial::orderBy('id', 'desc')->first()->updated_at;
+            if ($currentTime->diffInSeconds(Carbon::parse($latest)) > 5) {
+                $qr_exists = QR::where('codqr', '=', $codigo)->where('estado', 'Activo')->exists();
+                if ($qr_exists) {
+                    $qr = QR::where('codqr', '=', $codigo)->first();
+                    $now = Carbon::now();
+                    $salida_tentativa = $now->addMinutes($qr['tiempo'])->toDateTimeString();
+                    $existeRegistros = Historial::where('qr_id', $qr['id'])
+                        ->whereDate('created_at', Carbon::now()->toDateString())
+                        ->orderBy('id', 'desc')
+                        ->exists();
+                    if ($existeRegistros) {
+                        $historial = Historial::where('qr_id', $qr['id'])
+                            ->whereDate('created_at', Carbon::now()->toDateString())
+                            ->orderBy('id', 'desc')
+                            ->first();
+                        if ($historial->estado === 'INGRESO') {
+                            $historial2 = Historial::find($historial['id']);
+                            $historial2->estado = 'SALIDA';
+                            $historial2->salida = Carbon::now()->toDateTimeString();
+                            $historial2->tiempo = (int)Carbon::now()->diffInMinutes(Carbon::parse($historial2->ingreso));
+                            $historial2->save();
+                            if ($qr->tiempo >= $historial2->tiempo) {
+                                $tiempo = $qr->tiempo - $historial2->tiempo;
+                                return response()->json([
+                                    'tiempo_transcurrido' => $historial2->tiempo,
+                                    'type' => 'success',
+                                    'observacion' => 'En hora, le quedaban ' . $tiempo . ' minutos restantes'
+                                ]);
+                            } else {
+                                $tiempo2 = $historial2->tiempo - $qr->tiempo;
+                                $historial2->estado = "SALIDA CON RETRASO DE {$tiempo2} MIN.";
+                                $historial2->save();
+                                return response()->json([
+                                    'tiempo_transcurrido' => $historial2->tiempo,
+                                    'type' => 'warning',
+                                    'observacion' => 'Con retraso de ' . $tiempo2 . ' minutos'
+                                ]);
+                            }
+                        } else {
+                            Historial::create([
+                                'qr_id' => $qr['id'],
+                                'nombre' => $qr['nombre'],
+                                'ingreso' => Carbon::now()->toDateTimeString(),
+                                'tiempo' => 0,
+                                'salida' => Carbon::now()->toDateTimeString(),
+                                'salida_tentativa' => $salida_tentativa,
+                                'estado' => 'INGRESO'
+                            ]);
+                            return response()->json([
+                                'tiempo_transcurrido' => 0,
+                                'type' => 'info',
+                                'observacion' => "Su estancia es de {$qr->tiempo} minutos"
+                            ]);
+                        }
+                    } else {
+                        Historial::create([
+                            'qr_id' => $qr['id'],
+                            'nombre' => $qr['nombre'],
+                            'ingreso' => Carbon::now()->toDateTimeString(),
+                            'tiempo' => 0,
+                            'salida' => Carbon::now()->toDateTimeString(),
+                            'salida_tentativa' => $salida_tentativa,
+                            'estado' => 'INGRESO'
+                        ]);
+                        return response()->json([
+                            'tiempo_transcurrido' => 0,
+                            'type' => 'info',
+                            'observacion' => "Su estancia es de {$qr->tiempo} minutos"
+                        ]);
+                    }
+                } else {
+                    return response()->json([
+                        'tiempo_transcurrido' => 0,
+                        'type' => 'error',
+                        'observacion' => 'Codigo no valido'
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    'tiempo_transcurrido' => 0,
+                    'type' => 'timeout',
+                    'observacion' => 'Espere unos segundos...'
+                ]);
+            }
 
-        if ($currentTime->diffInSeconds(Carbon::parse($latest)) > 5) {
+        } else {
             $qr_exists = QR::where('codqr', '=', $codigo)->where('estado', 'Activo')->exists();
             if ($qr_exists) {
                 $qr = QR::where('codqr', '=', $codigo)->first();
@@ -176,12 +261,6 @@ class HistorialController extends Controller
                     'observacion' => 'Codigo no valido'
                 ]);
             }
-        } else {
-            return response()->json([
-                'tiempo_transcurrido' => 0,
-                'type' => 'timeout',
-                'observacion' => 'Espere unos segundos...'
-            ]);
         }
     }
 
