@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { Storage } from '@ionic/storage';
+import { Usuario } from '../models/usuario';
+import { NavController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +12,14 @@ export class UsuarioService {
 token: string = null;
 identity: any = null;
 url = environment.servidor;
+usuario: Usuario;
+usuarior: Usuario;
   constructor( private http: HttpClient,
-               private storage: Storage
-                ) { }
+               private storage: Storage,
+               private navCotrl: NavController
+                ) {
+                  this.usuario = new Usuario(1, 1, '', '', '', '', '', '', '', '', '');
+                }
 
   login(data: any) {
     return new Promise(resolve => {
@@ -20,6 +27,7 @@ url = environment.servidor;
       .subscribe(resp => {
         this.guardarToken(resp[ 'token' ], resp[ 'identity' ]);
         console.log('DTMOWED');
+        this.navCotrl.navigateRoot('/login');
         resolve(true);
       }, () => {
         this.token = null;
@@ -37,12 +45,12 @@ url = environment.servidor;
     await this.storage.set('identity', identity);
   }
 
-  registro( usuario: any) {
+  registro( data) {
       return new Promise(resolve => {
-        this.http.post(`${this.url}register`, usuario)
+        this.http.post(`${this.url}register`, data)
         .subscribe(resp => {
         this.guardarToken(resp[ 'token' ], resp[ 'identity' ]);
-        console.log('DTMOWED');
+        this.navCotrl.navigateRoot('/login');
         resolve(true);
       }, () => {
         this.token = null;
@@ -52,6 +60,29 @@ url = environment.servidor;
       });
     });
   }
+
+  async cargarToken(){
+    this.token = await this.storage.get('token') || null;
+  }
+
+  async validarToken(): Promise<boolean>{
+    await this.cargarToken();
+    if (!this.token) {
+      this.navCotrl.navigateRoot('/login');
+      return Promise.resolve(false);
+    }
+    else {
+      return Promise.resolve(true);
+    }
+  }
+
+  logout(){
+    this.token = null;
+    this.usuario = null;
+    this.storage.clear();
+    this.navCotrl.navigateRoot('/login', {animated: true});
+  }
+
 
 
 }
