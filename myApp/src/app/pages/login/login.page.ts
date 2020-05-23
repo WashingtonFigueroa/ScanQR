@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { IonSlides, NavController } from '@ionic/angular';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { Usuario } from '../../models/usuario';
+import { UiServiceService } from 'src/app/services/ui-service.service';
 
 @Component({
   selector: 'app-login',
@@ -7,7 +11,8 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
- public avatars = [
+ @ViewChild('slidePrincipal') slides: IonSlides;
+  public avatars = [
     {
       img: 'av-1.png',
       seleccionado: true
@@ -41,15 +46,54 @@ export class LoginPage implements OnInit {
       seleccionado: false
     },
 ];
-  constructor() { }
+
+public usuario: Usuario;
+public registr: Usuario;
+
+  constructor( private usuarioService: UsuarioService,
+               private navCtrl: NavController,
+               private uiservice: UiServiceService) {
+    this.usuario = new Usuario(1, 1, '', '', '', '', '', '', '', '', '');
+    this.registr = new Usuario(1, 1, '', '', '', '', '', '', '', '', '');
+  }
+
+  ionViewDidEnter() {
+    this.slides.lockSwipes(true);
+  }
 
   ngOnInit() {
   }
 
-  login(fLogin: NgForm) {
-    console.log(fLogin.valid);
+  mostrarRegistro() {
+    this.slides.lockSwipes( false );
+    this.slides.slideTo(0);
+    this.slides.lockSwipes( true );
   }
-  registro(fRegistro: NgForm) {
-    console.log(fRegistro.valid);
+  mostrarlogin(){
+    this.slides.lockSwipes( false );
+    this.slides.slideTo(1);
+    this.slides.lockSwipes( true );
   }
+// 15 %
+// 10 %
+  async login(fLogin: NgForm) {
+    if (fLogin.invalid) { return; }
+    const valido = await this.usuarioService.login(this.usuario);
+    if (valido) {
+      this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true});
+    } else {
+      this.uiservice.alertaInformativa('Usuario y Contraseña no son correctos');
+    }
+  }
+
+  async registro(fRegistro: NgForm) {
+    if (fRegistro.invalid) { return; }
+    const valido = await this.usuarioService.registro(this.registr);
+    if (valido) {
+      this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true});
+    } else {
+      this.uiservice.alertaInformativa('El correo electronico ya existe');
+    }
+  }
+
 }
