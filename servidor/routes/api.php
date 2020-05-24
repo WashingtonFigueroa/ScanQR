@@ -31,6 +31,9 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::apiResources([
         'usuarios' => 'UserController',
         'cargo' => 'CargoController',
+        'cupo' => 'CupoController',
+        'noticia' => 'NoticiaController',
+        'establecimiento' => 'EstablecimientoController',
         'qr' => 'QRController',
         'historial' => 'HistorialController'
     ]);

@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'cargo_id', 'nombre', 'password', 'email', 'cedula', 'direccion', 'telefono', 'fecha_nacimiento', 'image'
+        'cargo_id', 'establecimiento_id ', 'nombre', 'password', 'email', 'cedula', 'direccion', 'telefono', 'fecha_nacimiento', 'image'
     ];
 
     /**
@@ -41,6 +41,16 @@ class User extends Authenticatable
     public function cargo()
     {
         return $this->belongsTo('App\Cargo', 'id');
+    }
+
+    public function establecimiento()
+    {
+        return $this->belongsTo('App\Establecimiento', 'id');
+    }
+
+    public function historiales()
+    {
+        return $this->hasMany('App\Historial');
     }
 
     protected $appends = ['cargo'];
