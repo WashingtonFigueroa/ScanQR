@@ -11,6 +11,7 @@ import { NavController } from '@ionic/angular';
 export class UsuarioService {
 token: string = null;
 identity: any = null;
+qr: any = null;
 url = environment.servidor;
 usuario: Usuario;
 usuarior: Usuario;
@@ -18,16 +19,16 @@ usuarior: Usuario;
                private storage: Storage,
                private navCotrl: NavController
                 ) {
-                  this.usuario = new Usuario(1, 1, '', '', '', '', '', '', '', '', '');
+                  this.usuario = new Usuario(1, 1, 1, '', '', '', '', '', '', '', '', '');
                 }
 
   login(data: any) {
     return new Promise(resolve => {
       this.http.post(`${this.url}login`, data)
       .subscribe(resp => {
-        this.guardarToken(resp[ 'token' ], resp[ 'identity' ]);
-        console.log('DTMOWED');
+        this.guardarToken(resp[ 'token' ], resp[ 'qr' ], resp[ 'identity' ]);
         this.navCotrl.navigateRoot('/login');
+        console.log('DTMOWED');
         resolve(true);
       }, () => {
         this.token = null;
@@ -38,19 +39,22 @@ usuarior: Usuario;
     });
   }
 
-  async guardarToken(token: string, identity: any){
+  async guardarToken(token: string, qr: any, identity: any){
     this.token = token;
     this.identity = identity;
+    this.qr = qr;
     await this.storage.set('token', token);
     await this.storage.set('identity', identity);
+    await this.storage.set('qr', qr);
   }
 
   registro( data) {
       return new Promise(resolve => {
         this.http.post(`${this.url}register`, data)
         .subscribe(resp => {
-        this.guardarToken(resp[ 'token' ], resp[ 'identity' ]);
+        this.guardarToken(resp[ 'token' ], resp[ 'qr' ], resp[ 'identity' ]);
         this.navCotrl.navigateRoot('/login');
+        console.log('DTMOWED REGISTER');
         resolve(true);
       }, () => {
         this.token = null;
@@ -83,7 +87,16 @@ usuarior: Usuario;
     this.navCotrl.navigateRoot('/login', {animated: true});
   }
 
-
+  getQR() {
+   // const qr = JSON.parse(this.storage.get('qr'));
+    const qr = this.storage.get('qr');
+    // if (qr && qr !== 'undefined') {
+    //   this.qr = qr;
+    // } else {
+    //   this.qr = null;
+    // }
+    return this.qr;
+  }
 
 }
 

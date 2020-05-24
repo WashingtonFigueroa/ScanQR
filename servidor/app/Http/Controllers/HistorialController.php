@@ -102,7 +102,7 @@ class HistorialController extends Controller
             if ($currentTime->diffInSeconds(Carbon::parse($latest)) > 5) {
                 $qr_exists = QR::where('codqr', '=', $codigo)->where('estado', 'Activo')->exists();
                 if ($qr_exists) {
-                    $qr = QR::where('codqr', '=', $codigo)->first();
+                    $qr = QR::where('codqr', '=', $codigo)->first(); 
                     $now = Carbon::now();
                     $salida_tentativa = $now->addMinutes($qr['tiempo'])->toDateTimeString();
                     $existeRegistros = Historial::where('qr_id', $qr['id'])

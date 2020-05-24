@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-tab1',
@@ -6,7 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+  public qr;
 
-  constructor() {}
+  constructor(
+    private usuarioService: UsuarioService
+  ) {
+    this.qr = this.usuarioService.getQR();
+    console.log(this.qr);
+  }
 
 }

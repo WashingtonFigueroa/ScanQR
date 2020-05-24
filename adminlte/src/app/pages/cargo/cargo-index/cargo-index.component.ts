@@ -31,17 +31,13 @@ export class CargoIndexComponent implements OnInit {
 
   getcargos() {
     this.cargoService.getCargos(this.token).subscribe(response => {
-      if (response.status === 'success') {
-        this.cargos = response.cargos;
+        this.cargos = response;
         this.cols = [
             { field: 'id', header: 'ID' },
             { field: 'nombre', header: 'Nombre' },
             { field: 'descripcion', header: 'Descripción' },
             { field: 'estado', header: 'Estado' }
         ];
-      } else {
-        console.log('error');
-      }
     }, error => {
       console.log(error);
     });

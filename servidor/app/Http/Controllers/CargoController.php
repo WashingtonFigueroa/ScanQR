@@ -14,6 +14,19 @@ class CargoController extends Controller
         return response()->json($cargos, 200);
     }
 
+    public function listaCargos()
+    {
+        $cargos = Cargo::where('estado','1')
+        ->whereNotIn('id', [1])
+        ->get();
+        if (is_object($cargos)) {
+            $data = array('code' => 200, 'status' => 'success', 'cargos' => $cargos);
+        } else {
+            $data = array('code' => 404, 'status' => 'error', 'message' => 'Lista Vacia');
+        }
+        return response()->json($data, $data['code']);
+    }
+
     public function store(Request $request)
     {
         $cargo = Cargo::create($request->all());
@@ -38,7 +51,7 @@ class CargoController extends Controller
         $cargo->delete();
         return response()->json($cargo, 200);
     }
-}
+//}
 
     // public function index()
     // {

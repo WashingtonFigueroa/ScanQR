@@ -53,8 +53,8 @@ public registr: Usuario;
   constructor( private usuarioService: UsuarioService,
                private navCtrl: NavController,
                private uiservice: UiServiceService) {
-    this.usuario = new Usuario(1, 1, '', '', '', '', '', '', '', '', '');
-    this.registr = new Usuario(1, 3, '', '', '', '', '', '', '', '', '');
+    this.usuario = new Usuario(1, 1, 1, '', '', '', '', '', '', '', '', '');
+    this.registr = new Usuario(1, 3, 1, '', '', '', '', '', '', '', '', '');
   }
 
   ionViewDidEnter() {

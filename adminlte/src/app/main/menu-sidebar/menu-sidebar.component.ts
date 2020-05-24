@@ -27,7 +27,7 @@ export class MenuSidebarComponent implements OnInit, AfterViewInit {
     public appService: AppService,
     private loginService: LoginService
     ) {
-      this.identity = this.loginService.getIdentity();
+      this.identity = this.loginService.getIdentity(); 
     }
 
   ngOnInit() {}

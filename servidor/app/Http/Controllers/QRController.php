@@ -37,7 +37,7 @@ class QRController extends Controller
             'nombre' => 'required',
             'tiempo' => 'required',
             'estado' => 'required'
-        ]);
+        ]); 
         if ($validate->fails()) {
             return response()->json([
                 'code' => 400, 'status' => 'error', 'message' => 'No se ha guardado el qr'

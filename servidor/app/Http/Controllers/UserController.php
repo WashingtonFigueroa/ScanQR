@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use App\QR;
 use Illuminate\Support\Facades\Auth;
 use Storage;
 use Validator;
@@ -20,9 +21,12 @@ class UserController extends Controller
     {
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
+             // adjuntar qr
+            $qr = QR::where('user_id', '=', $user->id)->first(); 
             return response()->json([
                 'token' => 'Bearer ' . $user->createToken('qr')->accessToken,
-                'identity' => $user
+                'identity' => $user,
+                'qr' => $qr
             ], $this->successStatus);
         } else {
             return response()->json(['error' => 'Unauthorised'], 401);
@@ -34,9 +38,19 @@ class UserController extends Controller
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
-        return response()->json([
+        // create qr
+         $user_id = User::where('email', '=', $input['email'])->first();   
+         $qr = new QR;
+         $qr->user_id = $user_id->id;
+         $qr->codqr = $input['email'];
+         $qr->nombre = $input['nombre'];
+         $qr->tiempo = 2;
+         $qr->save();
+
+         return response()->json([
             'token' => $user->createToken('qr')->accessToken,
-            'identity' => $user
+            'identity' => $user,
+            'qr' => $qr
         ], $this->successStatus);
     }
 

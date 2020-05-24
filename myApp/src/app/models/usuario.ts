@@ -3,6 +3,8 @@ export class Usuario {
         public id: number,
         // tslint:disable-next-line: variable-name
         public cargo_id: number,
+        // tslint:disable-next-line: variable-name
+        public establecimiento_id: number,
         public nombre: string,
         public password: string,
         public password2: string,

@@ -36,13 +36,13 @@ export class CargoCreateComponent implements OnInit {
   onSubmit(form) {
     console.log(this.cargo);
     this.cargoService.guardar(this.token, this.cargo).subscribe(response => {
-      if (response.status === 'success') {
+      // if (response.status === 'success') {
         this.toastr.success('Ok.', 'cargo Registrado');
         form.reset();
         this.router.navigate(['/cargo']);
-      } else {
-        this.toastr.error('Uppp!', response.message);
-      }
+      // } else {
+      //   this.toastr.error('Uppp!', response.message);
+      // }
     }, error => {
       this.toastr.error('Uppp!', 'comuniquese con el Administrador');
     });

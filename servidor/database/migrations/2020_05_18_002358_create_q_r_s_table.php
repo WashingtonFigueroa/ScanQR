@@ -23,7 +23,7 @@ class CreateQRSTable extends Migration
             $table->string('codqr')->unique();
             $table->string('nombre')->nullable();
             $table->integer('tiempo');
-            $table->string('estado')->default('Inactivo');
+            $table->string('estado')->default('Activo');
             $table->softDeletes();
             $table->timestamps();
         });

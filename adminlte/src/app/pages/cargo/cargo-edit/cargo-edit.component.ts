@@ -36,7 +36,7 @@ export class CargoEditComponent implements OnInit {
       this.id = param.id;
       this.cargoService.show(this.token, this.id)
           .subscribe((res: any) => {
-              this.cargo = res.cargo;
+              this.cargo = res;
           });
   });
 
@@ -46,13 +46,13 @@ export class CargoEditComponent implements OnInit {
 
    onSubmit(form) {
     this.cargoService.update(this.token, this.cargo, this.cargo.id).subscribe(response => {
-      if (response.status === 'success') {
+      // if (response.status === 'success') {
         this.toastr.success('Ok.', 'Datos Actualizados');
         form.reset();
         this.router.navigate(['/cargo']);
-      } else {
-        this.toastr.error('Uppp!', response.message);
-      }
+      // } else {
+      //   this.toastr.error('Uppp!', response.message);
+      // }
     }, error => {
       this.toastr.error('Uppp!', 'comuniquese con el Administrador');
     });

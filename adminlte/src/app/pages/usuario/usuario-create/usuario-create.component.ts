@@ -58,24 +58,11 @@ export class UsuarioCreateComponent implements OnInit {
     this.title = 'Crear Usuario';
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
-    this.user = new User(1, 1, '', '', '', '', '', '', '', null, '');
+    this.user = new User(1, 1, 1, '', '', '', '', '', '', '', null, '');
   }
 
   ngOnInit(): void {
     this.getCargos();
-    this.es = {
-      firstDayOfWeek: 0,
-      dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-      dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
-      dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
-      monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto',
-       'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-      monthNamesShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
-      today: 'Today',
-      clear: 'Clear',
-      dateFormat: 'mm/dd/yy',
-      weekHeader: 'Wk'
-  };
   }
 
   avatarUpload(datos) {
