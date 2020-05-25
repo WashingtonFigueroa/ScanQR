@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
 Route::get('/user/avatar/{filename}','UserController@getImage');
+Route::get('/empresa/logo/{filename}','EstablecimientoController@getImage');
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::post('details', 'API\UserController@details');
@@ -28,11 +29,14 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('ingresos-hoy', 'HistorialController@ingresosHoy');
     Route::post('buscar-historial', 'HistorialController@buscarHistorial');
     Route::get('lista-cargos', 'CargoController@listaCargos');
+
+    Route::post('/empresa/upload','EstablecimientoController@upload');
+    
     Route::apiResources([
         'usuarios' => 'UserController',
         'cargo' => 'CargoController',
         'cupo' => 'CupoController',
-        'noticia' => 'NoticiaController',
+        'noticia' => 'NoticiaController', 
         'establecimiento' => 'EstablecimientoController',
         'qr' => 'QRController',
         'historial' => 'HistorialController'

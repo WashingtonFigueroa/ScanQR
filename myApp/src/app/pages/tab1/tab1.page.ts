@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-tab1',
@@ -7,13 +8,13 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-  public qr;
 
+  public qr;
   constructor(
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private storage: Storage
   ) {
-    this.qr = this.usuarioService.getQR();
-    console.log(this.qr);
+    this.storage.get('qr').then(qrcodigo => this.qr = qrcodigo.codqr);
   }
 
 }

@@ -49,7 +49,36 @@
             </p>
           </a>
         </li>
-        <li class="nav-header">Historial</li>
+        <li class="nav-header">Administración</li>
+        <div *ngIf="identity.cargo_id === 1">
+          <li class="nav-item">
+            <a [routerLink]="['/empresa']" class="nav-link">
+              <i class="fas fa-building"></i>
+              <p>&nbsp;&nbsp;
+                Establecimiento
+                <i class="right fas fa-angle-right"></i>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['/reportes']" class="nav-link">
+              <i class="fas fa-newspaper"></i>
+              <p>&nbsp;&nbsp;
+                Noticia
+                <i class="right fas fa-angle-right"></i>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['/reportes']" class="nav-link">
+              <i class="fas fa-users"></i>
+              <p>&nbsp;&nbsp;
+                Cliente
+                <i class="right fas fa-angle-right"></i>
+              </p>
+            </a>
+          </li>
+        </div>
         <li class="nav-item">
           <a [routerLink]="['/reportes']" class="nav-link">
             <i class="fas fa-address-card"></i>

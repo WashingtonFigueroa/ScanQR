@@ -16,7 +16,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class EmpresaEditComponent implements OnInit {
   public title: string;
   public empresa: Empresa;
-  public empresaid: number;
+  public id: number;
   public identity;
   public token;
   public base = environment.servidor;
@@ -56,13 +56,13 @@ export class EmpresaEditComponent implements OnInit {
     this.title = 'Editar Empresa';
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
-    this.empresa = new Empresa (1, '', '', '', '', '', '', '', '', '', '', 1);
+    this.empresa = new Empresa (1, '', '', '', '', '', '', '',  1);
 
     this.route.params.subscribe((param: any) => {
-      this.empresaid = param.id;
-      this.empresaService.show(this.empresaid)
+      this.id = param.id;
+      this.empresaService.show(this.token, this.id)
           .subscribe((res: any) => {
-              this.empresa = res.empresa;
+              this.empresa = res;
           });
   });
 
@@ -72,22 +72,18 @@ export class EmpresaEditComponent implements OnInit {
 
   avatarUpload(datos) {
     const data = JSON.parse(datos.response);
-    this.empresa.logo = data.logo;
+    this.empresa.logo = data.image;
   }
 
   resetVar() {}
 
   onSubmit(form) {
-    this.empresaService.update(this.token, this.empresa, this.empresa.empresa_id).subscribe(response => {
-      if (response.status === 'success') {
+    this.empresaService.update(this.token, this.empresa, this.empresa.id).subscribe(response => {
         this.toastr.success('Ok.', 'Datos Actualizados');
         form.reset();
         this.router.navigate(['/empresa']);
-      } else {
-        this.toastr.error('Uppp!', response.message);
-      }
     }, error => {
-      this.toastr.error('Uppp!', 'comuniquese con el Administrador');
+      this.toastr.error('Uppp!', 'verifique los valores');
     });
   }
 }

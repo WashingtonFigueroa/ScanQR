@@ -88,7 +88,7 @@ const routes: Routes = [
     component: RegisterComponent,
     canActivate: [NonAuthGuard]
   },
-  {path: '**', redirectTo: ''}
+  {path: '**', redirectTo: 'dashboard'}
 ];
 
 @NgModule({

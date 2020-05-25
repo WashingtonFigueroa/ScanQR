@@ -3,12 +3,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Empresas</h1>
+          <h1>Establecimientos</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
-            <li class="breadcrumb-item active">Empresas</li>
+            <li class="breadcrumb-item active">Establecimientos</li>
           </ol>
         </div>
       </div>
@@ -19,14 +19,26 @@
     <div class="container-fluid">
       <div class="card">
         <div class="card-header">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-10">
                 <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-search"></i></span>
-                        </div>
-                        <input type="text" class="form-control"  placeholder="Buscador..." (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-search"></i></span>
                     </div>
+                    <input type="text" class="form-control" placeholder="Buscador..."
+                           (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                  </div>
                 </div>
+              </div>
+              <div class="col-md-2 text-center">
+                <button class="btn btn-info btn-sm btn-block" routerLink="/empresa/create"><i class="fas fa-plus"></i>&nbsp;&nbsp;
+                  Agregar
+                </button>
+              </div>
+            </div>
+          </div>
                 <p-table #dt [columns]="cols" [value]="empresas" [responsive]="true" [paginator]="true" [rows]="10" >
                   <ng-template pTemplate="header" let-columns>
                     <tr>
@@ -46,14 +58,14 @@
                             Teléfono
                         </th> 
                         <th class="text-center" style="width:160px" >
-                            <button class="btn btn-info btn-sm" routerLink="/empresa/create"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar</button>
+                          Acciones
                         </th>                     
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-empresa>
                   <tr>
                     <td style="width:50px">
-                      {{empresa.empresa_id}}
+                      {{empresa.id}}
                     </td>
                     <td class="text-center">
                       <span *ngIf="!empresa.logo" class="badge badge-danger">Sin imagen</span>
@@ -71,15 +83,15 @@
                     <label *ngIf="!empresa.estado" class="btn-sm" style="color: tomato; width:30%" title="Inactivo"><i class="far fa-times-circle"></i></label>
                    
                     &nbsp;&nbsp;
-                            <button class="btn btn-warning  btn-sm" routerLink="/empresa/edit/{{empresa.empresa_id}}" title="Editar Persona"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-warning  btn-sm" routerLink="/empresa/edit/{{empresa.id}}" title="Editar Persona"><i class="fas fa-edit"></i></button>
                             &nbsp;&nbsp;
                               <!-- Button to Open the Modal -->
-                              <button type="button"class="btn btn-danger  btn-sm" data-toggle="modal" [attr.data-target]="'#myModal'+empresa.empresa_id">
+                              <button type="button"class="btn btn-danger  btn-sm" data-toggle="modal" [attr.data-target]="'#myModal'+empresa.id">
                                 <i class="fas fa-trash-alt"></i>
                               </button>
 
                               <!-- The Modal -->
-                              <div class="modal" id="myModal{{empresa.empresa_id}}">
+                              <div class="modal" id="myModal{{empresa.id}}">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
 
@@ -96,7 +108,7 @@
 
                                     <!-- Modal footer -->
                                     <div class="modal-footer">
-                                      <button class="btn btn-danger  btn-sm" (click)="deleteEmpresa(empresa.empresa_id)" data-dismiss="modal">Eliminar</button>
+                                      <button class="btn btn-danger  btn-sm" (click)="deleteEmpresa(empresa.id)" data-dismiss="modal">Eliminar</button>
 
                                       <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
                                     </div>

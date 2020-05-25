@@ -38,13 +38,14 @@
                         </div>
                       </div>
                       <div class="form-group btn-sm">
-                        <label>Descripción:</label>    
+                        <label> <small class="requeridos">☼</small>  Descripción:</label>    
                         <div class="input-group">
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-ad"></i></span>
                           </div>
-                          <input type="text" name="descripcion" class="form-control" #descripcion="ngModel" [(ngModel)]="cargo.descripcion">
-                        </div>
+                          <input type="text" name="descripcion" class="form-control" #descripcion="ngModel" [(ngModel)]="cargo.descripcion" required>
+                          <small *ngIf="!nombre.valid && nombre.touched" class="invalid-feedback d-block"> La descripcion no es
+                            valida</small></div>
                       </div>
                            
                       <div *ngIf=" title === 'Editar Cargo'" class="form-group btn-sm" >

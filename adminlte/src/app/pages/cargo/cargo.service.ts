@@ -40,16 +40,14 @@ export class CargoService {
   }
 
   update(token, cargo, id): Observable<any> {
-    const json = JSON.stringify(cargo);
-    const params = 'json=' + json;
-    const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    const headers = new HttpHeaders().set('Content-Type', 'application/json')
       .set('Authorization', token);
-    return this.http.put(this.url + 'cargo/' + id, params, {headers: headerss});
+    return this.http.put(this.url + 'cargo/' + id, cargo, {headers: headers});
   }
 
   delete(token, id): Observable<any> {
-    const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-      .set('Authorization', token);
-    return this.http.delete(this.url + 'cargo/' + id, {headers: headerss});
+    const headers = new HttpHeaders().set('Content-Type', 'application/json')
+    .set('Authorization', token);
+    return this.http.delete(this.url + 'cargo/' + id, {headers: headers});
   }
 }

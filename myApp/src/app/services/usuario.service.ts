@@ -87,16 +87,12 @@ usuarior: Usuario;
     this.navCotrl.navigateRoot('/login', {animated: true});
   }
 
-  getQR() {
-   // const qr = JSON.parse(this.storage.get('qr'));
-    const qr = this.storage.get('qr');
-    // if (qr && qr !== 'undefined') {
-    //   this.qr = qr;
-    // } else {
-    //   this.qr = null;
-    // }
-    return this.qr;
-  }
+  //  getQR() {
+  //   this.qr =  this.storage.get('qr');
+  //   console.log(this.qr.codqr);
+  //   const res = this.qr.codqr;
+  //   return res;
+  // }
 
 }
 

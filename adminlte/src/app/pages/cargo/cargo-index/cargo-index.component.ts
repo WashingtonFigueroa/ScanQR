@@ -49,14 +49,10 @@ export class CargoIndexComponent implements OnInit {
 
   deleteCargo(id) {
     this.cargoService.delete(this.token, id).subscribe(response => {
-      if (response.status === 'success') {
         this.toastr.success('Ok.', 'Cargo Eliminado');
         this. getcargos();
-      } else {
-        this.toastr.error('Uppp!', response.message);
-      }
     }, error => {
-      this.toastr.error('Uppp!', 'comuniquese con el Administrador');
+      this.toastr.error('Uppp!', 'verifique los valores');
     });
   }
 }

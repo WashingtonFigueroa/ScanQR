@@ -62,7 +62,18 @@ class UserController extends Controller
 
     public function index()
     {
-        $usuarios = User::all();
+        $usuarios = User::where('cargo_id','!=',4)->get();
+        if (is_object($usuarios)) {
+            $data = array('code' => 200, 'status' => 'success', 'usuarios' => $usuarios);
+        } else {
+            $data = array('code' => 404, 'status' => 'error', 'message' => 'Lista Vacia');
+        }
+        return response()->json($data, $data['code']);
+    }
+
+    public function indexClientes()
+    {
+        $usuarios = User::where('cargo_id',3)->get();
         if (is_object($usuarios)) {
             $data = array('code' => 200, 'status' => 'success', 'usuarios' => $usuarios);
         } else {

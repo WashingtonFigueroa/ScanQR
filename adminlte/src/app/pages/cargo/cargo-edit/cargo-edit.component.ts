@@ -54,7 +54,7 @@ export class CargoEditComponent implements OnInit {
       //   this.toastr.error('Uppp!', response.message);
       // }
     }, error => {
-      this.toastr.error('Uppp!', 'comuniquese con el Administrador');
+      this.toastr.error('Uppp!', 'verifique los valores');
     });
   }
 }
