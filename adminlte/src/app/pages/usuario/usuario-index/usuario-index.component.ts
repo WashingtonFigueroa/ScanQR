@@ -54,16 +54,16 @@ export class UsuarioIndexComponent implements OnInit {
     console.log(car.id);
   }
 
-  deleteRepartidor(id) {
+  deleteUsuario(id) {
     this.usuarioService.delete(this.token, id).subscribe(response => {
       if (response.status === 'success') {
-        this.toastr.success('Ok.', 'Repartidor Suspendido');
+        this.toastr.success('Ok.', 'Usuario Suspendido');
         this. getUser();
       } else {
         this.toastr.error('Uppp!', response.message);
       }
     }, error => {
-      this.toastr.error('Uppp!', 'comuniquese con el Administrador');
+      this.toastr.error('Uppp!', 'verifique los valores');
     });
   }
 }

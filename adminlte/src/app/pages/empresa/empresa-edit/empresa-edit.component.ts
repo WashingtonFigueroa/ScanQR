@@ -53,7 +53,7 @@ export class EmpresaEditComponent implements OnInit {
     private loginService: LoginService,
     private empresaService: EmpresaService
   ) {
-    this.title = 'Editar Empresa';
+    this.title = 'Editar Establecimiento';
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
     this.empresa = new Empresa (1, '', '', '', '', '', '', '',  1);

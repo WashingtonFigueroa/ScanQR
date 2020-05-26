@@ -7,7 +7,7 @@ export class Noticia {
         public detalle: string,
         // tslint:disable-next-line: variable-name
         public fecha_fin: string,
-        public imagen: string,
+        public image: string,
         public estado: any
     ) {}
 }

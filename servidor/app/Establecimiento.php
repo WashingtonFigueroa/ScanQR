@@ -11,7 +11,7 @@ class Establecimiento extends Model
 
     protected $table = 'establecimientos';
     protected $fillable = [
-        'documento ',
+        'documento',
         'nombre',
         'actividad',
         'direccion',

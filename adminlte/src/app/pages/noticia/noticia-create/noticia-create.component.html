@@ -1,1 +1,112 @@
-<p>noticia-create works!</p>
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>{{title}}</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a routerLink="/dashboard">Inicio</a></li>
+            <li class="breadcrumb-item active">{{title}}</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-info card-outline">
+            <form #createNoticiaForm="ngForm" (ngSubmit)="onSubmit(createNoticiaForm)">
+              <div class="card-body">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-md-6">       
+                      <div class="form-group-sm" *ngIf="empresas !== null">
+                        <label><small class="requeridos">☼</small> Seleccione empresa:</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend ">
+                            <span class="input-group-text"><i class="fas fa-building "></i></span>
+                          </div>
+                          <ng-select [items]="empresas"
+                                     class="custom"
+                                     style="width: 86%;"
+                                     name="establecimiento_id"
+                                     #establecimiento_id="ngModel" [(ngModel)]="noticia.establecimiento_id"
+                                     bindLabel="nombre"
+                                     bindValue="id"
+                                     required>
+                          </ng-select>
+                          <small *ngIf="!establecimiento_id.valid && establecimiento_id.touched" class="invalid-feedback d-block"> Campo
+                            Obligatorio</small>
+                        </div>
+                      </div>
+                      <div class="form-group btn-sm">
+                        <label> <small class="requeridos">☼</small> Titulo Noticia:</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-newspaper"></i></span>
+                          </div>
+                          <input type="text" name="titulo" class="form-control" #titulo="ngModel" [(ngModel)]="noticia.titulo" required>
+                        <small *ngIf="!titulo.valid && titulo.touched" class="invalid-feedback d-block"> El titulo es obligatorio</small>
+                        </div>
+                      </div>
+                      <div class="form-group btn-sm">
+                        <label> <small class="requeridos">☼</small>  Detalle:</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-ad"></i></span>
+                          </div>
+                          <textarea name="detalle" class="form-control" #detalle="ngModel" [(ngModel)]="noticia.detalle" required></textarea>
+                          <small *ngIf="!detalle.valid && detalle.touched" class="invalid-feedback d-block"> La detalle es obligatorio`</small></div>
+                      </div>
+                     <br>
+                    </div>
+                    <div class="col-md-6">   
+                        <div class="form-group btn-sm">
+                            <label>Fecha Fin:</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt "></i></span>
+                              </div>
+                              <input type="date" name="fecha_fin" class="form-control" #fecha_fin="ngModel"
+                              [ngModel]="today | date:'yyyy-MM-dd'">
+
+                            </div>
+                          </div>
+                          <div class="form-group btn-sm">
+                            <label for="image">Seleccione Foto:</label>
+                            <angular-file-uploader [config]="afuConfig" [resetUpload]=resetVar
+                                                   (ApiResponse)="avatarUpload($event)">
+                            </angular-file-uploader>
+                          </div>
+                          <div *ngIf=" title === 'Editar Noticia'" class="form-group btn-sm" >
+                            <label><small class="requeridos">☼</small>  Seleccione Estado:</label>    
+                            <div class="input-group">
+                              <label class="container">Estado
+                                <input  type="checkbox" checkbox="true" name="estado"  #estado="ngModel" [(ngModel)]="noticia.estado">
+                                <span class="checkmark"></span>
+                              </label>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="contenedor-div botones-abajo-derecha">
+
+                        <button type="submit" class="btn btn-success btn-sm" [disabled]="!createNoticiaForm.form.valid">
+                          <i class="fas fa-save"></i>&nbsp;&nbsp; {{title}} </button>
+                          &nbsp;&nbsp; &nbsp;&nbsp;
+                        <button type="button" class="btn btn-danger btn-sm" routerLink="/noticia">
+                        <i class="fas fa-arrow-left"></i>&nbsp;&nbsp; Cancelar</button>
+                      </div>
+
+                  </div>
+                </div>
+              </div> 
+             
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use File;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -10,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\QR;
 use Illuminate\Support\Facades\Auth;
+use File;
 use Storage;
 use Validator;
 
@@ -46,7 +46,6 @@ class UserController extends Controller
          $qr->nombre = $input['nombre'];
          $qr->tiempo = 2;
          $qr->save();
-
          return response()->json([
             'token' => $user->createToken('qr')->accessToken,
             'identity' => $user,

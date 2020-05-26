@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { LoginService } from 'src/app/login/login.service';
 import { Router } from '@angular/router';
 import { Cargo } from 'src/app/models/cargo';
-import { CargoService } from '../cargo.service';
+import { CargoService } from '../cargo.service'; 
 
 @Component({
   selector: 'app-cargo-create',

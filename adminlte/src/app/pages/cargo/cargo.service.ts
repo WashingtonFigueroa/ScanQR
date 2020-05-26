@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment.prod';
 
 @Injectable({
-  providedIn: 'root' 
+  providedIn: 'root'
 })
 export class CargoService {
   public url = environment.servidor;

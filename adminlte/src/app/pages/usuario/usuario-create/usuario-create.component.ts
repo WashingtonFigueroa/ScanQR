@@ -47,7 +47,7 @@ export class UsuarioCreateComponent implements OnInit {
       afterUploadMsg_error: 'Upload Failed !'
     }
   };
-
+ 
   constructor(
     private toastr: ToastrService,
     private router: Router,

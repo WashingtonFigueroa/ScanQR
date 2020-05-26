@@ -12,7 +12,7 @@ class Noticia extends Model
 
     protected $table = 'noticias';
     protected $fillable = [
-        'establecimiento_id ',
+        'establecimiento_id',
         'titulo',
         'detalle',
         'fecha_fin',

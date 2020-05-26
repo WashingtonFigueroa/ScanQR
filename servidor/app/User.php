@@ -59,4 +59,4 @@ class User extends Authenticatable
     {
         return Cargo::find($this->cargo_id);
     }
-}
+} 
