@@ -28,6 +28,14 @@ import {QrEditComponent} from './pages/qr/qr-edit/qr-edit.component';
 import {QrCreateComponent} from './pages/qr/qr-create/qr-create.component';
 
 import {ReportesComponent} from './pages/reportes/reportes.component';
+import { CupoComponent } from './pages/cupo/cupo.component';
+import { CupoIndexComponent } from './pages/cupo/cupo-index/cupo-index.component';
+import { CupoCreateComponent } from './pages/cupo/cupo-create/cupo-create.component';
+import { CupoEditComponent } from './pages/cupo/cupo-edit/cupo-edit.component';
+import { NoticiaComponent } from './pages/noticia/noticia.component';
+import { NoticiaIndexComponent } from './pages/noticia/noticia-index/noticia-index.component';
+import { NoticiaCreateComponent } from './pages/noticia/noticia-create/noticia-create.component';
+import { NoticiaEditComponent } from './pages/noticia/noticia-edit/noticia-edit.component';
 
 
 /*    canActivate: [AuthGuard], canActivateChild: [AuthGuard],*/
@@ -69,6 +77,24 @@ const routes: Routes = [
           {path: 'index', component: EmpresaIndexComponent},
           {path: 'create', component: EmpresaCreateComponent},
           {path: 'edit/:id', component: EmpresaEditComponent},
+        ]
+      },
+      {
+        path: 'cupo', component: CupoComponent,
+        children: [
+          {path: '', component: CupoIndexComponent},
+          {path: 'index', component: CupoIndexComponent},
+          {path: 'create', component: CupoCreateComponent},
+          {path: 'edit/:id', component: CupoEditComponent},
+        ]
+      },
+      {
+        path: 'noticia', component: NoticiaComponent,
+        children: [
+          {path: '', component: NoticiaIndexComponent},
+          {path: 'index', component: NoticiaIndexComponent},
+          {path: 'create', component: NoticiaCreateComponent},
+          {path: 'edit/:id', component: NoticiaEditComponent},
         ]
       },
       {

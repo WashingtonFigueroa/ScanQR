@@ -47,6 +47,14 @@ import {QrCreateComponent} from './pages/qr/qr-create/qr-create.component';
 import {ZXingScannerModule} from '@zxing/ngx-scanner';
 import { QRCodeModule } from 'angularx-qrcode';
 import {TooltipModule} from 'primeng';
+import { CupoComponent } from './pages/cupo/cupo.component';
+import { CupoIndexComponent } from './pages/cupo/cupo-index/cupo-index.component';
+import { CupoEditComponent } from './pages/cupo/cupo-edit/cupo-edit.component';
+import { CupoCreateComponent } from './pages/cupo/cupo-create/cupo-create.component';
+import { NoticiaComponent } from './pages/noticia/noticia.component';
+import { NoticiaIndexComponent } from './pages/noticia/noticia-index/noticia-index.component';
+import { NoticiaEditComponent } from './pages/noticia/noticia-edit/noticia-edit.component';
+import { NoticiaCreateComponent } from './pages/noticia/noticia-create/noticia-create.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +85,14 @@ import {TooltipModule} from 'primeng';
     QrIndexComponent,
     QrEditComponent,
     QrCreateComponent,
+    CupoComponent,
+    CupoIndexComponent,
+    CupoEditComponent,
+    CupoCreateComponent,
+    NoticiaComponent,
+    NoticiaIndexComponent,
+    NoticiaEditComponent,
+    NoticiaCreateComponent,
   ],
     imports: [
         BrowserModule,

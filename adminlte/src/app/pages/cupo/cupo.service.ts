@@ -4,9 +4,9 @@ import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment.prod';
 
 @Injectable({
-  providedIn: 'root' 
+  providedIn: 'root'
 })
-export class CargoService {
+export class CupoService {
   public url = environment.servidor;
   public status: string;
   public token;
@@ -15,39 +15,39 @@ export class CargoService {
   constructor(private http: HttpClient) {
   }
 
-  getCargos(token): Observable<any> {
+  getCupos(token): Observable<any> {
     const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
       .set('Authorization', token);
-    return this.http.get(this.url + 'cargo', {headers: headerss});
+    return this.http.get(this.url + 'cupo', {headers: headerss});
   }
 
-  getListaCargos(token): Observable<any> {
+  getListaCupos(token): Observable<any> {
     const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
       .set('Authorization', token);
-    return this.http.get(this.url + 'lista-cargos', {headers: headerss});
+    return this.http.get(this.url + 'lista-cupos', {headers: headerss});
   }
 
   show(token, id): Observable<any> {
     const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     .set('Authorization', token);
-    return this.http.get(this.url + 'cargo/' + id, {headers: headerss});
+    return this.http.get(this.url + 'cupo/' + id, {headers: headerss});
   }
 
-  guardar(token, cargo): Observable<any> {
+  guardar(token, cupo): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json')
       .set('Authorization', token);
-    return this.http.post(this.url + 'cargo', cargo, {headers: headers});
+    return this.http.post(this.url + 'cupo', cupo, {headers: headers});
   }
 
-  update(token, cargo, id): Observable<any> {
+  update(token, cupo, id): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json')
       .set('Authorization', token);
-    return this.http.put(this.url + 'cargo/' + id, cargo, {headers: headers});
+    return this.http.put(this.url + 'cupo/' + id, cupo, {headers: headers});
   }
 
   delete(token, id): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json')
     .set('Authorization', token);
-    return this.http.delete(this.url + 'cargo/' + id, {headers: headers});
+    return this.http.delete(this.url + 'cupo/' + id, {headers: headers});
   }
 }

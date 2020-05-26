@@ -3,17 +3,17 @@ import { environment } from 'src/environments/environment.prod';
 import { ToastrService } from 'ngx-toastr';
 import { LoginService } from 'src/app/login/login.service';
 import { Router } from '@angular/router';
-import { Cargo } from 'src/app/models/cargo';
-import { CargoService } from '../cargo.service';
+import { Cupo } from 'src/app/models/cupo.models';
+import { CupoService } from '../cupo.service';
 
 @Component({
-  selector: 'app-cargo-create',
-  templateUrl: './cargo-create.component.html',
-  styleUrls: ['./cargo-create.component.scss']
+  selector: 'app-cupo-create',
+  templateUrl: './cupo-create.component.html',
+  styleUrls: ['./cupo-create.component.scss']
 })
-export class CargoCreateComponent implements OnInit {
+export class CupoCreateComponent implements OnInit {
   public title: string;
-  public cargo: Cargo;
+  public cupo: Cupo;
   public identity;
   public token;
   public base = environment.servidor;
@@ -23,22 +23,22 @@ export class CargoCreateComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private loginService: LoginService,
-    private cargoService: CargoService
+    private cupoService: CupoService
   ) {
-    this.title = 'Crear Cargo';
+    this.title = 'Crear cupo';
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
-    this.cargo = new Cargo (1, '', '', 1);
+    this.cupo = new Cupo (1, 1, '', '', '', '', 1);
   }
   ngOnInit(): void {
   }
 
   onSubmit(form) {
-    console.log(this.cargo);
-    this.cargoService.guardar(this.token, this.cargo).subscribe(response => {
-        this.toastr.success('Ok.', 'cargo Registrado');
+    console.log(this.cupo);
+    this.cupoService.guardar(this.token, this.cupo).subscribe(response => {
+        this.toastr.success('Ok.', 'Cupo Registrado');
         form.reset();
-        this.router.navigate(['/cargo']);
+        this.router.navigate(['/cupo']);
     }, error => {
       this.toastr.error('Uppp!', 'verifique los valores');
     });
