@@ -28,6 +28,12 @@ export class UsuarioService {
     return this.http.get(this.url + 'cliente', {headers: headerss});
   }
 
+  getListaUsuarios(token): Observable<any> {
+    const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', token);
+    return this.http.get(this.url + 'lista-usuarios', {headers: headerss});
+  }
+
   show(token, id): Observable<any> {
     const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
       .set('Authorization', token);

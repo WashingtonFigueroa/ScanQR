@@ -70,6 +70,17 @@ class UserController extends Controller
         return response()->json($data, $data['code']);
     }
 
+    public function listaUsuarios()
+    {
+        $usuarios = User::all();
+        if (is_object($usuarios)) {
+            $data = array('code' => 200, 'status' => 'success', 'usuarios' => $usuarios);
+        } else {
+            $data = array('code' => 404, 'status' => 'error', 'message' => 'Lista Vacia');
+        }
+        return response()->json($data, $data['code']);
+    }
+
     public function indexClientes()
     {
         $usuarios = User::where('cargo_id',4)->get();

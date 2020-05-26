@@ -32,20 +32,22 @@ class QRController extends Controller
 
     public function store(Request $request)
     {
-        $validate = Validator::make($request->all(), [
-            'codqr' => 'required',
-            'nombre' => 'required',
-            'tiempo' => 'required',
-            'estado' => 'required'
-        ]); 
-        if ($validate->fails()) {
-            return response()->json([
-                'code' => 400, 'status' => 'error', 'message' => 'No se ha guardado el qr'
-            ]);
-        } else {
-            $qr = QR::create($request->all());
-            return response()->json(['code' => 200, 'status' => 'success', 'qr' => $qr], 201);
-        }
+        $qr = QR::create($request->all());
+        return response()->json($qr, 201);
+        // $validate = Validator::make($request->all(), [
+        //     'codqr' => 'required',
+        //     'nombre' => 'required',
+        //     'tiempo' => 'required',
+        //     'estado' => 'required' 
+        // ]); 
+        // if ($validate->fails()) {
+        //     return response()->json([
+        //         'code' => 400, 'status' => 'error', 'message' => 'No se ha guardado el qr'
+        //     ]);
+        // } else {
+        //     $qr = QR::create($request->all());
+        //     return response()->json(['code' => 200, 'status' => 'success', 'qr' => $qr], 201);
+        // }
     }
 
     public function update(Request $request, $id)

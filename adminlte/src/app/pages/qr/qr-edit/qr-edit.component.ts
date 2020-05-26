@@ -5,6 +5,8 @@ import { LoginService } from 'src/app/login/login.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Qr } from 'src/app/models/qr';
 import { QrService } from '../qr.service';
+import { User } from 'src/app/models/user';
+import { UsuarioService } from '../../usuario/usuario.service';
 
 @Component({
   selector: 'app-qr-edit',
@@ -16,6 +18,7 @@ import { QrService } from '../qr.service';
 export class QrEditComponent implements OnInit {
   public title: string;
   public qr: Qr;
+  public usuarios: User;
   public id: number;
   public identity;
   public token;
@@ -25,12 +28,13 @@ export class QrEditComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private loginService: LoginService,
-    private qrService: QrService
+    private qrService: QrService,
+    private usuarioService: UsuarioService
   ) {
     this.title = 'Editar Qr';
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
-    this.qr = new Qr (1, '', '', 1, 'Inactivo');
+    this.qr = new Qr(1, 1, '', '', 1, 'Activo');
 
     this.route.params.subscribe((param: any) => {
       this.id = param.id;
@@ -41,7 +45,9 @@ export class QrEditComponent implements OnInit {
   });
 
   }
+
   ngOnInit(): void {
+    this.getUsuarios();
   }
 
    onSubmit(form) {
@@ -55,6 +61,14 @@ export class QrEditComponent implements OnInit {
       }
     }, error => {
       this.toastr.error('Uppp!', 'comuniquese con el Administrador');
+    });
+  }
+
+  getUsuarios() {
+    this.usuarioService.getListaUsuarios(this.token).subscribe(response => {
+        this.usuarios = response.usuarios;
+    }, error => {
+      console.log(error);
     });
   }
 }
