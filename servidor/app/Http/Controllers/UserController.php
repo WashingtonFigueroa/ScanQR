@@ -72,7 +72,7 @@ class UserController extends Controller
 
     public function indexClientes()
     {
-        $usuarios = User::where('cargo_id',3)->get();
+        $usuarios = User::where('cargo_id',4)->get();
         if (is_object($usuarios)) {
             $data = array('code' => 200, 'status' => 'success', 'usuarios' => $usuarios);
         } else {

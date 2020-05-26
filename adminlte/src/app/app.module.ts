@@ -55,6 +55,8 @@ import { NoticiaComponent } from './pages/noticia/noticia.component';
 import { NoticiaIndexComponent } from './pages/noticia/noticia-index/noticia-index.component';
 import { NoticiaEditComponent } from './pages/noticia/noticia-edit/noticia-edit.component';
 import { NoticiaCreateComponent } from './pages/noticia/noticia-create/noticia-create.component';
+import { ClienteComponent } from './pages/cliente/cliente.component';
+import { ClienteIndexComponent } from './pages/cliente/cliente-index/cliente-index.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +95,8 @@ import { NoticiaCreateComponent } from './pages/noticia/noticia-create/noticia-c
     NoticiaIndexComponent,
     NoticiaEditComponent,
     NoticiaCreateComponent,
+    ClienteComponent,
+    ClienteIndexComponent,
   ],
     imports: [
         BrowserModule,

@@ -36,7 +36,8 @@ import { NoticiaComponent } from './pages/noticia/noticia.component';
 import { NoticiaIndexComponent } from './pages/noticia/noticia-index/noticia-index.component';
 import { NoticiaCreateComponent } from './pages/noticia/noticia-create/noticia-create.component';
 import { NoticiaEditComponent } from './pages/noticia/noticia-edit/noticia-edit.component';
-
+import { ClienteComponent } from './pages/cliente/cliente.component';
+import { ClienteIndexComponent } from './pages/cliente/cliente-index/cliente-index.component';
 
 /*    canActivate: [AuthGuard], canActivateChild: [AuthGuard],*/
 const routes: Routes = [
@@ -50,6 +51,13 @@ const routes: Routes = [
           {path: 'index', component: UsuarioIndexComponent},
           {path: 'create', component: UsuarioCreateComponent},
           {path: 'edit/:id', component: UsuarioEditComponent},
+        ]
+      },
+      {
+        path: 'cliente', component: ClienteComponent,
+        children: [
+          {path: '', component: ClienteIndexComponent},
+          {path: 'index', component: ClienteIndexComponent},
         ]
       },
       {
