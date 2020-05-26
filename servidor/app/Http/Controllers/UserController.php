@@ -113,6 +113,14 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->update($request->all());
+// update data qr
+         $data = $request->all();
+         if ($data['cargo_id'] === 4 ) {
+             $qr = QR::where('user_id','=', $id)->first();
+             $qr->codqr = $data['email'];
+             $qr->nombre = $data['nombre'];
+             $qr->save();
+         }
         return response()->json($user, 200);
     }
 
