@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment.prod';
 import { Storage } from '@ionic/storage';
 import { Usuario } from '../models/usuario';
 import { NavController } from '@ionic/angular';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -87,12 +88,11 @@ usuarior: Usuario;
     this.navCotrl.navigateRoot('/login', {animated: true});
   }
 
-  //  getQR() {
-  //   this.qr =  this.storage.get('qr');
-  //   console.log(this.qr.codqr);
-  //   const res = this.qr.codqr;
-  //   return res;
-  // }
+  getNoticias(): Observable<any> {
+    const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', this.token);
+    return this.http.get(this.url + 'noticia', {headers: headerss});
+  }
 
 }
 

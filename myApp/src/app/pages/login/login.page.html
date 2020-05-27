@@ -5,117 +5,122 @@
         <ion-grid fixed>
           <ion-row>
             <ion-col>
-              <img src="/assets/avatars/av-1.png">
+              <ion-img
+                src="/assets/avatars/av-1.png"
+                class="tamanio-img"
+              ></ion-img>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col>
-                <ion-list>
-                  <ion-item>
-                    <ion-label>Email</ion-label>
-                    <ion-input  type="email"
-                                name="email" 
-                                #email="ngModel"
-                                [(ngModel)]="usuario.email"
-                                required></ion-input>
-                  </ion-item>
-                  <ion-item>
-                    <ion-label>Password</ion-label>
-                    <ion-input type="password"
-                                name="password"
-                                #password="ngModel" 
-                                [(ngModel)]="usuario.password"
-                                required></ion-input>
-                  </ion-item>
-                </ion-list>
+              <ion-list>
+                <ion-item>
+                  <ion-label>Email: </ion-label>
+                  <ion-input
+                    type="email"
+                    name="email"
+                    #email="ngModel"
+                    [(ngModel)]="usuario.email"
+                    required
+                  ></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Contraseña: </ion-label>
+                  <ion-input
+                    [type]="password_type"
+                    name="password"
+                    #password="ngModel"
+                    [(ngModel)]="usuario.password"
+                    required
+                  ></ion-input>
+                  <ion-icon
+                    name="eye"
+                    item-right
+                    (click)="togglePasswordMode()"
+                  ></ion-icon>
+                </ion-item>
+              </ion-list>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col>
-              <ion-button type="submit"
-                          color="tertiary"
-                          shape="round">
-                Login
+              <ion-button type="submit" color="tertiary" shape="round">
+                Iniciar sesión
               </ion-button>
             </ion-col>
           </ion-row>
-
         </ion-grid>
       </form>
     </ion-slide>
-
     <ion-slide>
       <ion-grid fixed>
-            <ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-img src="/assets/avatars/av-1.png" class="tamanio"></ion-img>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <h3>Crea una cuenta</h3>
+            <h5>Es rápido y fácil.</h5>
+          </ion-col>
+        </ion-row>
+        <form (ngSubmit)="registro(fRegistro)" #fRegistro="ngForm">
+          <ion-row>
             <ion-col>
-                <h3>Forma parte de Nuestro Equipo</h3>
+              <ion-list>
+                <ion-item>
+                  <ion-label>Cédula/Pasaporte: </ion-label>
+                  <ion-input
+                    name="cedula"
+                    type="cedula"
+                    #cedula="ngModel"
+                    [(ngModel)]="registr.cedula"
+                  ></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Nombres: </ion-label>
+                  <ion-input
+                    name="nombre"
+                    type="text"
+                    #nombre="ngModel"
+                    [(ngModel)]="registr.nombre"
+                    required
+                  ></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Email: </ion-label>
+                  <ion-input
+                    name="email"
+                    type="email"
+                    #email="ngModel"
+                    [(ngModel)]="registr.email"
+                    required
+                  ></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Contraseña:</ion-label>
+                  <ion-input
+                    name="password"
+                    type="password"
+                    #password="ngModel"
+                    [(ngModel)]="registr.password"
+                    required
+                  ></ion-input>
+                </ion-item>
+              </ion-list>
             </ion-col>
-            </ion-row>
-            <!-- <ion-row>
-              <ion-col>
-                <ion-list>
-                  <ion-item *ngFor="let avatar of avatars">
-                    <ion-thumbnail slot="start">
-                      <ion-img src="/assets/avatars/{‌{avatar.img}}"></ion-img>
-                     
-                    </ion-thumbnail>
-                  </ion-item>
-                </ion-list>
-                  
-              </ion-col>
-              </ion-row> -->
-            <form (ngSubmit)="registro(fRegistro)" #fRegistro="ngForm">
-                <ion-row>
-                    <ion-col>
-                        <ion-list>
-                          <!-- <ion-item>
-                            <ion-label>Cedula/Pasaporte</ion-label>
-                            <ion-input name="email" 
-                                        type="email"
-                                        #email="ngModel" 
-                                        [(ngModel)]="registr.email"
-                                        required></ion-input>
-                            </ion-item> -->
-                            <ion-item>
-                            <ion-label>Email</ion-label>
-                            <ion-input name="email" 
-                                        type="email"
-                                        #email="ngModel" 
-                                        [(ngModel)]="registr.email"
-                                        required></ion-input>
-                            </ion-item>
-                            <ion-item>
-                            <ion-label>Nombre</ion-label>
-                            <ion-input name="nombre"
-                                        type="text"
-                                        #nombre="ngModel" 
-                                        [(ngModel)]="registr.nombre"
-                                        required></ion-input>
-                            </ion-item>
-
-                            <ion-item>
-                            <ion-label>Password</ion-label>
-                            <ion-input name="password"
-                                        type="password"
-                                        #password="ngModel" 
-                                        [(ngModel)]="registr.password"
-                                        required></ion-input>
-                            </ion-item>
-                        </ion-list>
-                    </ion-col>
-                </ion-row>
-                <ion-row>
-                <ion-col>
-                    <ion-button type="submit"
-                                color="tertiary"
-                                shape="round">
-                        Crear usuario
-                    </ion-button>
-                </ion-col>
-            </ion-row>
-            </form>
-        </ion-grid>
-      </ion-slide>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-button type="submit" color="tertiary" shape="round">
+                Registrarte
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-grid>
+    </ion-slide>
   </ion-slides>
 </ion-content>
 
@@ -123,22 +128,26 @@
   <ion-toolbar>
     <ion-row>
       <ion-col>
-          <ion-button shape="round"
-                      expand="full"
-                      size="small"
-                      fill="outline"
-                      color="tertiary"
-                      (click)="mostrarRegistro()">
-            Ingresar
-          </ion-button>
+        <ion-button
+          shape="round"
+          expand="full"
+          size="small"
+          fill="outline"
+          color="tertiary"
+          (click)="mostrarRegistro()"
+        >
+          Ingresar
+        </ion-button>
       </ion-col>
       <ion-col>
-        <ion-button shape="round"
-                    expand="full"
-                    size="small"
-                    fill="outline"
-                    color="tertiary"
-                    (click)="mostrarlogin()">
+        <ion-button
+          shape="round"
+          expand="full"
+          size="small"
+          fill="outline"
+          color="tertiary"
+          (click)="mostrarlogin()"
+        >
           Registrarme
         </ion-button>
       </ion-col>

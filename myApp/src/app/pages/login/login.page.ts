@@ -12,43 +12,10 @@ import { UiServiceService } from 'src/app/services/ui-service.service';
 })
 export class LoginPage implements OnInit {
  @ViewChild('slidePrincipal') slides: IonSlides;
-  public avatars = [
-    {
-      img: 'av-1.png',
-      seleccionado: true
-    },
-    {
-      img: 'av-2.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-3.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-4.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-5.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-6.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-7.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-8.png',
-      seleccionado: false
-    },
-];
 
 public usuario: Usuario;
 public registr: Usuario;
+password_type: string = 'password';
 
   constructor( private usuarioService: UsuarioService,
                private navCtrl: NavController,
@@ -64,6 +31,10 @@ public registr: Usuario;
   ngOnInit() {
   }
 
+  togglePasswordMode() {
+    this.password_type = this.password_type === 'text' ? 'password' : 'text';
+ }
+
   mostrarRegistro() {
     this.slides.lockSwipes( false );
     this.slides.slideTo(0);
@@ -74,8 +45,7 @@ public registr: Usuario;
     this.slides.slideTo(1);
     this.slides.lockSwipes( true );
   }
-// 15 %
-// 10 %
+
   async login(fLogin: NgForm) {
     if (fLogin.invalid) { return; }
     const valido = await this.usuarioService.login(this.usuario);
