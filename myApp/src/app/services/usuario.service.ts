@@ -28,13 +28,11 @@ usuarior: Usuario;
       this.http.post(`${this.url}login`, data)
       .subscribe(resp => {
         this.guardarToken(resp[ 'token' ], resp[ 'qr' ], resp[ 'identity' ]);
-        this.navCotrl.navigateRoot('/login');
-        console.log('DTMOWED');
+        this.navCotrl.navigateRoot('/main/tabs/tab1');
         resolve(true);
       }, () => {
         this.token = null;
         this.storage.clear();
-        console.log('error');
         resolve(false);
       });
     });
@@ -53,14 +51,12 @@ usuarior: Usuario;
       return new Promise(resolve => {
         this.http.post(`${this.url}register`, data)
         .subscribe(resp => {
-        this.guardarToken(resp[ 'token' ], resp[ 'qr' ], resp[ 'identity' ]);
-        this.navCotrl.navigateRoot('/login');
-        console.log('DTMOWED REGISTER');
+        // this.guardarToken(resp[ 'token' ], resp[ 'qr' ], resp[ 'identity' ]);
+        // this.navCotrl.navigateRoot('/login');
         resolve(true);
       }, () => {
         this.token = null;
         this.storage.clear();
-        console.log('error');
         resolve(false);
       });
     });
@@ -92,6 +88,10 @@ usuarior: Usuario;
     const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
       .set('Authorization', this.token);
     return this.http.get(this.url + 'noticia', {headers: headerss});
+  }
+
+  getEstablecimientos(): Observable<any> {
+    return this.http.get(this.url + 'establecimientos');
   }
 
 }

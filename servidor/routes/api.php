@@ -6,6 +6,7 @@ Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
 Route::get('/user/avatar/{filename}','UserController@getImage');
 Route::get('/empresa/logo/{filename}','EstablecimientoController@getImage');
+Route::get('establecimientos','EstablecimientoController@index');
 Route::get('/noticia/imagen/{filename}','NoticiaController@getImage');
 
 Route::group(['middleware' => 'auth:api'], function() {

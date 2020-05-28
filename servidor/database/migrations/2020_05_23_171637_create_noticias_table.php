@@ -21,7 +21,7 @@ class CreateNoticiasTable extends Migration
                 ->on('establecimientos')
                 ->onDelete('cascade');
             $table->string('titulo');
-            $table->string('detalle');
+            $table->text('detalle');
             $table->string('fecha_fin');
             $table->string('image')->nullable();
             $table->boolean('estado')->default(true);

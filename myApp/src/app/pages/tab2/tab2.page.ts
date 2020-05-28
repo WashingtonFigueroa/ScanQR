@@ -18,12 +18,22 @@ export class Tab2Page implements OnInit {
   }
 
   ngOnInit() {
+    this.cargarNoticias();
+  }
+
+  doRefresh(event) {
+    this.cargarNoticias();
+    setTimeout(() => {
+      event.target.complete();
+    }, 2000);
+  }
+
+  cargarNoticias() {
     this.usuarioService.getNoticias().subscribe(response => {
       this.noticias = response;
       console.log(this.noticias);
-  }, error => {
-    this.uiservice.alertaInformativa('No se ha encontrado Noticias');
-  });
+    }, error => {
+      this.uiservice.alertaInformativa('No se ha encontrado Noticias');
+    });
   }
-
 }

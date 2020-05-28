@@ -19,7 +19,6 @@ class EstablecimientoController extends Controller
 
     public function store(Request $request)
     {
-        var_dump($request);
         $establecimiento = Establecimiento::create($request->all());
         return response()->json($establecimiento, 201);
     }

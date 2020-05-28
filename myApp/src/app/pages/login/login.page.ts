@@ -4,6 +4,8 @@ import { IonSlides, NavController } from '@ionic/angular';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Usuario } from '../../models/usuario';
 import { UiServiceService } from 'src/app/services/ui-service.service';
+import { Empresa } from 'src/app/models/empresa.models';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-login',
@@ -11,15 +13,17 @@ import { UiServiceService } from 'src/app/services/ui-service.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
- @ViewChild('slidePrincipal') slides: IonSlides;
+  @ViewChild('slidePrincipal') slides: IonSlides;
+  public base = environment.servidor;
+  public usuario: Usuario;
+  public establecimientos: Empresa;
+  public registr: Usuario;
+  public passwordType = 'password';
 
-public usuario: Usuario;
-public registr: Usuario;
-password_type: string = 'password';
-
-  constructor( private usuarioService: UsuarioService,
-               private navCtrl: NavController,
-               private uiservice: UiServiceService) {
+  constructor(
+    private usuarioService: UsuarioService,
+    private navCtrl: NavController,
+    private uiservice: UiServiceService) {
     this.usuario = new Usuario(1, 1, 1, '', '', '', '', '', '', '', '', '');
     this.registr = new Usuario(1, 4, 1, '', '', '', '', '', '', '', '', '');
   }
@@ -29,29 +33,35 @@ password_type: string = 'password';
   }
 
   ngOnInit() {
+    this.usuarioService.getEstablecimientos().subscribe(response => {
+      this.establecimientos = response;
+      console.log(this.establecimientos);
+    }, error => {
+      console.log(error);
+    });
   }
 
   togglePasswordMode() {
-    this.password_type = this.password_type === 'text' ? 'password' : 'text';
- }
+    this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
+  }
 
   mostrarRegistro() {
-    this.slides.lockSwipes( false );
+    this.slides.lockSwipes(false);
     this.slides.slideTo(0);
-    this.slides.lockSwipes( true );
+    this.slides.lockSwipes(true);
   }
-  mostrarlogin(){
-    this.slides.lockSwipes( false );
+  mostrarlogin() {
+    this.slides.lockSwipes(false);
     this.slides.slideTo(1);
-    this.slides.lockSwipes( true );
+    this.slides.lockSwipes(true);
   }
 
   async login(fLogin: NgForm) {
     if (fLogin.invalid) { return; }
     const valido = await this.usuarioService.login(this.usuario);
-    if (valido) {
-      this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true});
-    } else {
+    if (!valido) {
+      // this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true });
+   // } else {
       this.uiservice.alertaInformativa('Usuario y Contraseña no son correctos');
     }
   }
@@ -60,8 +70,10 @@ password_type: string = 'password';
     if (fRegistro.invalid) { return; }
     const valido = await this.usuarioService.registro(this.registr);
     if (valido) {
-      this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true});
-    } else {
+    //   this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true });
+    this.uiservice.alertaInformativa('Usuario Registrado');
+    this.mostrarRegistro();
+  } else {
       this.uiservice.alertaInformativa('El correo electronico ya existe');
     }
   }
