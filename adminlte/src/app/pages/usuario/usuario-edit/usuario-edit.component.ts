@@ -7,6 +7,8 @@ import {LoginService} from 'src/app/login/login.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CargoService} from '../../cargo/cargo.service';
 import {Cargo} from 'src/app/models/cargo';
+import { Empresa } from 'src/app/models/empresa';
+import { EmpresaService } from '../../empresa/empresa.service';
 
 @Component({
   selector: 'app-usuario-edit',
@@ -19,6 +21,7 @@ export class UsuarioEditComponent implements OnInit {
   public title: string;
   public user: User = null;
   public cargos: Cargo;
+  public empresas: Empresa;
   public id: number;
   public identity;
   public token;
@@ -56,7 +59,8 @@ export class UsuarioEditComponent implements OnInit {
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private router: Router,
-    private cargoService: CargoService
+    private cargoService: CargoService,
+    private establecimientoService: EmpresaService
   ) {
     this.title = 'Editar Usuario';
 //    this.user = new User(1, 1, '', '', '', '', '', '', '', null, '');
@@ -68,6 +72,7 @@ export class UsuarioEditComponent implements OnInit {
 
   ngOnInit() {
     this.getCargos();
+    this.getEstablecimietos();
     this.route.params.subscribe((param: any) => {
       this.id = param.id;
       this.usuarioService.show(this.token, this.id)
@@ -106,6 +111,14 @@ export class UsuarioEditComponent implements OnInit {
       } else {
         console.log('error');
       }
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  getEstablecimietos() {
+    this.establecimientoService.getEstablecimientos(this.token).subscribe(response => {
+      this.empresas = response;
     }, error => {
       console.log(error);
     });
