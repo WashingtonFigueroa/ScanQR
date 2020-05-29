@@ -16,18 +16,18 @@ class CupoController extends Controller
 
     public function store(Request $request)
     {
-        $hoy = Carbon::now();
-        $fecha_fin = $request->input('fecha_fin');
-        if ($hoy->greaterThan(Carbon::parse($fecha_fin))) {
-            return response()->json([
-                'error' => 'La fecha de fin de entrega debe ser mayor o igual a la fecha actual'
-            ], 500);
-        } else {
+        $hoy = Carbon::parse(Carbon::now()->toDateString());
+        $fecha_fin = Carbon::parse($request->input('fecha_fin'));
+        if ($fecha_fin->greaterThanOrEqualTo($hoy)) {
             $input = $request->all();
             $input['gasto'] = 0;
             $input['saldo'] = $request->input('carga');
             $cupo = Cupo::create($input);
             return response()->json($cupo, 201);
+        } else {
+            return response()->json([
+                'error' => 'La fecha de fin de entrega debe ser mayor o igual a la fecha actual'
+            ], 500);
         }
     }
 
