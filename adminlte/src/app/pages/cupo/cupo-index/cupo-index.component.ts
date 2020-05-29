@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Empresa } from 'src/app/models/empresa';
-import { environment } from 'src/environments/environment.prod';
-import { LoginService } from 'src/app/login/login.service';
-import { ToastrService } from 'ngx-toastr';
-import { CupoService } from '../cupo.service';
-import { Cupo } from 'src/app/models/cupo.models';
+import {Component, OnInit} from '@angular/core';
+import {environment} from 'src/environments/environment.prod';
+import {LoginService} from 'src/app/login/login.service';
+import {ToastrService} from 'ngx-toastr';
+import {CupoService} from '../cupo.service';
+import {Cupo} from 'src/app/models/cupo.models';
 
 @Component({
   selector: 'app-cupo-index',
@@ -26,19 +25,19 @@ export class CupoIndexComponent implements OnInit {
   }
 
   ngOnInit(): void {
-     this. getcupos();
+    this.getcupos();
   }
 
   getcupos() {
     this.cupoService.getCupos(this.token).subscribe(response => {
-        this.cupos = response;
-        this.cols = [
-            { field: 'id', header: 'ID' },
-            { field: 'establecimiento_id', header: 'Establecimiento' },
-            { field: 'carga', header: 'Carga' },
-            { field: 'gasto', header: 'Gasto' },
-            { field: 'saldo', header: 'Saldo' }
-        ];
+      this.cupos = response;
+      this.cols = [
+        {field: 'id', header: 'ID'},
+        {field: 'establecimiento_id', header: 'Establecimiento'},
+        {field: 'carga', header: 'Carga'},
+        {field: 'gasto', header: 'Gasto'},
+        {field: 'saldo', header: 'Saldo'}
+      ];
     }, error => {
       console.log(error);
     });
@@ -50,10 +49,28 @@ export class CupoIndexComponent implements OnInit {
 
   deleteCupo(id) {
     this.cupoService.delete(this.token, id).subscribe(response => {
-        this.toastr.success('Ok.', 'Cupo Eliminado');
-        this. getcupos();
+      this.toastr.success('Ok.', 'Cupo Eliminado');
+      this.getcupos();
     }, error => {
-      this.toastr.error('Uppp!', 'verifique los valores');
+      this.toastr.error('Ups!', 'Verifique los valores');
+    });
+  }
+
+  activarCupo(id) {
+    this.cupoService.activarCupo(this.token, id).subscribe(response => {
+      this.toastr.success('Ok.', 'Cupo Activado');
+      this.getcupos();
+    }, error => {
+      this.toastr.error('Ups!', 'Verifique los valores');
+    });
+  }
+
+  inactivarCupo(id) {
+    this.cupoService.inactivarCupo(this.token, id).subscribe(response => {
+      this.toastr.success('Ok.', 'Cupo Inactivado');
+      this.getcupos();
+    }, error => {
+      this.toastr.error('Ups!', 'Verifique los valores');
     });
   }
 }

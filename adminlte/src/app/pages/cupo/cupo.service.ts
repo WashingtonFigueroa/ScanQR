@@ -29,7 +29,7 @@ export class CupoService {
 
   show(token, id): Observable<any> {
     const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-    .set('Authorization', token);
+      .set('Authorization', token);
     return this.http.get(this.url + 'cupo/' + id, {headers: headerss});
   }
 
@@ -47,7 +47,19 @@ export class CupoService {
 
   delete(token, id): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json')
-    .set('Authorization', token);
+      .set('Authorization', token);
     return this.http.delete(this.url + 'cupo/' + id, {headers: headers});
+  }
+
+  activarCupo(token, id: number) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json')
+      .set('Authorization', token);
+    return this.http.put(`${this.url}activar-cupo/${id}`, null, {headers: headers});
+  }
+
+  inactivarCupo(token, id: number) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json')
+      .set('Authorization', token);
+    return this.http.put(`${this.url}inactivar-cupo/${id}`, null, {headers: headers});
   }
 }

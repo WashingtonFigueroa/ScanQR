@@ -20,10 +20,10 @@ class CreateCuposTable extends Migration
                 ->references('id')
                 ->on('establecimientos')
                 ->onDelete('cascade');
-            $table->string('carga');
-            $table->string('gasto');
-            $table->string('saldo');
-            $table->string('fecha_fin')->nullable();
+            $table->unsignedInteger('carga');
+            $table->unsignedInteger('gasto');
+            $table->unsignedInteger('saldo');
+            $table->string('fecha_fin');
             $table->boolean('estado')->default(true);
             $table->softDeletes();
             $table->timestamps();

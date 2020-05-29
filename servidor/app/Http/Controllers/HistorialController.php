@@ -6,6 +6,7 @@ use App\Historial;
 use App\QR;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 
 class HistorialController extends Controller
@@ -93,6 +94,9 @@ class HistorialController extends Controller
         return response()->json($data, $data['code']);
     }
 
+
+
+
     public function store(Request $request)
     {
         $codigo = $request->input('codigo');
@@ -102,7 +106,7 @@ class HistorialController extends Controller
             if ($currentTime->diffInSeconds(Carbon::parse($latest)) > 5) {
                 $qr_exists = QR::where('codqr', '=', $codigo)->where('estado', 'Activo')->exists();
                 if ($qr_exists) {
-                    $qr = QR::where('codqr', '=', $codigo)->first(); 
+                    $qr = QR::where('codqr', '=', $codigo)->first();
                     $now = Carbon::now();
                     $salida_tentativa = $now->addMinutes($qr['tiempo'])->toDateTimeString();
                     $existeRegistros = Historial::where('qr_id', $qr['id'])
@@ -140,6 +144,7 @@ class HistorialController extends Controller
                         } else {
                             Historial::create([
                                 'qr_id' => $qr['id'],
+                                'user_id' => Auth::id(),
                                 'nombre' => $qr['nombre'],
                                 'ingreso' => Carbon::now()->toDateTimeString(),
                                 'tiempo' => 0,
@@ -156,6 +161,7 @@ class HistorialController extends Controller
                     } else {
                         Historial::create([
                             'qr_id' => $qr['id'],
+                            'user_id' => Auth::id(),
                             'nombre' => $qr['nombre'],
                             'ingreso' => Carbon::now()->toDateTimeString(),
                             'tiempo' => 0,
@@ -225,6 +231,7 @@ class HistorialController extends Controller
                     } else {
                         Historial::create([
                             'qr_id' => $qr['id'],
+                            'user_id' => Auth::id(),
                             'nombre' => $qr['nombre'],
                             'ingreso' => Carbon::now()->toDateTimeString(),
                             'tiempo' => 0,
@@ -241,6 +248,7 @@ class HistorialController extends Controller
                 } else {
                     Historial::create([
                         'qr_id' => $qr['id'],
+                        'user_id' => Auth::id(),
                         'nombre' => $qr['nombre'],
                         'ingreso' => Carbon::now()->toDateTimeString(),
                         'tiempo' => 0,

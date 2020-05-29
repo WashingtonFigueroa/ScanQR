@@ -28,8 +28,7 @@ class Noticia extends Model
         return $this->belongsTo('App\Establecimiento', 'id');
     }
 
-    public function getEstablecimientoAttribute()
-    {
+    public function getEstablecimientoAttribute() {
         return Establecimiento::find($this->establecimiento_id)->nombre;
     }
 }
