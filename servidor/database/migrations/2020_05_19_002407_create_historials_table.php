@@ -22,6 +22,7 @@ class CreateHistorialsTable extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
+            $table->unsignedBigInteger('cupo_id')->nullable();
             $table->string('nombre');
             $table->dateTime('ingreso');
             $table->dateTime('salida');
