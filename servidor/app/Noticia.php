@@ -21,8 +21,15 @@ class Noticia extends Model
     ];
     protected $dates = ['deleted_at'];
 
+    protected $appends = ['establecimiento'];
+
     public function establecimiento()
     {
         return $this->belongsTo('App\Establecimiento', 'id');
+    }
+
+    public function getEstablecimientoAttribute()
+    {
+        return Establecimiento::find($this->establecimiento_id)->nombre;
     }
 }
