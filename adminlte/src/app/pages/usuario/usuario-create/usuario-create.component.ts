@@ -7,6 +7,8 @@ import { User } from 'src/app/models/user';
 import { UsuarioService } from '../../usuario/usuario.service';
 import { Cargo } from 'src/app/models/cargo';
 import { CargoService } from '../../cargo/cargo.service';
+import { EmpresaService } from '../../empresa/empresa.service';
+import { Empresa } from 'src/app/models/empresa';
 
 @Component({
   selector: 'app-usuario-create',
@@ -18,6 +20,7 @@ export class UsuarioCreateComponent implements OnInit {
   public cedula: string;
   public user: User;
   public cargos: Cargo;
+  public empresas: Empresa;
   public identity;
   public token;
   public base = environment.servidor;
@@ -53,16 +56,18 @@ export class UsuarioCreateComponent implements OnInit {
     private router: Router,
     private loginService: LoginService,
     private userService: UsuarioService,
-    private cargoService: CargoService
+    private cargoService: CargoService,
+    private establecimientoService: EmpresaService
   ) {
     this.title = 'Crear Usuario';
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
-    this.user = new User(1, 1, 1, '', '', '', '', '', '', '', null, '');
+    this.user = new User(1, 2, 1, '', '', '', '', '', '', '', null, '');
   }
 
   ngOnInit(): void {
     this.getCargos();
+    this.getEstablecimietos();
   }
 
   avatarUpload(datos) {
@@ -73,7 +78,6 @@ export class UsuarioCreateComponent implements OnInit {
   resetVar() {}
 
   onSubmit(form) {
-    // if (this.validarCedula() === true) {
       if (this.user.password  === this.user.password2) {
         let date = JSON.stringify(this.user.fecha_nacimiento);
         date = date.slice(1, 11);
@@ -94,10 +98,6 @@ export class UsuarioCreateComponent implements OnInit {
         this.user.password = '';
         this.user.password2 = '';
       }
-    // } else {
-    //   this.toastr.error('Uppp!', 'Cedula Incorrecta');
-    //   this.user.cedula = '';
-    // }
   }
 
   getCargos() {
@@ -107,6 +107,14 @@ export class UsuarioCreateComponent implements OnInit {
       } else {
         console.log('error');
       }
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  getEstablecimietos() {
+    this.establecimientoService.getEstablecimientos(this.token).subscribe(response => {
+      this.empresas = response;
     }, error => {
       console.log(error);
     });
