@@ -11,16 +11,15 @@ export class Tab1Page implements OnInit{
 
   public qr;
   constructor(
-    private usuarioService: UsuarioService,
-    private storage: Storage
-  ) {
-
-     
-  }
-  
-  ngOnInit(){
-    this.storage.get('qr').then(qrcodigo => this.qr = qrcodigo.codqr);
+    private storage: Storage ) {
+      this.cargarData();
   }
 
- 
+  ngOnInit() {
+  }
+
+  cargarData(){
+    this.storage.get('qr').then(qrcodigo => this.qr = qrcodigo);
+  }
+
 }

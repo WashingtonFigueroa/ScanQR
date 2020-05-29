@@ -35,14 +35,22 @@
     font-size: 18px;
     color: black;
 }
+.tamanio {
+    align-content: center;
+    height: 130px;
+}
 .tlogo {
     position: relative;
     // align-content: center;
-    width: 120px;
-}
-
-.tamanio {
-    align-content: center;
     height: 75px;
 }
+.card-center{
+    //width:150%; // adjust width on your ion-card suitable on your screen
+    display:block;
+    margin: 0 auto;
+    position: relative;
+     align-content: center;
+}
+
+
 
