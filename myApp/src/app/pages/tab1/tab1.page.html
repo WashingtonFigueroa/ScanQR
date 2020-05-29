@@ -6,10 +6,37 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-<div *ngIf="qr">
-  <qrcode [qrdata]="qr" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+<ion-content [fullscreen]="true"  *ngIf="qr != null || qr == ''">
+<ion-card>
+  <ion-item>
+    <ion-icon name="qr-code-outline" slot="start"></ion-icon>
+    <ion-label>000{{qr.id}}</ion-label>
+    <ion-button fill="outline" slot="end">Código</ion-button>
+  </ion-item>
+  <ion-card-content class="text-center">
+  <qrcode [qrdata]="qr.codqr" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+  </ion-card-content>
+</ion-card>
 
-</div>
+<ion-card>
+  <ion-item class="ion-activated">
+    <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+    <ion-label>Bienvenido: {{qr.nombre}}</ion-label>
+  </ion-item>
 
+  <ion-item>
+    <ion-icon name="time" slot="start"></ion-icon>
+    <ion-label>Tiempo Estancia: {{qr.tiempo}}</ion-label>
+  </ion-item>
+
+  <ion-item class="ion-activated">
+    <ion-icon name="construct-outline" slot="start"></ion-icon>
+    <ion-label>Consultanos:</ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-icon name="call-outline" slot="start"></ion-icon>
+    <ion-label>+593 96 996 8377 | +593 99 338 4378</ion-label>
+  </ion-item>
+</ion-card>
 </ion-content>

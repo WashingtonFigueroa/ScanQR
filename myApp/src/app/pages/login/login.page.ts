@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { IonSlides, NavController } from '@ionic/angular';
+import { IonSlides, NavController, IonInfiniteScroll  } from '@ionic/angular';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Usuario } from '../../models/usuario';
 import { UiServiceService } from 'src/app/services/ui-service.service';
@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class LoginPage implements OnInit {
   @ViewChild('slidePrincipal') slides: IonSlides;
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   public base = environment.servidor;
   public usuario: Usuario;
   public establecimientos: Empresa;
@@ -45,14 +46,31 @@ export class LoginPage implements OnInit {
     this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
   }
 
+  loadData(event) {
+    setTimeout(() => {
+      console.log('Done');
+      event.target.complete();
+    }, 500);
+  }
+
+  toggleInfiniteScroll() {
+    this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
+  }
+
   mostrarRegistro() {
     this.slides.lockSwipes(false);
-    this.slides.slideTo(0);
+    this.slides.slideTo(1);
     this.slides.lockSwipes(true);
   }
   mostrarlogin() {
     this.slides.lockSwipes(false);
-    this.slides.slideTo(1);
+    this.slides.slideTo(2);
+    this.slides.lockSwipes(true);
+  }
+
+  nosotros(){
+    this.slides.lockSwipes(false);
+    this.slides.slideTo(0);
     this.slides.lockSwipes(true);
   }
 
