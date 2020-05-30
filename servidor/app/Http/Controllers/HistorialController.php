@@ -151,7 +151,7 @@ class HistorialController extends Controller
                                 ]);
                             }
                         } else {
-                            $buscarCupo = $this->buscarCupo($qr['id']);
+                            $buscarCupo = $this->buscarCupo(Auth::id());
                             if ($buscarCupo !== false) {
                                 Historial::create([
                                     'qr_id' => $qr['id'],
@@ -178,7 +178,7 @@ class HistorialController extends Controller
                             }
                         }
                     } else {
-                        $buscarCupo = $this->buscarCupo($qr['id']);
+                        $buscarCupo = $this->buscarCupo(Auth::id());
                         if ($buscarCupo !== false) {
                             Historial::create([
                                 'qr_id' => $qr['id'],
@@ -259,7 +259,7 @@ class HistorialController extends Controller
                             ]);
                         }
                     } else {
-                        $buscarCupo = $this->buscarCupo($qr['id']);
+                        $buscarCupo = $this->buscarCupo(Auth::id());
                         if ($buscarCupo !== false) {
                             Historial::create([
                                 'qr_id' => $qr['id'],
@@ -286,7 +286,7 @@ class HistorialController extends Controller
                         }
                     }
                 } else {
-                    $buscarCupo = $this->buscarCupo($qr['id']);
+                    $buscarCupo = $this->buscarCupo(Auth::id());
                     if ($buscarCupo !== false) {
                         Historial::create([
                             'qr_id' => $qr['id'],
@@ -322,9 +322,8 @@ class HistorialController extends Controller
         }
     }
 
-    private function buscarCupo($qr_id)
+    private function buscarCupo($tecnico_id)
     {
-        $tecnico_id = (int)QR::find($qr_id)->user_id;
         $establecimiento_id = User::find($tecnico_id)->establecimiento_id;
         $hoy = Carbon::now()->toDateString();
         $existenCupos = Cupo::where('establecimiento_id', $establecimiento_id)

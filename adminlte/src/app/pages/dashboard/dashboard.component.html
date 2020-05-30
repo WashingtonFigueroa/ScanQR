@@ -13,7 +13,7 @@
     </div>
   </div>
 </div>
-<div class="container-fluid" *ngIf="usuario !== null && usuario.cargo.nombre === 'Técnico Logístico'">
+<div class="container-fluid" *ngIf="usuario !== null && (usuario.cargo.nombre === 'Técnico Logístico' && usuario.con_cupos === true)">
   <div class="row">
     <div class="col-md-12">
       <div class="scanner" *ngIf="!enabledMessage">

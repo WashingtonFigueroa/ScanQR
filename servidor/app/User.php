@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -37,7 +38,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    protected $appends = ['cargo', 'establecimiento'];
+    protected $appends = ['cargo', 'establecimiento', 'con_cupos'];
 
     public function cargo()
     {
@@ -62,5 +63,16 @@ class User extends Authenticatable
     public function getEstablecimientoAttribute()
     {
         return Establecimiento::find($this->establecimiento_id)->nombre;
+    }
+
+    public function getConCuposAttribute()
+    {
+        $establecimiento_id = User::find($this->getKey())->establecimiento_id;
+        $hoy = Carbon::now()->toDateString();
+        return Cupo::where('establecimiento_id', $establecimiento_id)
+            ->where('estado', 1)
+            ->where('saldo', '>', 0)
+            ->whereDate('fecha_fin', '>=', $hoy)
+            ->exists();
     }
 }
