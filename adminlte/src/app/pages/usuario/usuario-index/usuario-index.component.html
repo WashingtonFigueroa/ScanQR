@@ -49,13 +49,13 @@
                 Foto
               </th>
               <th class="text-center">
+                Establecimiento
+              </th>
+              <th class="text-center">
                 Nombres
               </th>
               <th class="text-center">
                 Cargo
-              </th>
-              <th class="text-center">
-                Email
               </th>
               <th class="text-center">
                 Dirección
@@ -79,9 +79,9 @@
                   <img src="{{base + 'user/avatar/' + user.image}}" alt="User" width="50px"/>
                 </div>
               </td>
+              <td>{{user.establecimiento}}</td>
               <td>{{user.nombre}}</td>
               <td>{{user.cargo.nombre}}</td>
-              <td>{{user.email}}</td>
               <td>{{user.direccion}}</td>
               <td>{{user.telefono}}</td>
               <td class="text-center" style="width:160px">

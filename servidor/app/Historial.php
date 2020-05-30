@@ -12,7 +12,7 @@ class Historial extends Model
     protected $table = 'historiales';
     protected $fillable = [
         'qr_id',
-        'user_id ',
+        'user_id',
         'nombre',
         'ingreso',
         'salida',

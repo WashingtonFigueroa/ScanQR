@@ -8,13 +8,13 @@
     </li>
   </ul>
   <ul class="navbar-nav ml-auto">
-    <li class="nav-item dropdown" *ngIf="identity.cargo_id != 3">
+    <li class="nav-item dropdown" *ngIf="identity.cargo_id === 1">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-cogs" style="color: #007ad9"></i> &nbsp; Configuración
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <div *ngIf="identity.cargo_id === 1">
+        <div >
           <a class="dropdown-item" routerLink="/cargo"><i class="fas fa-poll-h"></i> &nbsp;&nbsp; Cargos</a>
         </div>
         <div class="dropdown-divider"></div>

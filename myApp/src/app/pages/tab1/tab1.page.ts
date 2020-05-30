@@ -11,6 +11,7 @@ export class Tab1Page implements OnInit{
 
   public qr;
   constructor(
+    private usuarioService: UsuarioService,
     private storage: Storage ) {
       this.cargarData();
   }
@@ -20,6 +21,10 @@ export class Tab1Page implements OnInit{
 
   cargarData(){
     this.storage.get('qr').then(qrcodigo => this.qr = qrcodigo);
+  }
+
+  logout(){
+    this.usuarioService.logout();
   }
 
 }

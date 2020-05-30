@@ -23,7 +23,7 @@
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-md-12">
-                    <div class="form-group btn-sm" *ngIf="usuarios !== null">
+                    <div class="form-group btn-sm" *ngIf="usuarios !== null && identity.cargo_id === 1"> 
                       <label><small class="requeridos">☼</small> Seleccione Usuario:</label>
                       <div class="input-group">
                         <div class="input-group-prepend ">
@@ -75,7 +75,7 @@
                           obligatorio</small>
                       </div>
                     </div>
-                    <div class="form-group btn-sm">
+                    <div class="form-group btn-sm" *ngIf="identity.cargo_id === 1">
                       <label><small class="requeridos">☼</small> Seleccione Estado:</label>
                       <div class="input-group">
                         <select name="estado" class="form-control" #estado="ngModel" [(ngModel)]="qr.estado">

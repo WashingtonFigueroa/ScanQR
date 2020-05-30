@@ -36,4 +36,8 @@ export class Tab2Page implements OnInit {
       this.uiservice.alertaInformativa('No se ha encontrado Noticias');
     });
   }
+  
+  logout(){
+    this.usuarioService.logout();
+  }
 }

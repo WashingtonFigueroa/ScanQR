@@ -19,7 +19,7 @@
                   <ion-row>
                     <ion-col size="4"
                      *ngFor="let estab of establecimientos; let i = index ">
-                      <ion-img  class="tlogo" [src]="base + 'empresa/logo/' +estab.logo" ></ion-img>
+                      <ion-img  *ngIf="estab.logo" class="tlogo" [src]="base + 'empresa/logo/' +estab.logo" ></ion-img>
                     </ion-col>
                   </ion-row>
                 </ion-grid>

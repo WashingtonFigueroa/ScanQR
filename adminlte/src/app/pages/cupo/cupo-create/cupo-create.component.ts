@@ -31,7 +31,7 @@ export class CupoCreateComponent implements OnInit {
     this.title = 'Crear cupo';
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
-    this.cupo = new Cupo(null, null, 0, null, null, null, true);
+    this.cupo = new Cupo(1, 1, 0, null, null, null, true);
   }
 
   ngOnInit(): void {

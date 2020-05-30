@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Historial;
 use App\QR;
+use App\Cupo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,12 @@ class HistorialController extends Controller
 
     public function stats()
     {
-        $habilitados = QR::where('estado', 'Activo')->count();
+         $habilitados = QR::where('estado', 'Activo')->count();
+        // $habilitados = Cupo::whereDate('created_at', Carbon::now()->toDateString())
+        // ->where('estado', 'INGRESO')
+        // ->distinct('qr_id')
+        // ->count();
+
         $ingreso = Historial::whereDate('created_at', Carbon::now()->toDateString())
             ->where('estado', 'INGRESO')
             ->distinct('qr_id')
@@ -42,6 +48,9 @@ class HistorialController extends Controller
 
     public function ingresosHoy()
     {
+        $establecimiento  = Auth::establecimiento_id();
+      echo $establecimiento;
+
         $ingresos = Historial::whereDate('created_at', Carbon::now()->toDateString())
             ->where('estado', 'INGRESO')
             ->orderBy('id', 'desc')
@@ -113,7 +122,7 @@ class HistorialController extends Controller
                         ->whereDate('created_at', Carbon::now()->toDateString())
                         ->orderBy('id', 'desc')
                         ->exists();
-                    if ($existeRegistros) {
+                    if ($existeRegistros) { 
                         $historial = Historial::where('qr_id', $qr['id'])
                             ->whereDate('created_at', Carbon::now()->toDateString())
                             ->orderBy('id', 'desc')

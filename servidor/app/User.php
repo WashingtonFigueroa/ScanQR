@@ -53,10 +53,14 @@ class User extends Authenticatable
         return $this->hasMany('App\Historial');
     }
 
-    protected $appends = ['cargo'];
+    protected $appends = ['cargo', 'establecimiento'];
 
     public function getCargoAttribute()
     {
         return Cargo::find($this->cargo_id);
+    }
+
+    public function getEstablecimientoAttribute() {
+        return Establecimiento::find($this->establecimiento_id)->nombre;
     }
 } 

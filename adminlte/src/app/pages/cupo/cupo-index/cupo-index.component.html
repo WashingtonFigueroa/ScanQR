@@ -59,6 +59,9 @@
               <th class="text-center">
                 Saldo
               </th>
+              <th class="text-center">
+                Fecha Fin
+              </th>
               <th class="text-center" style="width:160px">
                 Acciones
               </th>
@@ -79,12 +82,13 @@
               <td>{{cupo.carga}}</td>
               <td>{{cupo.gasto}}</td>
               <td>{{cupo.saldo}}</td>
+              <td>{{cupo.fecha_fin}}</td>
               <td class="text-center" style="width:160px">
-                <button (click)="activarCupo(cupo.id)" *ngIf="!cupo.estado" class="btn btn-default  btn-sm"
+                <button (click)="activarCupo(cupo.id)" *ngIf="!cupo.estado" class="btn btn-default  btn-lg"
                         title="Activar Cupo">
                   <i class="fas fa-toggle-on"></i></button>
 
-                <button (click)="inactivarCupo(cupo.id)" *ngIf="cupo.estado" class="btn btn-default  btn-sm"
+                <button (click)="inactivarCupo(cupo.id)" *ngIf="cupo.estado" class="btn btn-default  btn-lg"
                         title="Inactivar Cupo"><i
                   class="fas fa-toggle-off"></i></button>
 

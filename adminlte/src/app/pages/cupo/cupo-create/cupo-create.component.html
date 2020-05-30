@@ -22,8 +22,8 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-md-6">
-                  <div *ngIf="establecimientos !== null" class="form-group-sm">
-                    <label><small class="requeridos">☼</small> Seleccione establecimiento:</label>
+                  <div *ngIf="establecimientos !== null" class="form-group btn-sm">
+                    <label><small class="requeridos">☼</small> Seleccione Establecimiento:</label>
                     <div class="input-group">
                       <div class="input-group-prepend ">
                         <span class="input-group-text"><i class="fas fa-building "></i></span>
@@ -65,18 +65,10 @@
                       </div>
                       <input #fecha_fin="ngModel" [(ngModel)]="cupo.fecha_fin" class="form-control"
                              name="fecha_fin"
-                             type="date">
+                             type="date"
+                             required>
                     </div>
                   </div>
-                  <!--                    <div *ngIf=" title === 'Editar Noticia'" class="form-group btn-sm" >
-                                        <label><small class="requeridos">☼</small>  Seleccione Estado:</label>
-                                        <div class="input-group">
-                                          <label class="container">Estado
-                                            <input  type="checkbox" checkbox="true" name="estado"  #estado="ngModel" [(ngModel)]="noticia.estado">
-                                            <span class="checkmark"></span>
-                                          </label>
-                                        </div>
-                                      </div>-->
                 </div>
                 <div class="contenedor-div botones-abajo-derecha">
                   <button [disabled]="!createCupoForm.form.valid" class="btn btn-success btn-sm" type="submit">

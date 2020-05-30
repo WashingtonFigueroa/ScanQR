@@ -1,8 +1,14 @@
-<ion-header no-border>
-  <ion-toolbar >
+<ion-header no-border >
+  <ion-toolbar>
     <ion-title>
-       Noticias
+      Ultimas Novedades
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)= "logout()"
+                  color="danger">
+        <ion-icon slot="icon-only" name="exit"></ion-icon>          
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
