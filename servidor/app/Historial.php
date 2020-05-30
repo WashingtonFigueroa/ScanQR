@@ -13,10 +13,7 @@ class Historial extends Model
     protected $fillable = [
         'qr_id',
         'user_id',
-<<<<<<< HEAD
-=======
         'cupo_id',
->>>>>>> b3e8ecb024ed5a1f8602dbc00bf6731e59598895
         'nombre',
         'ingreso',
         'salida',

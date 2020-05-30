@@ -22,7 +22,7 @@ class HistorialController extends Controller
 
     public function stats()
     {
-         $habilitados = QR::where('estado', 'Activo')->count();
+        $habilitados = QR::where('estado', 'Activo')->count();
         // $habilitados = Cupo::whereDate('created_at', Carbon::now()->toDateString())
         // ->where('estado', 'INGRESO')
         // ->distinct('qr_id')
@@ -49,10 +49,10 @@ class HistorialController extends Controller
 
     public function ingresosHoy()
     {
-        $establecimiento  = Auth::establecimiento_id();
-      echo $establecimiento;
-
+        $establecimiento_id = Auth::user()->establecimiento_id;
+        $users_id = User::where('establecimiento_id', $establecimiento_id)->pluck('id');
         $ingresos = Historial::whereDate('created_at', Carbon::now()->toDateString())
+            ->whereIn('user_id', $users_id)
             ->where('estado', 'INGRESO')
             ->orderBy('id', 'desc')
             ->get();
@@ -120,7 +120,7 @@ class HistorialController extends Controller
                         ->whereDate('created_at', Carbon::now()->toDateString())
                         ->orderBy('id', 'desc')
                         ->exists();
-                    if ($existeRegistros) { 
+                    if ($existeRegistros) {
                         $historial = Historial::where('qr_id', $qr['id'])
                             ->whereDate('created_at', Carbon::now()->toDateString())
                             ->orderBy('id', 'desc')
@@ -151,7 +151,7 @@ class HistorialController extends Controller
                                 ]);
                             }
                         } else {
-                            $buscarCupo = $this->buscarCupo(Auth::id());
+                            $buscarCupo = $this->buscarCupo($qr['id']);
                             if ($buscarCupo !== false) {
                                 Historial::create([
                                     'qr_id' => $qr['id'],
@@ -178,7 +178,7 @@ class HistorialController extends Controller
                             }
                         }
                     } else {
-                        $buscarCupo = $this->buscarCupo(Auth::id());
+                        $buscarCupo = $this->buscarCupo($qr['id']);
                         if ($buscarCupo !== false) {
                             Historial::create([
                                 'qr_id' => $qr['id'],
@@ -259,7 +259,7 @@ class HistorialController extends Controller
                             ]);
                         }
                     } else {
-                        $buscarCupo = $this->buscarCupo(Auth::id());
+                        $buscarCupo = $this->buscarCupo($qr['id']);
                         if ($buscarCupo !== false) {
                             Historial::create([
                                 'qr_id' => $qr['id'],
@@ -286,7 +286,7 @@ class HistorialController extends Controller
                         }
                     }
                 } else {
-                    $buscarCupo = $this->buscarCupo(Auth::id());
+                    $buscarCupo = $this->buscarCupo($qr['id']);
                     if ($buscarCupo !== false) {
                         Historial::create([
                             'qr_id' => $qr['id'],
@@ -322,8 +322,9 @@ class HistorialController extends Controller
         }
     }
 
-    private function buscarCupo($tecnico_id)
+    private function buscarCupo($qr_id)
     {
+        $tecnico_id = (int)QR::find($qr_id)->user_id;
         $establecimiento_id = User::find($tecnico_id)->establecimiento_id;
         $hoy = Carbon::now()->toDateString();
         $existenCupos = Cupo::where('establecimiento_id', $establecimiento_id)

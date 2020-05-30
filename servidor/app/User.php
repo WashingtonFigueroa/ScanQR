@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -11,6 +10,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
+    protected $primaryKey = 'id';
     /**
      * The attributes that are mass assignable.
      *
@@ -37,6 +37,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    protected $appends = ['cargo', 'establecimiento'];
 
     public function cargo()
     {
@@ -53,14 +54,13 @@ class User extends Authenticatable
         return $this->hasMany('App\Historial');
     }
 
-    protected $appends = ['cargo', 'establecimiento'];
-
     public function getCargoAttribute()
     {
         return Cargo::find($this->cargo_id);
     }
 
-    public function getEstablecimientoAttribute() {
+    public function getEstablecimientoAttribute()
+    {
         return Establecimiento::find($this->establecimiento_id)->nombre;
     }
-} 
+}
