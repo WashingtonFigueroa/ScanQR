@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Cupo;
 use App\Historial;
 use App\QR;
-use App\Cupo;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -103,9 +104,6 @@ class HistorialController extends Controller
         return response()->json($data, $data['code']);
     }
 
-
-
-
     public function store(Request $request)
     {
         $codigo = $request->input('codigo');
@@ -129,6 +127,7 @@ class HistorialController extends Controller
                             ->first();
                         if ($historial->estado === 'INGRESO') {
                             $historial2 = Historial::find($historial['id']);
+                            $historial2->user_id = Auth::id();
                             $historial2->estado = 'SALIDA';
                             $historial2->salida = Carbon::now()->toDateTimeString();
                             $historial2->tiempo = (int)Carbon::now()->diffInMinutes(Carbon::parse($historial2->ingreso));
@@ -142,6 +141,7 @@ class HistorialController extends Controller
                                 ]);
                             } else {
                                 $tiempo2 = $historial2->tiempo - $qr->tiempo;
+                                $historial2->user_id = Auth::id();
                                 $historial2->estado = "SALIDA CON RETRASO DE {$tiempo2} MIN.";
                                 $historial2->save();
                                 return response()->json([
@@ -151,9 +151,39 @@ class HistorialController extends Controller
                                 ]);
                             }
                         } else {
+                            $buscarCupo = $this->buscarCupo(Auth::id());
+                            if ($buscarCupo !== false) {
+                                Historial::create([
+                                    'qr_id' => $qr['id'],
+                                    'user_id' => Auth::id(),
+                                    'cupo_id' => $buscarCupo,
+                                    'nombre' => $qr['nombre'],
+                                    'ingreso' => Carbon::now()->toDateTimeString(),
+                                    'tiempo' => 0,
+                                    'salida' => Carbon::now()->toDateTimeString(),
+                                    'salida_tentativa' => $salida_tentativa,
+                                    'estado' => 'INGRESO'
+                                ]);
+                                return response()->json([
+                                    'tiempo_transcurrido' => 0,
+                                    'type' => 'info',
+                                    'observacion' => "Su estancia es de {$qr->tiempo} minutos"
+                                ]);
+                            } else {
+                                return response()->json([
+                                    'tiempo_transcurrido' => 0,
+                                    'type' => 'error',
+                                    'observacion' => 'No hay cupos disponibles, no puede ingresar aún.'
+                                ]);
+                            }
+                        }
+                    } else {
+                        $buscarCupo = $this->buscarCupo(Auth::id());
+                        if ($buscarCupo !== false) {
                             Historial::create([
                                 'qr_id' => $qr['id'],
                                 'user_id' => Auth::id(),
+                                'cupo_id' => $buscarCupo,
                                 'nombre' => $qr['nombre'],
                                 'ingreso' => Carbon::now()->toDateTimeString(),
                                 'tiempo' => 0,
@@ -166,23 +196,13 @@ class HistorialController extends Controller
                                 'type' => 'info',
                                 'observacion' => "Su estancia es de {$qr->tiempo} minutos"
                             ]);
+                        } else {
+                            return response()->json([
+                                'tiempo_transcurrido' => 0,
+                                'type' => 'error',
+                                'observacion' => 'No hay cupos disponibles, no puede ingresar aún.'
+                            ]);
                         }
-                    } else {
-                        Historial::create([
-                            'qr_id' => $qr['id'],
-                            'user_id' => Auth::id(),
-                            'nombre' => $qr['nombre'],
-                            'ingreso' => Carbon::now()->toDateTimeString(),
-                            'tiempo' => 0,
-                            'salida' => Carbon::now()->toDateTimeString(),
-                            'salida_tentativa' => $salida_tentativa,
-                            'estado' => 'INGRESO'
-                        ]);
-                        return response()->json([
-                            'tiempo_transcurrido' => 0,
-                            'type' => 'info',
-                            'observacion' => "Su estancia es de {$qr->tiempo} minutos"
-                        ]);
                     }
                 } else {
                     return response()->json([
@@ -198,7 +218,6 @@ class HistorialController extends Controller
                     'observacion' => 'Espere unos segundos...'
                 ]);
             }
-
         } else {
             $qr_exists = QR::where('codqr', '=', $codigo)->where('estado', 'Activo')->exists();
             if ($qr_exists) {
@@ -217,6 +236,7 @@ class HistorialController extends Controller
                     if ($historial->estado === 'INGRESO') {
                         $historial2 = Historial::find($historial['id']);
                         $historial2->estado = 'SALIDA';
+                        $historial2->user_id = Auth::id();
                         $historial2->salida = Carbon::now()->toDateTimeString();
                         $historial2->tiempo = (int)Carbon::now()->diffInMinutes(Carbon::parse($historial2->ingreso));
                         $historial2->save();
@@ -229,6 +249,7 @@ class HistorialController extends Controller
                             ]);
                         } else {
                             $tiempo2 = $historial2->tiempo - $qr->tiempo;
+                            $historial2->user_id = Auth::id();
                             $historial2->estado = "SALIDA CON RETRASO DE {$tiempo2} MIN.";
                             $historial2->save();
                             return response()->json([
@@ -238,9 +259,39 @@ class HistorialController extends Controller
                             ]);
                         }
                     } else {
+                        $buscarCupo = $this->buscarCupo(Auth::id());
+                        if ($buscarCupo !== false) {
+                            Historial::create([
+                                'qr_id' => $qr['id'],
+                                'user_id' => Auth::id(),
+                                'cupo_id' => $buscarCupo,
+                                'nombre' => $qr['nombre'],
+                                'ingreso' => Carbon::now()->toDateTimeString(),
+                                'tiempo' => 0,
+                                'salida' => Carbon::now()->toDateTimeString(),
+                                'salida_tentativa' => $salida_tentativa,
+                                'estado' => 'INGRESO'
+                            ]);
+                            return response()->json([
+                                'tiempo_transcurrido' => 0,
+                                'type' => 'info',
+                                'observacion' => "Su estancia es de {$qr->tiempo} minutos"
+                            ]);
+                        } else {
+                            return response()->json([
+                                'tiempo_transcurrido' => 0,
+                                'type' => 'error',
+                                'observacion' => 'No hay cupos disponibles, no puede ingresar aún.'
+                            ]);
+                        }
+                    }
+                } else {
+                    $buscarCupo = $this->buscarCupo(Auth::id());
+                    if ($buscarCupo !== false) {
                         Historial::create([
                             'qr_id' => $qr['id'],
                             'user_id' => Auth::id(),
+                            'cupo_id' => $buscarCupo,
                             'nombre' => $qr['nombre'],
                             'ingreso' => Carbon::now()->toDateTimeString(),
                             'tiempo' => 0,
@@ -253,23 +304,13 @@ class HistorialController extends Controller
                             'type' => 'info',
                             'observacion' => "Su estancia es de {$qr->tiempo} minutos"
                         ]);
+                    } else {
+                        return response()->json([
+                            'tiempo_transcurrido' => 0,
+                            'type' => 'error',
+                            'observacion' => 'No hay cupos disponibles, no puede ingresar aún.'
+                        ]);
                     }
-                } else {
-                    Historial::create([
-                        'qr_id' => $qr['id'],
-                        'user_id' => Auth::id(),
-                        'nombre' => $qr['nombre'],
-                        'ingreso' => Carbon::now()->toDateTimeString(),
-                        'tiempo' => 0,
-                        'salida' => Carbon::now()->toDateTimeString(),
-                        'salida_tentativa' => $salida_tentativa,
-                        'estado' => 'INGRESO'
-                    ]);
-                    return response()->json([
-                        'tiempo_transcurrido' => 0,
-                        'type' => 'info',
-                        'observacion' => "Su estancia es de {$qr->tiempo} minutos"
-                    ]);
                 }
             } else {
                 return response()->json([
@@ -278,6 +319,31 @@ class HistorialController extends Controller
                     'observacion' => 'Codigo no valido'
                 ]);
             }
+        }
+    }
+
+    private function buscarCupo($tecnico_id)
+    {
+        $establecimiento_id = User::find($tecnico_id)->establecimiento_id;
+        $hoy = Carbon::now()->toDateString();
+        $existenCupos = Cupo::where('establecimiento_id', $establecimiento_id)
+            ->where('estado', 1)
+            ->where('saldo', '>', 0)
+            ->whereDate('fecha_fin', '>=', $hoy)
+            ->exists();
+        if ($existenCupos) {
+            $cupoSeleccionado = Cupo::where('establecimiento_id', $establecimiento_id)
+                ->where('estado', 1)
+                ->where('saldo', '>', 0)
+                ->whereDate('fecha_fin', '>=', $hoy)
+                ->first();
+            $cupoActualizar = Cupo::find($cupoSeleccionado->id);
+            $cupoActualizar->gasto = $cupoActualizar->gasto + 1;
+            $cupoActualizar->saldo = $cupoActualizar->saldo - 1;
+            $cupoActualizar->save();
+            return $cupoSeleccionado->id;
+        } else {
+            return false;
         }
     }
 
