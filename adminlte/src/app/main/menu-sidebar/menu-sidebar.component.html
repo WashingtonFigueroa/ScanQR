@@ -1,12 +1,21 @@
 <aside #mainSidebar class="main-sidebar sidebar-light-dark elevation-4">
+  <div class="text-center">
     <a [routerLink]="['/dashboard']" class="brand-link">
-      <img
-        src="assets/img/log.png"
-        alt="Logo DTM READY" height="40px"
-      />
-    </a>
+        <div *ngIf="identity && identity.logo">
+          <img
+            src="{{base + 'empresa/logo/' + identity.logo}}"
+            alt="Logo Image" height="40px" width="100%"
+          />
+        </div>
+        <div *ngIf="identity.logo === '' || identity.logo === null">
+          <img
+            src="assets/img/log.png"
+            alt="DTMOWED Image" height="40px" width="100%"
+          />
+        </div>
+      </a>
+  </div> 
   <div class="sidebar">
-
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image" *ngIf="identity && identity.image">
         <img
@@ -26,7 +35,6 @@
         {{identity.nombre}}
       </div>
     </div>
-
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <li class="nav-item">
         <a [routerLink]="['/dashboard']" class="nav-link">

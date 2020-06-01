@@ -20,6 +20,11 @@ class CreateCuposTable extends Migration
                 ->references('id')
                 ->on('establecimientos')
                 ->onDelete('cascade');
+            $table->unsignedBigInteger('paquete_id');
+            $table->foreign('paquete_id')
+                ->references('id')
+                ->on('paquetes')
+                ->onDelete('cascade');
             $table->unsignedInteger('carga');
             $table->unsignedInteger('gasto');
             $table->unsignedInteger('saldo');

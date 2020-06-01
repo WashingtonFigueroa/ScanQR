@@ -12,6 +12,7 @@ class Cupo extends Model
     protected $table = 'cupos';
     protected $fillable = [
         'establecimiento_id',
+        'paquete_id ',
         'carga',
         'gasto',
         'saldo',
@@ -19,7 +20,12 @@ class Cupo extends Model
         'estado'
     ];
     protected $dates = ['deleted_at'];
-    protected $appends = ['establecimiento'];
+    protected $appends = ['establecimiento', 'paquete'];
+
+    public function getPaqueteAttribute()
+    {
+        return Plan::find($this->paquete_id)->nombre;
+    }
 
     public function establecimiento()
     {

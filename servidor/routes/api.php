@@ -24,6 +24,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/lista-usuarios', 'UserController@listaUsuarios');
     Route::apiResources([
         'usuarios' => 'UserController',
+        'plan' => 'PlanController',
+        'paquete' => 'PaqueteController',
         'cargo' => 'CargoController',
         'cupo' => 'CupoController',
         'noticia' => 'NoticiaController',

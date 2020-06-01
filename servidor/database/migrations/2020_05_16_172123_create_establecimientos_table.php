@@ -15,6 +15,11 @@ class CreateEstablecimientosTable extends Migration
     {
         Schema::create('establecimientos', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('plan_id');
+            $table->foreign('plan_id')
+            ->references('id')
+            ->on('plans')
+            ->onDelete('cascade');
             $table->string('documento')->nullable();
             $table->string('nombre');
             $table->string('actividad')->nullable();
@@ -22,6 +27,9 @@ class CreateEstablecimientosTable extends Migration
             $table->string('email');
             $table->string('telefono');
             $table->string('logo')->nullable();
+            $table->string('capacidad');
+            $table->string('estancia');
+            $table->string('cierre');
             $table->boolean('estado')->default(true);
             $table->softDeletes();
             $table->timestamps();

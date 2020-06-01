@@ -11,6 +11,7 @@ class Establecimiento extends Model
 
     protected $table = 'establecimientos';
     protected $fillable = [
+        'plan_id',
         'documento',
         'nombre',
         'actividad',
@@ -18,9 +19,19 @@ class Establecimiento extends Model
         'email',
         'telefono',
         'logo',
+        'capacidad',
+        'estancia',
+        'cierre',
         'estado'
     ];
     protected $dates = ['deleted_at'];
+
+    protected $appends = ['plan'];
+
+    public function getPlanAttribute()
+    {
+        return Plan::find($this->plan_id)->nombre;
+    }
 
     public function usuarios()
     {

@@ -116,6 +116,14 @@ class UserController extends Controller
             $input = $request->all();
             $input['password'] = bcrypt($input['password']);
             $usuario = User::create($input);
+                // create qr
+                $user_id = User::where('email', '=', $input['email'])->first();   
+                $qr = new QR;
+                $qr->user_id = $user_id->id;
+                $qr->codqr = $input['email'];
+                $qr->nombre = $input['nombre'];
+                $qr->tiempo = 2;
+                $qr->save();
             return response()->json(['code' => 200, 'status' => 'success', 'usuario' => $usuario], 201);
         }
     }
@@ -124,7 +132,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->update($request->all());
-// update data qr
+        // update data qr
          $data = $request->all();
          if ($data['cargo_id'] === 4 ) {
              $qr = QR::where('user_id','=', $id)->first();

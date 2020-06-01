@@ -38,7 +38,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    protected $appends = ['cargo', 'establecimiento', 'con_cupos'];
+    protected $appends = ['cargo', 'establecimiento', 'logo', 'con_cupos'];
 
     public function cargo()
     {
@@ -63,6 +63,11 @@ class User extends Authenticatable
     public function getEstablecimientoAttribute()
     {
         return Establecimiento::find($this->establecimiento_id)->nombre;
+    }
+
+    public function getLogoAttribute()
+    {
+        return Establecimiento::find($this->establecimiento_id)->logo;
     }
 
     public function getConCuposAttribute()
