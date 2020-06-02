@@ -17,6 +17,7 @@ import { Empresa } from 'src/app/models/empresa';
 })
 export class UsuarioCreateComponent implements OnInit {
   public title: string;
+  public b: number;
   public cedula: string;
   public user: User;
   public cargos: Cargo;
@@ -63,6 +64,7 @@ export class UsuarioCreateComponent implements OnInit {
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
     this.user = new User(1, 2, 1, '', '', '', '', '', '', '', null, '');
+    this.b = 1;
   }
 
   ngOnInit(): void {

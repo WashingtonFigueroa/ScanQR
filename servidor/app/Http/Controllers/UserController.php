@@ -131,7 +131,9 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-        $user->update($request->all());
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+        $user->update($input);
         // update data qr
          $data = $request->all();
          if ($data['cargo_id'] === 4 ) {

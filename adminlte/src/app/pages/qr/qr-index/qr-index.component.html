@@ -55,7 +55,7 @@
               <th style="width:150px" class="text-center">
                 Tiempo
               </th>
-              <th class="text-center" style="width:160px">
+              <th class="text-center" style="width:170px">
                 Acciones
               </th>
             </tr>
@@ -76,16 +76,19 @@
               </td>
               <td>{{qr.nombre}}</td>
               <td style="width:150px" class="text-center">{{qr.tiempo}}</td>
-              <td class="text-center" style="width:160px">
+              <td class="text-center" style="width:170px">
                 <button class="btn btn-primary btn-sm" (click)="print(qr)" pTooltip="Imprimir QR"><i
-                  class="fa fa-print"></i></button>&nbsp;&nbsp;
-                <button class="btn btn-warning btn-sm" routerLink="/qr/edit/{{qr.id}}" title="Editar Qr"><i
+                  class="fa fa-print"></i></button>
+                  <div *ngIf="identity.cargo_id === 1">
+                
+                  <button class="btn btn-warning btn-sm" routerLink="/qr/edit/{{qr.id}}" title="Editar Qr"><i
                   class="fas fa-edit"></i></button>
-                &nbsp;&nbsp;
-                <button type="button" class="btn btn-danger  btn-sm" data-toggle="modal"
-                        [attr.data-target]="'#myModal'+qr.id">
-                  <i class="fas fa-trash-alt"></i>
-                </button>
+                  &nbsp;&nbsp;
+                  <button type="button" class="btn btn-danger  btn-sm" data-toggle="modal"
+                          [attr.data-target]="'#myModal'+qr.id">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </div>
                 <div class="modal" id="myModal{{qr.id}}">
                   <div class="modal-dialog">
                     <div class="modal-content">

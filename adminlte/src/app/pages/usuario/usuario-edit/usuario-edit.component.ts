@@ -19,6 +19,7 @@ import { EmpresaService } from '../../empresa/empresa.service';
 })
 export class UsuarioEditComponent implements OnInit {
   public title: string;
+  public b: number;
   public user: User = null;
   public cargos: Cargo;
   public empresas: Empresa;
@@ -66,8 +67,11 @@ export class UsuarioEditComponent implements OnInit {
 //    this.user = new User(1, 1, '', '', '', '', '', '', '', null, '');
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
+    this.b = 0;
+  }
 
-
+  clave() {
+    this.b = 1;
   }
 
   ngOnInit() {
