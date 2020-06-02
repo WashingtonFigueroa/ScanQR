@@ -39,7 +39,7 @@
             </select>
           </div>
           <div class="col-lg-2">
-            <input type="text" class="form-control" name="codigo" formControlName="codigo" placeholder="Ingrese Código">
+            <input type="text" class="form-control" name="codigo" formControlName="codigo" placeholder="Buscar Cliente...">
           </div>
           <div class="col-lg-2 text-center">
             <button class="btn btn-primary" (click)="buscar()" [disabled]="buscarGroup.invalid">
@@ -58,6 +58,7 @@
           <tr>
             <th>N.</th>
             <th class="text-center">Código</th>
+            <th>Nombre</th>
             <th>Ingreso</th>
             <th>Salida</th>
             <th>Salida Tentativa</th>
@@ -69,6 +70,7 @@
           <tr *ngFor="let record of historial; let i = index">
             <td>{{ i + 1 }}</td>
             <td class="text-center">{{ record.qr_id }}</td>
+            <td>{{ record.nombre }}</td>
             <td>{{ record.ingreso | date: 'dd/MM/y HH:mm:ss' }}</td>
             <td>
               <span *ngIf="record.ingreso === record.salida"> - </span>

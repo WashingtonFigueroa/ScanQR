@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Cupo} from '../../../models/cupo.models';
-import {environment} from '../../../../environments/environment.prod';
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LoginService} from '../../../login/login.service';
 import {CupoService} from '../cupo.service';
 import {EmpresaService} from '../../empresa/empresa.service';
+import { PaqueteService } from '../../paquete/paquete.service';
 
 @Component({
   selector: 'app-cupo-edit',
@@ -15,12 +15,10 @@ import {EmpresaService} from '../../empresa/empresa.service';
 export class CupoEditComponent implements OnInit {
   public title: string;
   public cupo: Cupo;
+  public paquetes: any[] = null;
   public identity;
   public token;
-  public base = environment.servidor;
   public establecimientos: any[] = null;
-
-
   constructor(
     private toastr: ToastrService,
     private router: Router,
@@ -28,10 +26,12 @@ export class CupoEditComponent implements OnInit {
     private loginService: LoginService,
     private cupoService: CupoService,
     private establecimientoService: EmpresaService,
+    private paqueteService: PaqueteService
   ) {
     this.title = 'Editar Cupo';
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
+    this.cupo = new Cupo(1, 1, 1, 0, null, null, null, true);
   }
 
   ngOnInit(): void {
@@ -45,6 +45,10 @@ export class CupoEditComponent implements OnInit {
       .subscribe((establecimientos: any[]) => {
         this.establecimientos = establecimientos;
       });
+    this.paqueteService.getPaquetes(this.token)
+    .subscribe((paquetes: any[]) => {
+      this.paquetes = paquetes;
+    });
   }
 
   onSubmit(form) {

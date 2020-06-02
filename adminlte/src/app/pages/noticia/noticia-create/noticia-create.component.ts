@@ -18,7 +18,7 @@ export class NoticiaCreateComponent implements OnInit {
   public noticia: Noticia;
   public empresas: Empresa;
   public identity;
-  public token;
+  public token; 
   public base = environment.servidor;
   public today: Date;
   afuConfig = {

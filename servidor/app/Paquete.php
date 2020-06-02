@@ -11,7 +11,7 @@ class Paquete extends Model
 
     protected $table = 'paquetes';
     protected $fillable = [
-        'plan_id ',
+        'plan_id',
         'cupo',
         'valor',
         'estado'

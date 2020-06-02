@@ -38,7 +38,7 @@
             </div>
           </div>
         </div>
-        <p-table #dt [columns]="cols" [paginator]="true" [responsive]="true" [rows]="10" [value]="cupos">
+        <p-table #dt [columns]="cols" [paginator]="true" [responsive]="true" [rows]="20" [value]="cupos">
           <ng-template let-columns pTemplate="header">
             <tr>
               <th class="text-center" style="width:50px">
@@ -50,13 +50,13 @@
               <th class="text-center">
                 Establecimiento
               </th>
-              <th class="text-center">
+              <th class="text-center" style="width:100px">
                 Carga
               </th>
-              <th class="text-center">
+              <th class="text-center" style="width:100px">
                 Gasto
               </th>
-              <th class="text-center">
+              <th class="text-center" style="width:100px">
                 Saldo
               </th>
               <th class="text-center">
@@ -72,16 +72,16 @@
               <td style="width:50px">
                 {{cupo.id}}
               </td>
-              <td *ngIf="cupo.estado === 1" class="text-center" style="width:150px">
+              <td *ngIf="cupo.estado === 1" class="text-center" style="width:100px">
                 <span class="right badge badge-success">Activo</span>
               </td>
-              <td *ngIf="cupo.estado !== 1" class="text-center" style="width:150px">
+              <td *ngIf="cupo.estado !== 1" class="text-center" style="width:100px">
                 <span class="right badge badge-warning">Inactivo</span>
               </td>
               <td>{{cupo.establecimiento}}</td>
-              <td>{{cupo.carga}}</td>
-              <td>{{cupo.gasto}}</td>
-              <td>{{cupo.saldo}}</td>
+              <td style="width:100px">{{cupo.carga}}</td>
+              <td style="width:100px">{{cupo.gasto}}</td>
+              <td style="width:100px">{{cupo.saldo}}</td>
               <td>{{cupo.fecha_fin}}</td>
               <td class="text-center" style="width:160px">
                 <button (click)="activarCupo(cupo.id)" *ngIf="!cupo.estado" class="btn btn-default  btn-lg"
@@ -94,7 +94,7 @@
 
                 <button class="btn btn-warning  btn-sm" routerLink="/cupo/edit/{{cupo.id}}" title="Editar Cupo"><i
                   class="fas fa-edit"></i></button>
-
+                &nbsp;&nbsp;
                 <button [attr.data-target]="'#myModal'+cupo.id" class="btn btn-danger  btn-sm" data-toggle="modal"
                         type="button">
                   <i class="fas fa-trash-alt"></i>

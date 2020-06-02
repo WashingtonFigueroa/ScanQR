@@ -15,9 +15,18 @@ class HistorialController extends Controller
 {
     public function index()
     {
-        $historial = Historial::whereDate('created_at', Carbon::now()->toDateString())
+        $establecimiento_id = Auth::user()->establecimiento_id;
+        if ($establecimiento_id == 1) {
+            $historial = Historial::whereDate('created_at', Carbon::now()->toDateString())
             ->orderBy('id', 'desc')->get();
         return response()->json($historial, 200);
+        } else {
+            $users_id = User::where('establecimiento_id', $establecimiento_id)->pluck('id');
+            $historial = Historial::whereDate('created_at', Carbon::now()->toDateString())
+                ->whereIn('user_id', $users_id)
+                ->orderBy('id', 'desc')->get();
+            return response()->json($historial, 200);
+        }
     }
 
     public function stats()
@@ -64,31 +73,67 @@ class HistorialController extends Controller
         $input = \request()->all();
         $input['hasta'] = Carbon::parse($input['hasta'])->addDay();
         $response = null;
-        switch ($input['estado']) {
-            case 'INGRESO':
-                $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
+
+        $establecimiento_id = Auth::user()->establecimiento_id;
+        $users_id = User::where('establecimiento_id', $establecimiento_id)->pluck('id');
+        if ($establecimiento_id == 1) {
+            switch ($input['estado']) {
+                case 'INGRESO':
+                    $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
                     ->where('estado', '=', 'INGRESO')
-                    ->where('nombre', 'like', "%{$input['codigo']}%")
-                    ->get();
-                break;
-            case 'SALIDA':
-                $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
+                        ->where('nombre', 'like', "%{$input['codigo']}%")
+                        ->get();
+                    break;
+                case 'SALIDA':
+                    $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
                     ->where('estado', '=', 'SALIDA')
-                    ->where('nombre', 'like', "%{$input['codigo']}%")
-                    ->get();
-                break;
-            case 'RETRASO':
-                $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
+                        ->where('nombre', 'like', "%{$input['codigo']}%")
+                        ->get();
+                    break;
+                case 'RETRASO':
+                    $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
                     ->where('estado', '<>', 'INGRESO')
-                    ->where('estado', '<>', 'SALIDA')
+                        ->where('estado', '<>', 'SALIDA')
+                        ->where('nombre', 'like', "%{$input['codigo']}%")
+                        ->get();
+                    break;
+                case 'TODOS':
+                    $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
                     ->where('nombre', 'like', "%{$input['codigo']}%")
-                    ->get();
-                break;
-            case 'TODOS':
-                $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
+                        ->get();
+                    break;
+            }
+        } else {
+            switch ($input['estado']) {
+                case 'INGRESO':
+                    $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
+                    ->whereIn('user_id', $users_id)    
+                    ->where('estado', '=', 'INGRESO')
+                        ->where('nombre', 'like', "%{$input['codigo']}%")
+                        ->get();
+                    break;
+                case 'SALIDA':
+                    $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
+                    ->whereIn('user_id', $users_id)    
+                    ->where('estado', '=', 'SALIDA')
+                        ->where('nombre', 'like', "%{$input['codigo']}%")
+                        ->get();
+                    break;
+                case 'RETRASO':
+                    $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
+                    ->whereIn('user_id', $users_id)    
+                    ->where('estado', '<>', 'INGRESO')
+                        ->where('estado', '<>', 'SALIDA')
+                        ->where('nombre', 'like', "%{$input['codigo']}%")
+                        ->get();
+                    break;
+                case 'TODOS':
+                    $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
+                    ->whereIn('user_id', $users_id)    
                     ->where('nombre', 'like', "%{$input['codigo']}%")
-                    ->get();
-                break;
+                        ->get();
+                    break;
+            }
         }
         return response()->json($response, 200);
     }
@@ -142,7 +187,7 @@ class HistorialController extends Controller
                             } else {
                                 $tiempo2 = $historial2->tiempo - $qr->tiempo;
                                 $historial2->user_id = Auth::id();
-                                $historial2->estado = "SALIDA CON RETRASO DE {$tiempo2} MIN.";
+                                $historial2->estado = "SALIDA-RETRASO {$tiempo2} MIN.";
                                 $historial2->save();
                                 return response()->json([
                                     'tiempo_transcurrido' => $historial2->tiempo,

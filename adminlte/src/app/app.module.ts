@@ -57,6 +57,14 @@ import { NoticiaEditComponent } from './pages/noticia/noticia-edit/noticia-edit.
 import { NoticiaCreateComponent } from './pages/noticia/noticia-create/noticia-create.component';
 import { ClienteComponent } from './pages/cliente/cliente.component';
 import { ClienteIndexComponent } from './pages/cliente/cliente-index/cliente-index.component';
+import { PlanComponent } from './pages/plan/plan.component';
+import { PlanIndexComponent } from './pages/plan/plan-index/plan-index.component';
+import { PlanEditComponent } from './pages/plan/plan-edit/plan-edit.component';
+import { PlanCreateComponent } from './pages/plan/plan-create/plan-create.component';
+import { PaqueteComponent } from './pages/paquete/paquete.component';
+import { PaqueteIndexComponent } from './pages/paquete/paquete-index/paquete-index.component';
+import { PaqueteEditComponent } from './pages/paquete/paquete-edit/paquete-edit.component';
+import { PaqueteCreateComponent } from './pages/paquete/paquete-create/paquete-create.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +105,14 @@ import { ClienteIndexComponent } from './pages/cliente/cliente-index/cliente-ind
     NoticiaCreateComponent,
     ClienteComponent,
     ClienteIndexComponent,
+    PlanComponent,
+    PlanIndexComponent,
+    PlanEditComponent,
+    PlanCreateComponent,
+    PaqueteComponent,
+    PaqueteIndexComponent,
+    PaqueteEditComponent,
+    PaqueteCreateComponent,
   ],
     imports: [
         BrowserModule,

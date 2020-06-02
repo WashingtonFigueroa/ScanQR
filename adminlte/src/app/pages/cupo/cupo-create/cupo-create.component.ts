@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {Cupo} from 'src/app/models/cupo.models';
 import {CupoService} from '../cupo.service';
 import {EmpresaService} from '../../empresa/empresa.service';
+import { PaqueteService } from '../../paquete/paquete.service';
 
 @Component({
   selector: 'app-cupo-create',
@@ -19,7 +20,7 @@ export class CupoCreateComponent implements OnInit {
   public token;
   public base = environment.servidor;
   public establecimientos: any[] = null;
-
+  public paquetes: any[] = null;
 
   constructor(
     private toastr: ToastrService,
@@ -27,11 +28,12 @@ export class CupoCreateComponent implements OnInit {
     private loginService: LoginService,
     private cupoService: CupoService,
     private establecimientoService: EmpresaService,
+    private paqueteService: PaqueteService
   ) {
     this.title = 'Crear cupo';
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
-    this.cupo = new Cupo(1, 1, 0, null, null, null, true);
+    this.cupo = new Cupo(1, 1, 1, 0, null, null, null, true);
   }
 
   ngOnInit(): void {
@@ -39,8 +41,15 @@ export class CupoCreateComponent implements OnInit {
       .subscribe((establecimientos: any[]) => {
         this.establecimientos = establecimientos;
       });
+    this.paqueteService.getPaquetes(this.token)
+      .subscribe((paquetes: any[]) => {
+        this.paquetes = paquetes;
+      });
   }
 
+  paq(id){
+console.log(id);
+  }
   onSubmit(form) {
     this.cupoService.guardar(this.token, this.cupo).subscribe(response => {
       this.toastr.success('Ok.', 'Cupo Registrado');

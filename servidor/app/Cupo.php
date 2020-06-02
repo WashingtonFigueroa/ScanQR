@@ -12,7 +12,7 @@ class Cupo extends Model
     protected $table = 'cupos';
     protected $fillable = [
         'establecimiento_id',
-        'paquete_id ',
+        'paquete_id',
         'carga',
         'gasto',
         'saldo',
@@ -24,7 +24,7 @@ class Cupo extends Model
 
     public function getPaqueteAttribute()
     {
-        return Plan::find($this->paquete_id)->nombre;
+        return Paquete::find($this->paquete_id)->cupo;
     }
 
     public function establecimiento()

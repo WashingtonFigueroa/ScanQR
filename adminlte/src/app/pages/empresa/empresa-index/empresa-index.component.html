@@ -39,13 +39,13 @@
               </div>
             </div>
           </div>
-                <p-table #dt [columns]="cols" [value]="empresas" [responsive]="true" [paginator]="true" [rows]="10" >
+                <p-table #dt [columns]="cols" [value]="empresas" [responsive]="true" [paginator]="true" [rows]="20" >
                   <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th style="width:50px" class="text-center">
                             ID
                         </th>
-                        <th  class="text-center">
+                        <th  style="width:100px" class="text-center">
                             Logo
                         </th>  
                         <th  class="text-center">
@@ -55,8 +55,11 @@
                             Dirección
                         </th> 
                         <th  class="text-center">
-                            Teléfono
+                            Plan
                         </th> 
+                        <th  class="text-center">
+                          Capacidad
+                      </th> 
                         <th class="text-center" style="width:160px" >
                           Acciones
                         </th>                     
@@ -67,7 +70,7 @@
                     <td style="width:50px">
                       {{empresa.id}}
                     </td>
-                    <td class="text-center">
+                    <td style="width:50px" class="text-center">
                       <span *ngIf="!empresa.logo" class="badge badge-danger">Sin imagen</span>
                       <div class="text-center" *ngIf="empresa.logo">
                         <img src="{{base + 'empresa/logo/' + empresa.logo}}" alt="User" width="75px"/>
@@ -75,9 +78,8 @@
                     </td>
                     <td>{{empresa.nombre}}</td>
                     <td>{{empresa.direccion}}</td>
-                    <td>{{empresa.telefono}}</td>
-                    
-           
+                    <td>{{empresa.plan}}</td>
+                    <td>{{empresa.capacidad}}</td>
                     <td class="text-center" style="width:160px">
                     <label *ngIf="empresa.estado" class="btn-sm" style="color: steelblue; width:30%" title="Activo"><i class="fas fa-check"></i></label>
                     <label *ngIf="!empresa.estado" class="btn-sm" style="color: tomato; width:30%" title="Inactivo"><i class="far fa-times-circle"></i></label>

@@ -1,0 +1,94 @@
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>{{title}}</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a routerLink="/dashboard">Inicio</a></li>
+            <li class="breadcrumb-item active">{{title}}</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-info card-outline">
+            <form #createPaqueteForm="ngForm" (ngSubmit)="onSubmit(createPaqueteForm)">
+              <div class="card-body">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-md-12">       
+                      <div class="form-group-sm" *ngIf="planes !== null">
+                        <label><small class="requeridos">☼</small> Seleccione Plan:</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend ">
+                            <span class="input-group-text"><i class="fas fa-building "></i></span>
+                          </div>
+                          <ng-select [items]="planes"
+                                     class="custom"
+                                     style="width: 86%;"
+                                     name="plan_id"
+                                     #plan_id="ngModel" [(ngModel)]="paquete.plan_id"
+                                     bindLabel="nombre"
+                                     bindValue="id"
+                                     required>
+                          </ng-select>
+                          <small *ngIf="!plan_id.valid && plan_id.touched" class="invalid-feedback d-block"> Campo
+                            Obligatorio</small>
+                        </div>
+                      </div>
+                      <div class="form-group btn-sm">
+                        <label> <small class="requeridos">☼</small> Cupos:</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-newspaper"></i></span>
+                          </div>
+                          <input type="number" name="cupo" class="form-control" #cupo="ngModel" [(ngModel)]="paquete.cupo" required>
+                        <small *ngIf="!cupo.valid && cupo.touched" class="invalid-feedback d-block"> El cupo es obligatorio</small>
+                        </div>
+                      </div>
+                      <div class="form-group btn-sm">
+                        <label> <small class="requeridos">☼</small> Valor:</label>    
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-newspaper"></i></span>
+                          </div>
+                          <input type="number" name="valor" class="form-control" #valor="ngModel" [(ngModel)]="paquete.valor" required>
+                        <small *ngIf="!valor.valid && valor.touched" class="invalid-feedback d-block"> El valor es obligatorio</small>
+                        </div>
+                      </div>
+                      <div *ngIf=" title === 'Editar Paquete'" class="form-group btn-sm" >
+                        <label><small class="requeridos">☼</small>  Seleccione Estado:</label>    
+                        <div class="input-group">
+                          <label class="container">Estado
+                            <input  type="checkbox" checkbox="true" name="estado"  #estado="ngModel" [(ngModel)]="paquete.estado">
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
+                      </div>
+                     <br>
+                    </div>
+                    <div class="contenedor-div botones-abajo-derecha">
+
+                        <button type="submit" class="btn btn-success btn-sm" [disabled]="!createPaqueteForm.form.valid">
+                          <i class="fas fa-save"></i>&nbsp;&nbsp; {{title}} </button>
+                          &nbsp;&nbsp; &nbsp;&nbsp;
+                        <button type="button" class="btn btn-danger btn-sm" routerLink="/paquete">
+                        <i class="fas fa-arrow-left"></i>&nbsp;&nbsp; Cancelar</button>
+                      </div>
+
+                  </div>
+                </div>
+              </div> 
+             
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

@@ -21,7 +21,7 @@
           <form #createCupoForm="ngForm" (ngSubmit)="onSubmit(createCupoForm)">
             <div class="card-body">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <div *ngIf="establecimientos !== null" class="form-group btn-sm">
                     <label><small class="requeridos">☼</small> Seleccione establecimiento:</label>
                     <div class="input-group">
@@ -42,7 +42,27 @@
                         Obligatorio</small>
                     </div>
                   </div>
-                  <div class="form-group btn-sm">
+                  <div *ngIf="paquetes !== null" class="form-group btn-sm">
+                    <label><small class="requeridos">☼</small> Seleccione Paquete:</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend ">
+                        <span class="input-group-text"><i class="fas fa-box-open"></i></span>
+                      </div>
+                      <ng-select #paquete_id="ngModel"
+                                 [(ngModel)]="cupo.paquete_id"
+                                 [items]="paquetes"
+                                 bindLabel="cupo"
+                                 bindValue="id" class="custom"
+                                 name="paquete_id"
+                                 required
+                                 style="width: 86%;">
+                      </ng-select>
+                      <small *ngIf="!paquete_id.valid && paquete_id.touched"
+                             class="invalid-feedback d-block"> Campo
+                        Obligatorio</small>
+                    </div>
+                  </div>
+                  <!-- <div class="form-group btn-sm">
                     <label> <small class="requeridos">☼</small> Carga:</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
@@ -53,10 +73,7 @@
                       <small *ngIf="!carga.valid && carga.touched" class="invalid-feedback d-block"> El carga es
                         obligatorio</small>
                     </div>
-                  </div>
-                  <br>
-                </div>
-                <div class="col-md-6">
+                  </div> -->
                   <div class="form-group btn-sm">
                     <label>Fecha Fin:</label>
                     <div class="input-group">
@@ -64,22 +81,22 @@
                         <span class="input-group-text"><i class="far fa-calendar-alt "></i></span>
                       </div>
                       <input #fecha_fin="ngModel" [(ngModel)]="cupo.fecha_fin" class="form-control"
-                             name="fecha_fin"
-                             type="date"
-                             required>
-                    </div>
+                      name="fecha_fin"
+                      type="date"
+                      required> </div>
                   </div>
-                </div>
-                <div class="contenedor-div botones-abajo-derecha">
-                  <button [disabled]="!createCupoForm.form.valid" class="btn btn-success btn-sm" type="submit">
-                    <i class="fas fa-save"></i>&nbsp;&nbsp; {{title}} </button>
-                  &nbsp;&nbsp; &nbsp;&nbsp;
-                  <button class="btn btn-danger btn-sm" routerLink="/cupo" type="button">
-                    <i class="fas fa-arrow-left"></i>&nbsp;&nbsp; Cancelar
-                  </button>
-                </div>
+                </div>               
               </div>
             </div>
+                    <div class="contenedor-div botones-abajo-derecha">
+                      <button [disabled]="!createCupoForm.form.valid" class="btn btn-success btn-sm" type="submit">
+                        <i class="fas fa-save"></i>&nbsp;&nbsp; {{title}} </button>
+                      &nbsp;&nbsp; &nbsp;&nbsp;
+                      <button class="btn btn-danger btn-sm" routerLink="/cupo" type="button">
+                        <i class="fas fa-arrow-left"></i>&nbsp;&nbsp; Cancelar
+                      </button>
+                    </div>
+                    <br>
           </form>
         </div>
       </div>

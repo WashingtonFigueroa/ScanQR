@@ -38,6 +38,14 @@ import { NoticiaCreateComponent } from './pages/noticia/noticia-create/noticia-c
 import { NoticiaEditComponent } from './pages/noticia/noticia-edit/noticia-edit.component';
 import { ClienteComponent } from './pages/cliente/cliente.component';
 import { ClienteIndexComponent } from './pages/cliente/cliente-index/cliente-index.component';
+import { PlanComponent } from './pages/plan/plan.component';
+import { PlanIndexComponent } from './pages/plan/plan-index/plan-index.component';
+import { PlanCreateComponent } from './pages/plan/plan-create/plan-create.component';
+import { PlanEditComponent } from './pages/plan/plan-edit/plan-edit.component';
+import { PaqueteComponent } from './pages/paquete/paquete.component';
+import { PaqueteIndexComponent } from './pages/paquete/paquete-index/paquete-index.component';
+import { PaqueteCreateComponent } from './pages/paquete/paquete-create/paquete-create.component';
+import { PaqueteEditComponent } from './pages/paquete/paquete-edit/paquete-edit.component';
 
 /*    canActivate: [AuthGuard], canActivateChild: [AuthGuard],*/
 const routes: Routes = [
@@ -85,6 +93,24 @@ const routes: Routes = [
           {path: 'index', component: EmpresaIndexComponent},
           {path: 'create', component: EmpresaCreateComponent},
           {path: 'edit/:id', component: EmpresaEditComponent},
+        ]
+      },
+      {
+        path: 'plan', component: PlanComponent,
+        children: [
+          {path: '', component: PlanIndexComponent},
+          {path: 'index', component: PlanIndexComponent},
+          {path: 'create', component: PlanCreateComponent},
+          {path: 'edit/:id', component: PlanEditComponent},
+        ]
+      },
+      {
+        path: 'paquete', component: PaqueteComponent,
+        children: [
+          {path: '', component: PaqueteIndexComponent},
+          {path: 'index', component: PaqueteIndexComponent},
+          {path: 'create', component: PaqueteCreateComponent},
+          {path: 'edit/:id', component: PaqueteEditComponent},
         ]
       },
       {

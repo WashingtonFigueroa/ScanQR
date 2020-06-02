@@ -4,13 +4,13 @@
         <div *ngIf="identity && identity.logo">
           <img
             src="{{base + 'empresa/logo/' + identity.logo}}"
-            alt="Logo Image" height="40px" width="100%"
+            alt="Logo Image" height="40px" 
           />
         </div>
         <div *ngIf="identity.logo === '' || identity.logo === null">
           <img
             src="assets/img/log.png"
-            alt="DTMOWED Image" height="40px" width="100%"
+            alt="DTMOWED Image" height="40px" 
           />
         </div>
       </a>

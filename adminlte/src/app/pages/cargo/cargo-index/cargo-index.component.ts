@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { LoginService } from 'src/app/login/login.service';
 import { ToastrService } from 'ngx-toastr';
-import { Cargo } from '../../../models/cargo';
+import { Cargo } from '../../../models/cargo'; 
 import { CargoService } from '../cargo.service';
 
 @Component({

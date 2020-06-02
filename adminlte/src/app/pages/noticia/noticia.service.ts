@@ -8,7 +8,7 @@ import {environment} from 'src/environments/environment.prod';
 })
 export class NoticiaService {
   public url = environment.servidor;
-  public status: string;
+  public status: string; 
   public token;
   public identity;
 

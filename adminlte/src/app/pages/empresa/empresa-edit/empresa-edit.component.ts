@@ -5,6 +5,8 @@ import { environment } from 'src/environments/environment.prod';
 import { ToastrService } from 'ngx-toastr';
 import { LoginService } from 'src/app/login/login.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Plan } from 'src/app/models/plan.models';
+import { PlanService } from '../../plan/plan.service';
 
 @Component({
   selector: 'app-empresa-edit',
@@ -16,6 +18,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class EmpresaEditComponent implements OnInit {
   public title: string;
   public empresa: Empresa;
+  public planes: Plan;
   public id: number;
   public identity;
   public token;
@@ -51,12 +54,13 @@ export class EmpresaEditComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private loginService: LoginService,
-    private empresaService: EmpresaService
+    private empresaService: EmpresaService,
+    private planService: PlanService,
   ) {
     this.title = 'Editar Establecimiento';
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
-    this.empresa = new Empresa (1, '', '', '', '', '', '', '',  1);
+    this.empresa = new Empresa (1, 1, '', '', '', '', '', '', '', 1, 1, '',  1);
 
     this.route.params.subscribe((param: any) => {
       this.id = param.id;
@@ -68,6 +72,7 @@ export class EmpresaEditComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this.getplanes();
   }
 
   avatarUpload(datos) {
@@ -84,6 +89,14 @@ export class EmpresaEditComponent implements OnInit {
         this.router.navigate(['/empresa']);
     }, error => {
       this.toastr.error('Uppp!', 'verifique los valores');
+    });
+  }
+
+  getplanes() {
+    this.planService.getPlans(this.token).subscribe(response => {
+        this.planes = response;
+    }, error => {
+      console.log(error);
     });
   }
 }

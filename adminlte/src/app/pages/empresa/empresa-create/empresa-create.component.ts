@@ -5,6 +5,8 @@ import { EmpresaService } from '../empresa.service';
 import { ToastrService } from 'ngx-toastr';
 import { LoginService } from 'src/app/login/login.service';
 import { Router } from '@angular/router';
+import { Plan } from 'src/app/models/plan.models';
+import { PlanService } from '../../plan/plan.service';
 
 @Component({
   selector: 'app-empresa-create',
@@ -14,6 +16,7 @@ import { Router } from '@angular/router';
 export class EmpresaCreateComponent implements OnInit {
   public title: string;
   public empresa: Empresa;
+  public planes: Plan;
   public identity;
   public token;
   public base = environment.servidor;
@@ -47,14 +50,16 @@ export class EmpresaCreateComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private loginService: LoginService,
-    private empresaService: EmpresaService
+    private empresaService: EmpresaService,
+    private planService: PlanService
   ) {
     this.title = 'Crear Establecimiento';
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
-    this.empresa = new Empresa (1, '', '', '', '', '', '', '',  1);
+    this.empresa = new Empresa (1, 1, '', '', '', '', '', '', '', 1, 1, '',  1);
   }
   ngOnInit(): void {
+    this.getplanes();
   }
 
   avatarUpload(datos) {
@@ -73,4 +78,13 @@ export class EmpresaCreateComponent implements OnInit {
       this.toastr.error('Uppp!', 'verifique los valores');
     });
   }
+
+  getplanes() {
+    this.planService.getPlans(this.token).subscribe(response => {
+        this.planes = response;
+    }, error => {
+      console.log(error);
+    });
+  }
+
 }

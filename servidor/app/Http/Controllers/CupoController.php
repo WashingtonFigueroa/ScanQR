@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cupo;
+use App\Paquete;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -20,8 +21,10 @@ class CupoController extends Controller
         $fecha_fin = Carbon::parse($request->input('fecha_fin'));
         if ($fecha_fin->greaterThanOrEqualTo($hoy)) {
             $input = $request->all();
+            $car = Paquete::find($request->input('paquete_id'))->cupo;
+            $input['carga'] =$car;
             $input['gasto'] = 0;
-            $input['saldo'] = $request->input('carga');
+            $input['saldo'] =$car;
             $cupo = Cupo::create($input);
             return response()->json($cupo, 201);
         } else {

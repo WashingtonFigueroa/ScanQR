@@ -27,8 +27,8 @@ class CreateEstablecimientosTable extends Migration
             $table->string('email');
             $table->string('telefono');
             $table->string('logo')->nullable();
-            $table->string('capacidad');
-            $table->string('estancia');
+            $table->unsignedInteger('capacidad');
+            $table->unsignedInteger('estancia');
             $table->string('cierre');
             $table->boolean('estado')->default(true);
             $table->softDeletes();
