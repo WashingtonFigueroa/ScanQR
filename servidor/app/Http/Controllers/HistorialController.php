@@ -31,27 +31,31 @@ class HistorialController extends Controller
 
     public function stats()
     {
-        $habilitados = QR::where('estado', 'Activo')->count();
+        // $habilitados = QR::where('estado', 'Activo')->count();
         // $habilitados = Cupo::whereDate('created_at', Carbon::now()->toDateString())
         // ->where('estado', 'INGRESO')
         // ->distinct('qr_id')
         // ->count();
+        $establecimiento_id = Auth::user()->establecimiento_id;
+        $users_id = User::where('establecimiento_id', $establecimiento_id)->pluck('id');
 
         $ingreso = Historial::whereDate('created_at', Carbon::now()->toDateString())
-            ->where('estado', 'INGRESO')
+         ->whereIn('user_id', $users_id)    
+         ->where('estado', 'INGRESO')
             ->distinct('qr_id')
             ->count();
-        $salida = Historial::whereDate('created_at', Carbon::now()->toDateString())
-            ->where('estado', 'SALIDA')
-            ->count();
+        // $salida = Historial::whereDate('created_at', Carbon::now()->toDateString())
+        //     ->where('estado', 'SALIDA')
+        //     ->count();
         $salida_retraso = Historial::whereDate('created_at', Carbon::now()->toDateString())
-            ->where('estado', '<>', 'INGRESO')
+         ->whereIn('user_id', $users_id)    
+         ->where('estado', '<>', 'INGRESO')
             ->where('estado', '<>', 'SALIDA')
             ->count();
         return response()->json([
-            'habilitados' => $habilitados,
+            // 'habilitados' => $habilitados,
             'ingreso' => $ingreso,
-            'salida' => $salida,
+            // 'salida' => $salida,
             'salida_retraso' => $salida_retraso,
         ], 200);
     }
@@ -374,7 +378,7 @@ class HistorialController extends Controller
         $existenCupos = Cupo::where('establecimiento_id', $establecimiento_id)
             ->where('estado', 1)
             ->where('saldo', '>', 0)
-            ->whereDate('fecha_fin', '>=', $hoy)
+            ->whereDate('fecha_fin', '>=', $hoy) 
             ->exists();
         if ($existenCupos) {
             $cupoSeleccionado = Cupo::where('establecimiento_id', $establecimiento_id)

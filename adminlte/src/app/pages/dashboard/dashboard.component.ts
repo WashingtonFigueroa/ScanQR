@@ -19,7 +19,7 @@ interface Stats {
 })
 
 export class DashboardComponent implements OnInit {
-
+  public identity;
   enabledMessage: boolean = false;
   stats: Stats = null;
   ingresos: Historial[] = null;
@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit {
   constructor(private historialService: HistorialService,
               private loginService: LoginService,
               private toastr: ToastrService) {
+              this.identity = this.loginService.getIdentity();
   }
 
   ngOnInit() {
@@ -76,19 +77,19 @@ export class DashboardComponent implements OnInit {
     }) => {
       switch (response.type) {
         case 'info':
-          this.toastr.info(response.observacion, 'INGRESO');
+          this.toastr.success(response.observacion, 'INGRESO');
           this.enabledMessage = true;
           this.message = {
-            class: 'info',
+            class: 'success',
             text: response.observacion,
             heading: 'INGRESO'
           };
           break;
         case 'success':
-          this.toastr.success(response.observacion, 'SALIDA');
+          this.toastr.info(response.observacion, 'SALIDA');
           this.enabledMessage = true;
           this.message = {
-            class: 'success',
+            class: 'info',
             text: response.observacion,
             heading: 'SALIDA EXITOSA'
           };

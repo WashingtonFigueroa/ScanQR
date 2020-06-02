@@ -22,11 +22,6 @@ export class MainComponent implements OnInit, DoCheck {
   ngOnInit() {}
 
   mainSidebarHeight(height) {
-    // this.renderer.setStyle(
-    //   this.contentWrapper.nativeElement,
-    //   'min-height',
-    //   height - 114 + 'px'  *ngIf="identity && identity.name"
-    // );
   }
 
   toggleMenuSidebar() {
