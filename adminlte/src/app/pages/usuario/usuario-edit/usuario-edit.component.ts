@@ -64,7 +64,7 @@ export class UsuarioEditComponent implements OnInit {
     private establecimientoService: EmpresaService
   ) {
     this.title = 'Editar Usuario';
-//    this.user = new User(1, 1, '', '', '', '', '', '', '', null, '');
+    this.user = new User(1, 2, 1, '', '', '', '', '', '', '', null, '');
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
     this.b = 0;

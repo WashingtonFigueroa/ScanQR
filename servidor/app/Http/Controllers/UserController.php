@@ -132,7 +132,10 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
+        if ($input['password'] != '') {
+            $input['password'] = bcrypt($input['password']);
+        }
+       
         $user->update($input);
         // update data qr
          $data = $request->all();

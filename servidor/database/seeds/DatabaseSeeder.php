@@ -53,7 +53,7 @@ class DatabaseSeeder extends Seeder
                 'cargo_id' => 1,
                 'establecimiento_id' => 1,
                 'nombre' => 'Developer',
-                'password' => bcrypt('$12345$'),
+                'password' => bcrypt('123456'),
                 'email' => 'test@gmail.com',
                 'cedula' => '1003833447',
                 'direccion' => 'Ibarra',
