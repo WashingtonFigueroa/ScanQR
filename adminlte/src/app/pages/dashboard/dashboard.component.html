@@ -57,43 +57,7 @@
           </div>
         </div>
         <div class="row" *ngIf="identity.cargo_id !== 3">
-          <div class="col-md-4">
-            <div class="small-box bg-aqua">
-              <div class="inner">
-                <h3>{{ identity?.capacidad }}</h3>
-                <p>Carga</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stop"></i>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="small-box bg-aqua">
-              <div class="inner">
-                <h3>{{ identity?.capacidad }}</h3>
-                <p>Gasto</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-arrow-graph-up-left"></i>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="small-box bg-aqua">
-              <div class="inner">
-                <h3>{{ stats?.salida_retraso }}</h3>
-                <p>Saldo</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-arrow-graph-down-right"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="container-fluid" *ngIf="identity.cargo_id !== 3">
-          <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-2">
               <div class="small-box bg-cyan">
                 <div class="inner">
                   <h3>{{ identity?.capacidad }}</h3>
@@ -104,7 +68,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <div class="small-box bg-success">
                   <div class="inner">
                     <h3>{{ stats?.ingreso }}</h3>
@@ -115,7 +79,7 @@
                   </div>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <div class="small-box bg-warning">
                   <div class="inner">
                     <h3>{{ stats?.salida_retraso }}</h3>
@@ -126,6 +90,36 @@
                   </div>
               </div>
             </div>
+            <div class="col-md-6">
+              <div class="card-footer">
+                <div class="row">
+                  <div class="col-sm-3 col-6">
+                    <div class="description-block border-right">
+                      <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> <h3>250000</h3></span>
+                      <span class="description-text">Carga</span>
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-sm-3 col-6">
+                    <div class="description-block border-right">
+                      <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> <h3>{{ identity?.capacidad }}</h3></span>
+                      <span class="description-text">Gasto</span>
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-sm-3 col-6">
+                    <div class="description-block border-right">
+                      <span class="description-percentage text-danger"><i class="fas fa-caret-up"></i> <h3>{{ identity?.capacidad }}</h3></span>
+                      <span class="description-text">Saldo</span>
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- /.row -->
+              </div>
           </div>
         </div>
        

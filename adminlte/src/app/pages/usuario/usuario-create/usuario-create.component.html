@@ -38,6 +38,21 @@
                           Incorrecto</small>
                       </div>
                     </div>
+
+                    <div class="form-group btn-sm">
+                      <label> <small class="requeridos">☼</small> Cuenta:</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-user "></i></span>
+                        </div>
+                        <input type="text" name="cuenta" class="form-control" #cuenta="ngModel"
+                               [(ngModel)]="user.cuenta"
+                               required pattern="[a-zA-Z ]*">
+                        <small *ngIf="!cuenta.valid && cuenta.touched" class="invalid-feedback d-block">Campo
+                          Incorrecto</small>
+                      </div>
+                    </div>
+
                     <div class="form-group btn-sm">
                       <label> <small class="requeridos">☼</small> Nombres:</label>
                       <div class="input-group">
