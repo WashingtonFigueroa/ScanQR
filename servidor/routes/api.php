@@ -9,11 +9,12 @@ Route::get('/empresa/logo/{filename}', 'EstablecimientoController@getImage');
 Route::get('establecimientos', 'EstablecimientoController@index');
 Route::get('/noticia/imagen/{filename}', 'NoticiaController@getImage');
 
+Route::post('/user/upload', 'UserController@upload');
+Route::post('/empresa/upload', 'EstablecimientoController@upload');
+
 Route::group(['middleware' => ['auth:api', 'token.review']], function () {
     Route::post('logout', 'UserController@logout');
     Route::post('details', 'API\UserController@details');
-    Route::post('/user/upload', 'UserController@upload');
-    Route::post('/empresa/upload', 'EstablecimientoController@upload');
     Route::post('/noticia/upload', 'NoticiaController@upload');
 
     Route::get('stats', 'HistorialController@stats');

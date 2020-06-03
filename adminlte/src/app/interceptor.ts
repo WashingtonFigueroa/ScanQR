@@ -12,14 +12,14 @@ import {catchError, filter, map, tap} from 'rxjs/operators';
 
 export class Interceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (req.url.search('/login') === -1) {
+    if (req.url.search('/login') === -1 && req.url.search('/user/upload') === -1 && req.url.search('/empresa/upload') === -1) {
       if (localStorage.getItem('token') !== null) {
         const token = localStorage.getItem('token');
         const tokenLog = localStorage.getItem('tokenLog');
         const customReq = req.clone({
           headers: new HttpHeaders()
-            .set('Authorization', token)
-            .set('tokenLog', tokenLog)
+            .append('Authorization', token)
+            .append('tokenLog', tokenLog)
         });
         return next.handle(customReq).pipe(
           map((event: HttpEvent<any>) => {
