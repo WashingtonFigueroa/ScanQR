@@ -30,8 +30,8 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         // Planes
-        Plan::create(['nombre' => 'Establecimiento','detalle' => 'Capacidad maxima 4.000','estado' => true]);
-        Plan::create(['nombre' => 'Centro Comercial','detalle' => 'Capacidad maxima 500.000','estado' => true]);
+        Plan::create(['nombre' => 'Establecimiento', 'detalle' => 'Capacidad maxima 4.000', 'estado' => true]);
+        Plan::create(['nombre' => 'Centro Comercial', 'detalle' => 'Capacidad maxima 500.000', 'estado' => true]);
         // empresa
         Establecimiento::create([
             'plan_id' => 1,
@@ -52,6 +52,7 @@ class DatabaseSeeder extends Seeder
             [
                 'cargo_id' => 1,
                 'establecimiento_id' => 1,
+                'cuenta' => 'test',
                 'nombre' => 'Developer',
                 'password' => bcrypt('123456'),
                 'email' => 'test@gmail.com',
@@ -60,11 +61,11 @@ class DatabaseSeeder extends Seeder
                 'telefono' => '0969191290',
                 'fecha_nacimiento' => '',
                 'image' => ''
-                ]
+            ]
         );
         // Paquetes
-        Paquete::create(['plan_id' => 1,'cupo' => 1500, 'valor' => 15.00, 'estado' => true]);
-        Paquete::create(['plan_id' => 1,'cupo' => 4000, 'valor' => 25.00, 'estado' => true]);
-        Paquete::create(['plan_id' => 2,'cupo' => 25000, 'valor' => 250.00, 'estado' => true]);
+        Paquete::create(['plan_id' => 1, 'cupo' => 1500, 'valor' => 15.00, 'estado' => true]);
+        Paquete::create(['plan_id' => 1, 'cupo' => 4000, 'valor' => 25.00, 'estado' => true]);
+        Paquete::create(['plan_id' => 2, 'cupo' => 25000, 'valor' => 250.00, 'estado' => true]);
     }
 }

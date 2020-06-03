@@ -25,15 +25,17 @@ class CreateUsersTable extends Migration
                 ->references('id')
                 ->on('establecimientos')
                 ->onDelete('cascade');
+            $table->string('cuenta')->unique();
             $table->string('nombre');
             $table->string('password');
-            $table->string('email')->unique();
+            $table->string('email')->nullable();
             $table->string('cedula')->nullable();
             $table->string('direccion')->nullable();
             $table->string('telefono')->nullable();
             $table->string('fecha_nacimiento')->nullable();
             $table->string('image')->nullable();
             $table->boolean('estado')->default(true);
+            $table->string('token')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

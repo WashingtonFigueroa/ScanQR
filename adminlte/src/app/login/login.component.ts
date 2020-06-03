@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.title = 'Identificate';
-    this.user = new User(1, 1, 1, '', '', '', '', '', '', '', '', ''); 
+    this.user = new User(1, 1, 1, '', '', '', '', '', '', '', '', '', '');
   }
 
   ngOnInit() {
@@ -36,8 +36,9 @@ export class LoginComponent implements OnInit {
   onSubmit(form) {
     this.loginService.login(this.user)
       .subscribe((response: any) => {
-       // console.log(response);
+        // console.log(response);
         localStorage.setItem('token', response.token);
+        localStorage.setItem('tokenLog', response.tokenLog);
         localStorage.setItem('identity', JSON.stringify(response.identity));
         this.router.navigate(['dashboard']);
         this.toastr.success('Accediendo al sistema', 'Acceso Concedido');
@@ -53,6 +54,7 @@ export class LoginComponent implements OnInit {
       if (logout === 1) {
         localStorage.removeItem('identity');
         localStorage.removeItem('token');
+        localStorage.removeItem('tokenLog');
         this.identity = null;
         this.token = null;
         this.router.navigate(['/inicio']);

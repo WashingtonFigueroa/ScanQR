@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {AngularFileUploaderModule} from 'angular-file-uploader';
 import {DropdownModule} from 'primeng/dropdown';
@@ -45,26 +45,27 @@ import {QrIndexComponent} from './pages/qr/qr-index/qr-index.component';
 import {QrEditComponent} from './pages/qr/qr-edit/qr-edit.component';
 import {QrCreateComponent} from './pages/qr/qr-create/qr-create.component';
 import {ZXingScannerModule} from '@zxing/ngx-scanner';
-import { QRCodeModule } from 'angularx-qrcode';
+import {QRCodeModule} from 'angularx-qrcode';
 import {TooltipModule} from 'primeng';
-import { CupoComponent } from './pages/cupo/cupo.component';
-import { CupoIndexComponent } from './pages/cupo/cupo-index/cupo-index.component';
-import { CupoEditComponent } from './pages/cupo/cupo-edit/cupo-edit.component';
-import { CupoCreateComponent } from './pages/cupo/cupo-create/cupo-create.component';
-import { NoticiaComponent } from './pages/noticia/noticia.component';
-import { NoticiaIndexComponent } from './pages/noticia/noticia-index/noticia-index.component';
-import { NoticiaEditComponent } from './pages/noticia/noticia-edit/noticia-edit.component';
-import { NoticiaCreateComponent } from './pages/noticia/noticia-create/noticia-create.component';
-import { ClienteComponent } from './pages/cliente/cliente.component';
-import { ClienteIndexComponent } from './pages/cliente/cliente-index/cliente-index.component';
-import { PlanComponent } from './pages/plan/plan.component';
-import { PlanIndexComponent } from './pages/plan/plan-index/plan-index.component';
-import { PlanEditComponent } from './pages/plan/plan-edit/plan-edit.component';
-import { PlanCreateComponent } from './pages/plan/plan-create/plan-create.component';
-import { PaqueteComponent } from './pages/paquete/paquete.component';
-import { PaqueteIndexComponent } from './pages/paquete/paquete-index/paquete-index.component';
-import { PaqueteEditComponent } from './pages/paquete/paquete-edit/paquete-edit.component';
-import { PaqueteCreateComponent } from './pages/paquete/paquete-create/paquete-create.component';
+import {CupoComponent} from './pages/cupo/cupo.component';
+import {CupoIndexComponent} from './pages/cupo/cupo-index/cupo-index.component';
+import {CupoEditComponent} from './pages/cupo/cupo-edit/cupo-edit.component';
+import {CupoCreateComponent} from './pages/cupo/cupo-create/cupo-create.component';
+import {NoticiaComponent} from './pages/noticia/noticia.component';
+import {NoticiaIndexComponent} from './pages/noticia/noticia-index/noticia-index.component';
+import {NoticiaEditComponent} from './pages/noticia/noticia-edit/noticia-edit.component';
+import {NoticiaCreateComponent} from './pages/noticia/noticia-create/noticia-create.component';
+import {ClienteComponent} from './pages/cliente/cliente.component';
+import {ClienteIndexComponent} from './pages/cliente/cliente-index/cliente-index.component';
+import {PlanComponent} from './pages/plan/plan.component';
+import {PlanIndexComponent} from './pages/plan/plan-index/plan-index.component';
+import {PlanEditComponent} from './pages/plan/plan-edit/plan-edit.component';
+import {PlanCreateComponent} from './pages/plan/plan-create/plan-create.component';
+import {PaqueteComponent} from './pages/paquete/paquete.component';
+import {PaqueteIndexComponent} from './pages/paquete/paquete-index/paquete-index.component';
+import {PaqueteEditComponent} from './pages/paquete/paquete-edit/paquete-edit.component';
+import {PaqueteCreateComponent} from './pages/paquete/paquete-create/paquete-create.component';
+import {Interceptor} from './interceptor';
 
 @NgModule({
   declarations: [
@@ -114,28 +115,32 @@ import { PaqueteCreateComponent } from './pages/paquete/paquete-create/paquete-c
     PaqueteEditComponent,
     PaqueteCreateComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        ToastrModule.forRoot({
-            timeOut: 10000,
-            positionClass: 'toast-bottom-right',
-            preventDuplicates: true
-        }),
-        FormsModule,
-        HttpClientModule,
-        AngularFileUploaderModule,
-        DropdownModule,
-        TableModule,
-        NgSelectModule,
-        CalendarModule,
-        ZXingScannerModule,
-        QRCodeModule,
-        TooltipModule
-    ],
-  providers: [],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true
+    }),
+    FormsModule,
+    HttpClientModule,
+    AngularFileUploaderModule,
+    DropdownModule,
+    TableModule,
+    NgSelectModule,
+    CalendarModule,
+    ZXingScannerModule,
+    QRCodeModule,
+    TooltipModule
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

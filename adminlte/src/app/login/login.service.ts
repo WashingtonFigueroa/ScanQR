@@ -26,6 +26,10 @@ export class LoginService {
     return this.http.post(`${this.url}login`, data);
   }
 
+  logout() {
+    return this.http.post(`${this.url}logout`, null);
+  }
+
   signup(user, gettoken = null): Observable<any> {
     if (gettoken != null) {
       user.gettoken = 'true';

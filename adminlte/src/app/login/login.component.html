@@ -1,6 +1,6 @@
 <div class="login-box" style="background-color: rgba(255, 255, 255, 0.200);">
   <div class="login-logo">
-    <img src="assets/img/logo.png" alt="" width="90%">
+    <img alt="" src="assets/img/logo.png" width="90%">
     <br>
   </div>
   <div class="card">
@@ -8,18 +8,22 @@
       <p class="login-box-msg">Inicia sesión para comenzar</p>
       <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="form-signin">
         <div class="input-group mb-3">
-          <input type="email" name="email" class="form-control" #email="ngModel" [(ngModel)]="user.email" required
-                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Ingrese Email" autofocus="autofocus">
+          <input #cuenta="ngModel" [(ngModel)]="user.cuenta" autofocus="autofocus" class="form-control" name="cuenta"
+                 placeholder="Ingrese Cuenta"
+                 required type="cuenta">
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
+              <span class="fas fa-user"></span>
             </div>
           </div>
-          <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block"> El email no es valido</small>
+          <small *ngIf="!cuenta.valid && cuenta.touched" class="invalid-feedback d-block">
+            El cuenta no es válida
+          </small>
         </div>
         <div class="input-group mb-3">
-          <input type="password" name="password" class="form-control" #password="ngModel" [(ngModel)]="user.password"
-                 required placeholder="Ingrese Contraseña">
+          <input #password="ngModel" [(ngModel)]="user.password" class="form-control" name="password"
+                 placeholder="Ingrese Contraseña"
+                 required type="password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -30,7 +34,7 @@
         </div>
         <div class="mb-1 text-center">
           <br>
-          <button type="submit" class="btn btn-info btn-sm" [disabled]="loginForm.form.invalid">
+          <button [disabled]="loginForm.form.invalid" class="btn btn-info btn-sm" type="submit">
             <i class="fa fa-lock-open"></i>&nbsp;&nbsp; Iniciar Sesión
           </button>
         </div>

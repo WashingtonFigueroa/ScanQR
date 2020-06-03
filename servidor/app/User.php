@@ -18,7 +18,18 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'cargo_id', 'establecimiento_id', 'nombre', 'password', 'email', 'cedula', 'direccion', 'telefono', 'fecha_nacimiento', 'image'
+        'cargo_id',
+        'establecimiento_id',
+        'cuenta',
+        'nombre',
+        'password',
+        'email',
+        'cedula',
+        'direccion',
+        'telefono',
+        'fecha_nacimiento',
+        'image',
+        'token',
     ];
 
     /**
@@ -69,6 +80,7 @@ class User extends Authenticatable
     {
         return Establecimiento::find($this->establecimiento_id)->capacidad;
     }
+
     public function getLogoAttribute()
     {
         return Establecimiento::find($this->establecimiento_id)->logo;
