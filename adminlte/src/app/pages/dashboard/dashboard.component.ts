@@ -31,14 +31,24 @@ export class DashboardComponent implements OnInit {
     heading: string
   } = null;
 
+  cargaGastoSaldo: {
+    carga: number,
+    gasto: number,
+    saldo: number
+  };
+
   constructor(private historialService: HistorialService,
               private loginService: LoginService,
               private toastr: ToastrService) {
-              this.identity = this.loginService.getIdentity();
+    this.identity = this.loginService.getIdentity();
   }
 
   ngOnInit() {
     this.usuario = this.loginService.getIdentity();
+    this.historialService.cargaGastoSaldo()
+      .subscribe((data: any) => {
+        this.cargaGastoSaldo = data;
+      });
     this.historialService.stats()
       .subscribe((stats: Stats) => {
         this.stats = stats;

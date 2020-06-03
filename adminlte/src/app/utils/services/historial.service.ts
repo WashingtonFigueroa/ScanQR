@@ -28,6 +28,14 @@ export class HistorialService {
     });
   }
 
+  cargaGastoSaldo() {
+    return this.http.get(`${this.servidor}carga-gasto-saldo`, {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    });
+  }
+
   ingresosHoy() {
     return this.http.get(`${this.servidor}ingresos-hoy`, {
       headers: {

@@ -49,7 +49,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    protected $appends = ['cargo', 'establecimiento', 'logo', 'con_cupos', 'capacidad'];
+    protected $appends = ['cargo', 'establecimiento', 'logo', 'con_cupos', 'capacidad', ''];
 
     public function cargo()
     {

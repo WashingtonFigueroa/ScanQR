@@ -18,8 +18,8 @@ class HistorialController extends Controller
         $establecimiento_id = Auth::user()->establecimiento_id;
         if ($establecimiento_id == 1) {
             $historial = Historial::whereDate('created_at', Carbon::now()->toDateString())
-            ->orderBy('id', 'desc')->get();
-        return response()->json($historial, 200);
+                ->orderBy('id', 'desc')->get();
+            return response()->json($historial, 200);
         } else {
             $users_id = User::where('establecimiento_id', $establecimiento_id)->pluck('id');
             $historial = Historial::whereDate('created_at', Carbon::now()->toDateString())
@@ -40,16 +40,16 @@ class HistorialController extends Controller
         $users_id = User::where('establecimiento_id', $establecimiento_id)->pluck('id');
 
         $ingreso = Historial::whereDate('created_at', Carbon::now()->toDateString())
-         ->whereIn('user_id', $users_id)    
-         ->where('estado', 'INGRESO')
+            ->whereIn('user_id', $users_id)
+            ->where('estado', 'INGRESO')
             ->distinct('qr_id')
             ->count();
         // $salida = Historial::whereDate('created_at', Carbon::now()->toDateString())
         //     ->where('estado', 'SALIDA')
         //     ->count();
         $salida_retraso = Historial::whereDate('created_at', Carbon::now()->toDateString())
-         ->whereIn('user_id', $users_id)    
-         ->where('estado', '<>', 'INGRESO')
+            ->whereIn('user_id', $users_id)
+            ->where('estado', '<>', 'INGRESO')
             ->where('estado', '<>', 'SALIDA')
             ->count();
         return response()->json([
@@ -84,26 +84,26 @@ class HistorialController extends Controller
             switch ($input['estado']) {
                 case 'INGRESO':
                     $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
-                    ->where('estado', '=', 'INGRESO')
+                        ->where('estado', '=', 'INGRESO')
                         ->where('nombre', 'like', "%{$input['codigo']}%")
                         ->get();
                     break;
                 case 'SALIDA':
                     $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
-                    ->where('estado', '=', 'SALIDA')
+                        ->where('estado', '=', 'SALIDA')
                         ->where('nombre', 'like', "%{$input['codigo']}%")
                         ->get();
                     break;
                 case 'RETRASO':
                     $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
-                    ->where('estado', '<>', 'INGRESO')
+                        ->where('estado', '<>', 'INGRESO')
                         ->where('estado', '<>', 'SALIDA')
                         ->where('nombre', 'like', "%{$input['codigo']}%")
                         ->get();
                     break;
                 case 'TODOS':
                     $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
-                    ->where('nombre', 'like', "%{$input['codigo']}%")
+                        ->where('nombre', 'like', "%{$input['codigo']}%")
                         ->get();
                     break;
             }
@@ -111,30 +111,30 @@ class HistorialController extends Controller
             switch ($input['estado']) {
                 case 'INGRESO':
                     $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
-                    ->whereIn('user_id', $users_id)    
-                    ->where('estado', '=', 'INGRESO')
+                        ->whereIn('user_id', $users_id)
+                        ->where('estado', '=', 'INGRESO')
                         ->where('nombre', 'like', "%{$input['codigo']}%")
                         ->get();
                     break;
                 case 'SALIDA':
                     $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
-                    ->whereIn('user_id', $users_id)    
-                    ->where('estado', '=', 'SALIDA')
+                        ->whereIn('user_id', $users_id)
+                        ->where('estado', '=', 'SALIDA')
                         ->where('nombre', 'like', "%{$input['codigo']}%")
                         ->get();
                     break;
                 case 'RETRASO':
                     $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
-                    ->whereIn('user_id', $users_id)    
-                    ->where('estado', '<>', 'INGRESO')
+                        ->whereIn('user_id', $users_id)
+                        ->where('estado', '<>', 'INGRESO')
                         ->where('estado', '<>', 'SALIDA')
                         ->where('nombre', 'like', "%{$input['codigo']}%")
                         ->get();
                     break;
                 case 'TODOS':
                     $response = Historial::whereBetween('created_at', [$input['desde'], $input['hasta']])
-                    ->whereIn('user_id', $users_id)    
-                    ->where('nombre', 'like', "%{$input['codigo']}%")
+                        ->whereIn('user_id', $users_id)
+                        ->where('nombre', 'like', "%{$input['codigo']}%")
                         ->get();
                     break;
             }
@@ -378,7 +378,7 @@ class HistorialController extends Controller
         $existenCupos = Cupo::where('establecimiento_id', $establecimiento_id)
             ->where('estado', 1)
             ->where('saldo', '>', 0)
-            ->whereDate('fecha_fin', '>=', $hoy) 
+            ->whereDate('fecha_fin', '>=', $hoy)
             ->exists();
         if ($existenCupos) {
             $cupoSeleccionado = Cupo::where('establecimiento_id', $establecimiento_id)
@@ -393,6 +393,36 @@ class HistorialController extends Controller
             return $cupoSeleccionado->id;
         } else {
             return false;
+        }
+    }
+
+    public function cargaGastoSaldo()
+    {
+        $tecnico_id = Auth::id();
+        $establecimiento_id = User::find($tecnico_id)->establecimiento_id;
+        $hoy = Carbon::now()->toDateString();
+        $existenCupos = Cupo::where('establecimiento_id', $establecimiento_id)
+            ->where('estado', 1)
+            ->where('saldo', '>', 0)
+            ->whereDate('fecha_fin', '>=', $hoy)
+            ->exists();
+        if ($existenCupos) {
+            $cupoSeleccionado = Cupo::where('establecimiento_id', $establecimiento_id)
+                ->where('estado', 1)
+                ->where('saldo', '>', 0)
+                ->whereDate('fecha_fin', '>=', $hoy)
+                ->first();
+            return [
+                'carga' => $cupoSeleccionado['carga'],
+                'gasto' => $cupoSeleccionado['gasto'],
+                'saldo' => $cupoSeleccionado['saldo']
+            ];
+        } else {
+            return [
+                'carga' => 0,
+                'gasto' => 0,
+                'saldo' => 0
+            ];
         }
     }
 

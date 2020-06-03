@@ -13,14 +13,15 @@
     </div>
   </div>
 </div>
-<div class="container-fluid" *ngIf="usuario !== null && (usuario.cargo.nombre === 'Técnico Logístico' && usuario.con_cupos === true)">
+<div *ngIf="usuario !== null && (usuario.cargo.nombre === 'Técnico Logístico' && usuario.con_cupos === true)"
+     class="container-fluid">
   <div class="row">
     <div class="col-md-12">
-      <div class="scanner" *ngIf="!enabledMessage">
+      <div *ngIf="!enabledMessage" class="scanner">
         <zxing-scanner (scanSuccess)="scanned($event)"
                        [formats]="['QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX']"></zxing-scanner>
       </div>
-      <div class="alert alert-{{message.class}}" *ngIf="enabledMessage" (click)="reset()">
+      <div (click)="reset()" *ngIf="enabledMessage" class="alert alert-{{message.class}}">
         <h4 class="alert-heading">{{ message.heading}}</h4>
         <p>
           {{ message.text }}
@@ -32,128 +33,131 @@
 <section class="content">
   <div class="container-fluid">
 
-        <div class="row" *ngIf="identity.cargo_id === 3">
-          <div class="col-md-6">
-            <div class="small-box bg-cyan">
-              <div class="inner">
-                <h3>{{ identity?.capacidad }}</h3>
-                <p>Capacidad Máxima</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-arrow-graph-up-left"></i>
-              </div>
-            </div>
+    <div *ngIf="identity.cargo_id === 3" class="row">
+      <div class="col-md-6">
+        <div class="small-box bg-cyan">
+          <div class="inner">
+            <h3>{{ identity?.capacidad }}</h3>
+            <p>Capacidad Máxima</p>
           </div>
-          <div class="col-md-6">
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3>{{ stats?.ingreso }}</h3>
-                <p>Total Aforo</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-            </div>
+          <div class="icon">
+            <i class="ion ion-arrow-graph-up-left"></i>
           </div>
         </div>
-        <div class="row" *ngIf="identity.cargo_id !== 3">
-            <div class="col-md-2">
-              <div class="small-box bg-cyan">
-                <div class="inner">
-                  <h3>{{ identity?.capacidad }}</h3>
-                  <p>Capacidad Máxima</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-arrow-graph-up-left"></i>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-2">
-                <div class="small-box bg-success">
-                  <div class="inner">
-                    <h3>{{ stats?.ingreso }}</h3>
-                    <p>Total Aforo</p>
-                  </div>
-                  <div class="icon">
-                    <i class="ion ion-person-add"></i>
-                  </div>
-              </div>
-            </div>
-            <div class="col-md-2">
-                <div class="small-box bg-warning">
-                  <div class="inner">
-                    <h3>{{ stats?.salida_retraso }}</h3>
-                    <p>Retrasos de Hoy</p>
-                  </div>
-                  <div class="icon">
-                    <i class="ion ion-sad"></i>
-                  </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="card-footer">
-                <div class="row">
-                  <div class="col-sm-3 col-6">
-                    <div class="description-block border-right">
-                      <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> <h3>250000</h3></span>
-                      <span class="description-text">Carga</span>
-                    </div>
-                    <!-- /.description-block -->
-                  </div>
-                  <!-- /.col -->
-                  <div class="col-sm-3 col-6">
-                    <div class="description-block border-right">
-                      <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> <h3>{{ identity?.capacidad }}</h3></span>
-                      <span class="description-text">Gasto</span>
-                    </div>
-                    <!-- /.description-block -->
-                  </div>
-                  <!-- /.col -->
-                  <div class="col-sm-3 col-6">
-                    <div class="description-block border-right">
-                      <span class="description-percentage text-danger"><i class="fas fa-caret-up"></i> <h3>{{ identity?.capacidad }}</h3></span>
-                      <span class="description-text">Saldo</span>
-                    </div>
-                    <!-- /.description-block -->
-                  </div>
-                  <!-- /.col -->
-                </div>
-                <!-- /.row -->
-              </div>
+      </div>
+      <div class="col-md-6">
+        <div class="small-box bg-success">
+          <div class="inner">
+            <h3>{{ stats?.ingreso }}</h3>
+            <p>Total Aforo</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-person-add"></i>
           </div>
         </div>
-       
+      </div>
+    </div>
+    <div *ngIf="identity.cargo_id !== 3" class="row">
+      <div class="col-md-2">
+        <div class="small-box bg-cyan">
+          <div class="inner">
+            <h3>{{ identity?.capacidad }}</h3>
+            <p>Capacidad Máxima</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-arrow-graph-up-left"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="small-box bg-success">
+          <div class="inner">
+            <h3>{{ stats?.ingreso }}</h3>
+            <p>Total Aforo</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-person-add"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="small-box bg-warning">
+          <div class="inner">
+            <h3>{{ stats?.salida_retraso }}</h3>
+            <p>Retrasos de Hoy</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-sad"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card-footer">
+          <div class="row">
+            <div class="col-sm-3 col-6">
+              <div class="description-block border-right">
+                <span class="description-percentage text-success"><i
+                  class="fas fa-caret-up"></i> <h3>{{ cargaGastoSaldo.carga }}</h3></span>
+                <span class="description-text">Carga</span>
+              </div>
+              <!-- /.description-block -->
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-3 col-6">
+              <div class="description-block border-right">
+                <span class="description-percentage text-warning"><i
+                  class="fas fa-caret-left"></i> <h3>{{ cargaGastoSaldo.gasto }}</h3></span>
+                <span class="description-text">Gasto</span>
+              </div>
+              <!-- /.description-block -->
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-3 col-6">
+              <div class="description-block border-right">
+                <span class="description-percentage text-danger"><i
+                  class="fas fa-caret-up"></i> <h3>{{ cargaGastoSaldo.saldo }}</h3></span>
+                <span class="description-text">Saldo</span>
+              </div>
+              <!-- /.description-block -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+      </div>
+    </div>
+
     <section class="content">
       <div class="container-fluid">
-      <div class="card card-info card-outline">
-        <div class="row">
-          <div class="offset-lg-3 col-lg-6">
-            <br>
-            <h6 class="text-center">INGRESOS DE HOY {{ now | date: 'dd/MM/y'  }}</h6>
-            <br>
-            <div class="table-hover table-responsive table-sm">
-              <table class="table table-striped">
-                <thead>
-                <tr>
-                  <th class="text-center">Código</th>
-                  <th>Nombre</th>
-                  <th>Ingreso</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let ingreso of ingresos; let i = index">
-                  <td class="text-center">{{ ingreso.qr_id }}</td>
-                  <td>{{ ingreso.nombre }}</td>
-                  <td>{{ ingreso.ingreso | date: 'HH:mm:ss' }}</td>
-                </tr>
-                </tbody>
-              </table>
+        <div class="card card-info card-outline">
+          <div class="row">
+            <div class="offset-lg-3 col-lg-6">
+              <br>
+              <h6 class="text-center">INGRESOS DE HOY {{ now | date: 'dd/MM/y'  }}</h6>
+              <br>
+              <div class="table-hover table-responsive table-sm">
+                <table class="table table-striped">
+                  <thead>
+                  <tr>
+                    <th class="text-center">Código</th>
+                    <th>Nombre</th>
+                    <th>Ingreso</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let ingreso of ingresos; let i = index">
+                    <td class="text-center">{{ ingreso.qr_id }}</td>
+                    <td>{{ ingreso.nombre }}</td>
+                    <td>{{ ingreso.ingreso | date: 'HH:mm:ss' }}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      </div>
-   </section>
+    </section>
     <br>
   </div>
 </section>
