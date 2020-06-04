@@ -34,46 +34,36 @@ class QRController extends Controller
     {
         $qr = QR::create($request->all());
         return response()->json($qr, 201);
-        // $validate = Validator::make($request->all(), [
-        //     'codqr' => 'required',
-        //     'nombre' => 'required',
-        //     'tiempo' => 'required',
-        //     'estado' => 'required' 
-        // ]); 
-        // if ($validate->fails()) {
-        //     return response()->json([
-        //         'code' => 400, 'status' => 'error', 'message' => 'No se ha guardado el qr'
-        //     ]);
-        // } else {
-        //     $qr = QR::create($request->all());
-        //     return response()->json(['code' => 200, 'status' => 'success', 'qr' => $qr], 201);
-        // }
     }
 
     public function update(Request $request, $id)
     {
-        $json = $request->input('json', null);
-        $params_array = json_decode($json, true);
-        if (!empty($params_array)) {
-        $validate = \Validator::make($params_array, [
-            'codqr' => 'required',
-            'nombre' => 'required',
-            'tiempo' => 'required',
-            'estado' => 'required'
-        ]);
-        if ($validate->fails()) {
-            $data = array('code' => 400, 'status' => 'error', 'message' => 'No se ha guardado el qr');
-        } else {
-            unset($params_array['id']);
-            unset($params_array['created_at']);
-            unset($params_array['updated_at']);
-            $qr = QR::where('id','=', $id)->update($params_array);
-            $data = array('code' => 200, 'status' => 'success', 'qr' => $qr);
-        }
-        } else {
-            $data = array('code' => 400, 'status' => 'error', 'message' => 'No has enviado ningun dato');
-        }
-        return response()->json($data, $data['code']);
+        $qr = QR::find($id);
+        $qr->update($request->all());
+        return response()->json($qr, 200);
+
+        // $json = $request->input('json', null);
+        // $params_array = json_decode($json, true);
+        // if (!empty($params_array)) {
+        // $validate = \Validator::make($params_array, [
+        //     'codqr' => 'required',
+        //     'nombre' => 'required',
+        //     'tiempo' => 'required',
+        //     'estado' => 'required'
+        // ]);
+        // if ($validate->fails()) {
+        //     $data = array('code' => 400, 'status' => 'error', 'message' => 'No se ha guardado el qr');
+        // } else {
+        //     unset($params_array['id']);
+        //     unset($params_array['created_at']);
+        //     unset($params_array['updated_at']);
+        //     $qr = QR::where('id','=', $id)->update($params_array);
+        //     $data = array('code' => 200, 'status' => 'success', 'qr' => $qr);
+        // }
+        // } else {
+        //     $data = array('code' => 400, 'status' => 'error', 'message' => 'No has enviado ningun dato');
+        // }
+        // return response()->json($data, $data['code']);
     }
 
     public function destroy($id, Request $request)

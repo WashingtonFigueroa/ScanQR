@@ -34,11 +34,9 @@ export class QrService {
     }
   
     update(token, qr, id): Observable<any> {
-      const json = JSON.stringify(qr);
-      const params = 'json=' + json;
-      const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+      const headers = new HttpHeaders().set('Content-Type', 'application/json')
         .set('Authorization', token);
-      return this.http.put(this.url + 'qr/' + id, params, {headers: headerss});
+      return this.http.put(this.url + 'qr/' + id, qr, {headers: headers});
     }
   
     delete(token, id): Observable<any> {

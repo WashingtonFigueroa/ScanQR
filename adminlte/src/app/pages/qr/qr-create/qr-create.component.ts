@@ -45,7 +45,7 @@ export class QrCreateComponent implements OnInit {
         form.reset();
         this.router.navigate(['/qr']);
     }, error => {
-      this.toastr.error('Uppp!', 'comuniquese con el Administrador');
+      this.toastr.error('Uppp!', 'verifique los valores');
     });
   }
 

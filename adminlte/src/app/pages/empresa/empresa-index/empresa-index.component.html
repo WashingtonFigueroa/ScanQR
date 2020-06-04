@@ -57,8 +57,11 @@
                         <th  class="text-center">
                             Plan
                         </th> 
-                        <th  class="text-center">
+                        <th  style="width:120px" class="text-center">
                           Capacidad
+                      </th> 
+                      <th  style="width:120px" class="text-center">
+                        Hora Cierre
                       </th> 
                         <th class="text-center" style="width:160px" >
                           Acciones
@@ -79,7 +82,8 @@
                     <td>{{empresa.nombre}}</td>
                     <td>{{empresa.direccion}}</td>
                     <td>{{empresa.plan}}</td>
-                    <td>{{empresa.capacidad}}</td>
+                    <td style="width:120px" class="text-center">{{empresa.capacidad}}</td>
+                    <td style="width:120px" class="text-center">{{empresa.cierre}}</td>
                     <td class="text-center" style="width:160px">
                     <label *ngIf="empresa.estado" class="btn-sm" style="color: steelblue; width:30%" title="Activo"><i class="fas fa-check"></i></label>
                     <label *ngIf="!empresa.estado" class="btn-sm" style="color: tomato; width:30%" title="Inactivo"><i class="far fa-times-circle"></i></label>

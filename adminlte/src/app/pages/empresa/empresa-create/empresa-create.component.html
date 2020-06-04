@@ -150,7 +150,7 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-clock"></i></span>
                           </div>
-                          <input type="text" name="cierre" class="form-control" #cierre="ngModel" [(ngModel)]="empresa.cierre"
+                          <input type="time" name="cierre" class="form-control" #cierre="ngModel" [(ngModel)]="empresa.cierre"
                           required>
                         <small *ngIf="!cierre.valid && cierre.touched" class="invalid-feedback d-block"> La  de hora cierre no es
                           valido</small>

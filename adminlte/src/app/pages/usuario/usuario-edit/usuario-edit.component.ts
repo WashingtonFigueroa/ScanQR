@@ -71,7 +71,11 @@ export class UsuarioEditComponent implements OnInit {
   }
 
   clave() {
-    this.b = 1;
+    if (this.b === 0) {
+      this.b = 1;
+    } else {
+      this.b = 0;
+    }
   }
 
   ngOnInit() {
@@ -104,7 +108,7 @@ export class UsuarioEditComponent implements OnInit {
       form.reset();
       this.router.navigate(['/usuario']);
     }, error => {
-      this.toastr.error('Ups!', 'Comuniquese con el Administrador');
+      this.toastr.error('Uppp!', 'verifique los valores');
     });
   }
 

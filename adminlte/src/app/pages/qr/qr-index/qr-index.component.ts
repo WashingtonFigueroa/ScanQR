@@ -33,8 +33,6 @@ export class QrIndexComponent implements OnInit {
 
   getqrs() {
     this.qrService.getQrs(this.token).subscribe(response => {
-      console.log(response.status);
-      if (response.status === 'success') {
         this.qrs = response.qrs;
         this.cols = [
           {field: 'id', header: 'Qr'},
@@ -42,9 +40,6 @@ export class QrIndexComponent implements OnInit {
           {field: 'tiempo', header: 'Tiempo'},
           {field: 'estado', header: 'Estado'}
         ];
-      } else {
-        console.log('error');
-      }
     }, error => {
       console.log(error);
     });

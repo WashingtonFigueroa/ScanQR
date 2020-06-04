@@ -23,7 +23,7 @@
                 <div class="container-fluid">
                   <div class="row">
                     <div class="col-md-12">       
-                      <div class="form-group-sm" *ngIf="planes !== null">
+                      <div class="form-group  btn-sm" *ngIf="planes !== null">
                         <label><small class="requeridos">☼</small> Seleccione Plan:</label>
                         <div class="input-group">
                           <div class="input-group-prepend ">
@@ -56,7 +56,7 @@
                         <label> <small class="requeridos">☼</small> Valor:</label>    
                         <div class="input-group">
                           <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-newspaper"></i></span>
+                            <span class="input-group-text"><i class="fas fa-dollar"></i></span>
                           </div>
                           <input type="number" name="valor" class="form-control" #valor="ngModel" [(ngModel)]="paquete.valor" required>
                         <small *ngIf="!valor.valid && valor.touched" class="invalid-feedback d-block"> El valor es obligatorio</small>

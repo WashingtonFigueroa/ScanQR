@@ -52,15 +52,11 @@ export class QrEditComponent implements OnInit {
 
    onSubmit(form) {
     this.qrService.update(this.token, this.qr, this.qr.id).subscribe(response => {
-      if (response.status === 'success') {
         this.toastr.success('Ok.', 'Datos Actualizados');
-        form.reset();
         this.router.navigate(['/qr']);
-      } else {
-        this.toastr.error('Uppp!', response.message);
-      }
+        form.reset();
     }, error => {
-      this.toastr.error('Uppp!', 'comuniquese con el Administrador');
+      this.toastr.error('Uppp!', 'verifique los valores');
     });
   }
 

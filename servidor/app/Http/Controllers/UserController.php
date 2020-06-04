@@ -138,20 +138,32 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validate = Validator::make($request->all(), [
+            'password' => 'required'
+        ]);
         $user = User::find($id);
-        $input = $request->all();
-        if ($input['password'] != '') {
+        $input = $request->all();       
+        if ($validate->fails()) {
+            $user->update($input);
+            // update data qr
+            $data = $request->all();
+            if ($data['cargo_id'] === 4) {
+                $qr = QR::where('user_id', '=', $id)->first();
+                $qr->codqr = $data['cuenta'];
+                $qr->nombre = $data['nombre'];
+                $qr->save();
+            }
+        } else {
             $input['password'] = bcrypt($input['password']);
-        }
-
-        $user->update($input);
-        // update data qr
-        $data = $request->all();
-        if ($data['cargo_id'] === 4) {
-            $qr = QR::where('user_id', '=', $id)->first();
-            $qr->codqr = $data['cuenta'];
-            $qr->nombre = $data['nombre'];
-            $qr->save();
+            $user->update($input);
+            // update data qr
+            $data = $request->all();
+            if ($data['cargo_id'] === 4) {
+                $qr = QR::where('user_id', '=', $id)->first();
+                $qr->codqr = $data['cuenta'];
+                $qr->nombre = $data['nombre'];
+                $qr->save();
+            }
         }
         return response()->json($user, 200);
     }

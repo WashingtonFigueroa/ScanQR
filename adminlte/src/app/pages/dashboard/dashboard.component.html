@@ -32,7 +32,6 @@
 </div>
 <section class="content">
   <div class="container-fluid">
-
     <div *ngIf="identity.cargo_id === 3" class="row">
       <div class="col-md-6">
         <div class="small-box bg-cyan">
@@ -57,8 +56,9 @@
         </div>
       </div>
     </div>
+
     <div *ngIf="identity.cargo_id !== 3" class="row">
-      <div class="col-md-2">
+      <div class="col-md-4">
         <div class="small-box bg-cyan">
           <div class="inner">
             <h3>{{ identity?.capacidad }}</h3>
@@ -69,7 +69,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-4">
         <div class="small-box bg-success">
           <div class="inner">
             <h3>{{ stats?.ingreso }}</h3>
@@ -80,7 +80,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-4">
         <div class="small-box bg-warning">
           <div class="inner">
             <h3>{{ stats?.salida_retraso }}</h3>
@@ -91,41 +91,33 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="card-footer">
+    </div>
+      <div *ngIf="identity.cargo_id !== 3 && cargaGastoSaldo " class="col-md-12">
           <div class="row">
-            <div class="col-sm-3 col-6">
+            <div class="col-md-4">
               <div class="description-block border-right">
                 <span class="description-percentage text-success"><i
-                  class="fas fa-caret-up"></i> <h3>{{ cargaGastoSaldo.carga }}</h3></span>
+                  class="fas fa-caret-down"></i> <h3>{{ cargaGastoSaldo.carga }}</h3></span>
                 <span class="description-text">Carga</span>
               </div>
-              <!-- /.description-block -->
             </div>
-            <!-- /.col -->
-            <div class="col-sm-3 col-6">
+            <div class="col-md-4">
               <div class="description-block border-right">
                 <span class="description-percentage text-warning"><i
-                  class="fas fa-caret-left"></i> <h3>{{ cargaGastoSaldo.gasto }}</h3></span>
+                  class="fas fa-caret-up"></i> <h3>{{ cargaGastoSaldo.gasto }}</h3></span>
                 <span class="description-text">Gasto</span>
               </div>
-              <!-- /.description-block -->
             </div>
-            <!-- /.col -->
-            <div class="col-sm-3 col-6">
+            <div class="col-md-4">
               <div class="description-block border-right">
                 <span class="description-percentage text-danger"><i
-                  class="fas fa-caret-up"></i> <h3>{{ cargaGastoSaldo.saldo }}</h3></span>
+                  class="fas fa-caret-down"></i> <h3>{{ cargaGastoSaldo.saldo }}</h3></span>
                 <span class="description-text">Saldo</span>
               </div>
-              <!-- /.description-block -->
             </div>
-            <!-- /.col -->
           </div>
-          <!-- /.row -->
-        </div>
       </div>
-    </div>
+ 
 
     <section class="content">
       <div class="container-fluid">
