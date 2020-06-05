@@ -22,7 +22,8 @@ class Establecimiento extends Model
         'capacidad',
         'estancia',
         'cierre',
-        'estado'
+        'estado',
+        'publicar'
     ];
     protected $dates = ['deleted_at'];
 

@@ -31,11 +31,12 @@ class CreateUsersTable extends Migration
             $table->string('email')->nullable();
             $table->string('cedula')->nullable();
             $table->string('direccion')->nullable();
-            $table->string('telefono')->nullable();
+            $table->string('telefono')->unique();
             $table->string('fecha_nacimiento')->nullable();
             $table->string('image')->nullable();
             $table->boolean('estado')->default(true);
             $table->string('token')->nullable();
+            $table->boolean('aceptacion')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });

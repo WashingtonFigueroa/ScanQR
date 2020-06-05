@@ -12,7 +12,9 @@
                 </ion-col>
               </ion-row>
               <ion-row>
-                <ion-label slot="center">¿Lugares donde puedes acceder?</ion-label>
+                <ion-card-header>
+                  <ion-card-subtitle>¿Encuentranos en?</ion-card-subtitle>
+                </ion-card-header>
               </ion-row>
               <ion-row *ngIf="establecimientos">
                 <ion-grid  fixed>
@@ -25,17 +27,18 @@
                 </ion-grid>
               </ion-row>
               <ion-row>
-                <ion-card>
                   <ion-card-header>
-                    <ion-card-subtitle>¿Qué es CODYLIFE?</ion-card-subtitle>
+                    <ion-card-subtitle>¿Qué es CodyPass?</ion-card-subtitle>
                   </ion-card-header>
                   <ion-card-content>
-                    El más completo identificador del mercado. Basado en código QR, ofrece una gran cantidad de información en un pequeño espacio.
-                    Datos personales, contactos en caso de emergencia, alergias, medicamentos, envío de coordenadas GPS, diario privado, etc. 
-                    Con toda esta información, tendrás la posibilidad de ser mejor atendido en caso de necesitarlo ante cualquier emergencia.
-                    <a href="https://www.codylife.com.ec/" target="_blanck">www.codylife.com.ec</a>
+                    Con codypass podras acceder a todos los establecimientos afiliados, de forma organizada 
+                    y manteniendo el control de aforo adecuado precautelando tu protección.
+                    <br>
+                    Recuerda 
+                    Presentar tu código a la entrada y salida del establecimiento<br><br>
+                    <a href="https://www.dtmowed.com/" target="_blanck">dtmowed.com</a>&nbsp;&nbsp;
+                    <a href="https://www.codylife.com.ec/" target="_blanck">codylife.com.ec</a>
                   </ion-card-content>
-                </ion-card>
               </ion-row>
             </ion-grid>
         </ion-slide>
@@ -53,14 +56,8 @@
                 <ion-col>
                   <ion-list>
                     <ion-item>
-                      <ion-label>Email: </ion-label>
-                      <ion-input
-                        type="email"
-                        name="email"
-                        #email="ngModel"
-                        [(ngModel)]="usuario.email"
-                        required
-                      ></ion-input>
+                      <ion-label>Email (Usuario): </ion-label>
+                      <ion-input  name="cuenta"  type="text"  #cuenta="ngModel"  [(ngModel)]="usuario.cuenta" required></ion-input>
                     </ion-item>
                     <ion-item>
                       <ion-label>Contraseña: </ion-label>
@@ -93,81 +90,54 @@
           </form>
         </ion-slide>
         <ion-slide>
-          <ion-grid fixed>
-            <ion-row>
-              <ion-col>
-                <br><br>
-                <ion-img class="tamanio" src="/assets/avatars/av-1.png"></ion-img>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <h3>Crea una cuenta</h3>
-                <h5>Es rápido y fácil.</h5>
-                <br>
-              </ion-col>
-            </ion-row>
-            <form (ngSubmit)="registro(fRegistro)" #fRegistro="ngForm">
+          <form (ngSubmit)="registro(fRegistro)" #fRegistro="ngForm">
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col><br><br> 
+                  <ion-img class="tamanio" src="/assets/avatars/av-1.png"></ion-img>
+                  <br><br>
+                </ion-col>
+              </ion-row>
               <ion-row>
                 <ion-col>
                   <ion-list>
                     <ion-item>
-                      <ion-label>Cédula/Pasaporte: </ion-label>
-                      <ion-input
-                        name="cedula"
-                        type="cedula"
-                        #cedula="ngModel"
-                        [(ngModel)]="registr.cedula"
-                      ></ion-input>
+                      <ion-label>Nombre Completo: </ion-label>
+                      <ion-input  name="nombre"  type="text"  #nombre="ngModel"  [(ngModel)]="registr.nombre"  required></ion-input>
                     </ion-item>
                     <ion-item>
-                      <ion-label>Nombres: </ion-label>
-                      <ion-input
-                        name="nombre"
-                        type="text"
-                        #nombre="ngModel"
-                        [(ngModel)]="registr.nombre"
-                        required
-                      ></ion-input>
+                      <ion-label>Email (Usuario): </ion-label>
+                      <ion-input  name="cuenta"  type="text"  #cuenta="ngModel"  [(ngModel)]="registr.cuenta" required></ion-input>
                     </ion-item>
                     <ion-item>
-                      <ion-label>Email: </ion-label>
-                      <ion-input
-                        name="email"
-                        type="email"
-                        #email="ngModel"
-                        [(ngModel)]="registr.email"
-                        required
-                      ></ion-input>
+                      <ion-label>Celular: </ion-label>
+                      <ion-input  name="telefono"  type="number"  #telefono="ngModel"  [(ngModel)]="registr.telefono" required></ion-input>
                     </ion-item>
                     <ion-item>
                       <ion-label>Contraseña: </ion-label>
-                      <ion-input
-                        [type]="passwordType"
-                        name="password"
-                        #password="ngModel"
-                        [(ngModel)]="registr.password"
-                        required
-                      ></ion-input>
-                      <ion-icon
-                        name="eye"
-                        item-right
-                        (click)="togglePasswordMode()"
-                      ></ion-icon>
+                      <ion-input  [type]="passwordType"  name="password"  #password="ngModel"  [(ngModel)]="registr.password"  required></ion-input>
+                      <ion-icon  name="eye"  item-right  (click)="togglePasswordMode()"></ion-icon>
                     </ion-item>
-
+                    <br>
+                    <ion-item>
+                      <ion-checkbox name="aceptacion"  #aceptacion="ngModel"  [(ngModel)]="registr.aceptacion" required></ion-checkbox> &nbsp;&nbsp;
+                      <small><a href="https://www.codylife.com.ec/" target="_blanck">Acepto los términos, condiciones y la política de privacidad.</a>
+                        </small>
+                    </ion-item>
                   </ion-list>
                 </ion-col>
               </ion-row>
               <ion-row>
                 <ion-col>
-                  <ion-button type="submit" color="tertiary" shape="round">
+                  <br><br>
+                  <ion-button type="submit" color="tertiary" shape="round" [disabled]="fRegistro.form.invalid">
                     Registrarte
                   </ion-button>
+                  <br><br>
                 </ion-col>
               </ion-row>
-            </form>
-          </ion-grid>
+            </ion-grid>
+          </form>
         </ion-slide>
       </ion-slides>
     </ion-infinite-scroll-content>

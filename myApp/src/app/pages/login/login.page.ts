@@ -2,10 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { IonSlides, NavController, IonInfiniteScroll  } from '@ionic/angular';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { Usuario } from '../../models/usuario';
 import { UiServiceService } from 'src/app/services/ui-service.service';
 import { Empresa } from 'src/app/models/empresa.models';
 import { environment } from 'src/environments/environment.prod';
+import { Usuario } from 'src/app/models/usuario';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -24,9 +25,10 @@ export class LoginPage implements OnInit {
   constructor(
     private usuarioService: UsuarioService,
     private navCtrl: NavController,
+    private router: Router,
     private uiservice: UiServiceService) {
-    this.usuario = new Usuario(1, 1, 1, '', '', '', '', '', '', '', '', '');
-    this.registr = new Usuario(1, 4, 1, '', '', '', '', '', '', '', '', '');
+    this.usuario = new Usuario(1, 1, 1, '', '', '', '', '', '', '', null, '', null);
+    this.registr = new Usuario(1, 4, 1, '', '', '', '', '', '', '', null, '', null );
   }
 
   ionViewDidEnter() {
@@ -74,26 +76,31 @@ export class LoginPage implements OnInit {
     this.slides.lockSwipes(true);
   }
 
-  async login(fLogin: NgForm) {
+   login(fLogin: NgForm) {
     if (fLogin.invalid) { return; }
-    const valido = await this.usuarioService.login(this.usuario);
+    const valido =  this.usuarioService.login(this.usuario);
+    this.router.navigate(['/main/tabs/tab1']);
+  
     if (!valido) {
       // this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true });
    // } else {
-      this.uiservice.alertaInformativa('Usuario y Contraseña no son correctos');
+      this.uiservice.alertaInformativa('Usuario o contraseña no son correctos');
     }
   }
 
   async registro(fRegistro: NgForm) {
     if (fRegistro.invalid) { return; }
-    const valido = await this.usuarioService.registro(this.registr);
-    if (valido) {
-    //   this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true });
-    this.uiservice.alertaInformativa('Usuario Registrado');
-    this.mostrarRegistro();
-  } else {
-      this.uiservice.alertaInformativa('El correo electronico ya existe');
+    if (this.registr.aceptacion) {
+      const valido = await this.usuarioService.registro(this.registr);
+      if (valido) {
+        this.uiservice.alertaInformativa('Usuario Registrado');
+        this.mostrarRegistro();
+      } else {
+        this.uiservice.alertaInformativa('El usuario o celular ya existe');
+      }
+    }
+    else {
+      this.uiservice.alertaInformativa('Para registrarse debe Aceptar los Terminos y Condiciones');
     }
   }
-
 }

@@ -6,7 +6,8 @@ Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
 Route::get('/user/avatar/{filename}', 'UserController@getImage');
 Route::get('/empresa/logo/{filename}', 'EstablecimientoController@getImage');
-Route::get('establecimientos', 'EstablecimientoController@index');
+Route::get('establecimientos', 'EstablecimientoController@establecimientos');
+Route::get('noticias', 'NoticiaController@noticia');
 Route::get('/noticia/imagen/{filename}', 'NoticiaController@getImage');
 
 Route::post('/user/upload', 'UserController@upload');

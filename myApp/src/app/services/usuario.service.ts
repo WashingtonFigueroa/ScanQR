@@ -28,7 +28,7 @@ usuarior: Usuario;
       this.http.post(`${this.url}login`, data)
       .subscribe(resp => {
         this.guardarToken(resp[ 'token' ], resp[ 'qr' ], resp[ 'identity' ]);
-        this.navCotrl.navigateRoot('/main/tabs/tab1');
+       // this.navCotrl.navigateRoot('/main/tabs/tab1');
         resolve(true);
       }, () => {
         this.token = null;
@@ -87,7 +87,7 @@ usuarior: Usuario;
   getNoticias(): Observable<any> {
     const headerss = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
       .set('Authorization', this.token);
-    return this.http.get(this.url + 'noticia', {headers: headerss});
+    return this.http.get(this.url + 'noticias', {headers: headerss});
   }
 
   getEstablecimientos(): Observable<any> {

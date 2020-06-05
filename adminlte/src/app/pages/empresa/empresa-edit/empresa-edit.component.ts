@@ -60,7 +60,7 @@ export class EmpresaEditComponent implements OnInit {
     this.title = 'Editar Establecimiento';
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
-    this.empresa = new Empresa (1, 1, '', '', '', '', '', '', '', 1, 1, '',  1);
+    this.empresa = new Empresa (1, 1, '', '', '', '', '', '', '', 1, 1, '',  1, 1);
 
     this.route.params.subscribe((param: any) => {
       this.id = param.id;

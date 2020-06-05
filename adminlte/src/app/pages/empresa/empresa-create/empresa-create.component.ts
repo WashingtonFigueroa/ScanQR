@@ -56,7 +56,7 @@ export class EmpresaCreateComponent implements OnInit {
     this.title = 'Crear Establecimiento';
     this.identity = this.loginService.getIdentity();
     this.token = this.loginService.getToken();
-    this.empresa = new Empresa (1, 1, '', '', '', '', '', '', '', 1, 1, '',  1);
+    this.empresa = new Empresa (1, 1, '', '', '', '', '', '', '', 1, 1, '',  1, 0);
   }
   ngOnInit(): void {
     this.getplanes();

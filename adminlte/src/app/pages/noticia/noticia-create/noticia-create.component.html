@@ -70,8 +70,10 @@
                               <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-calendar-alt "></i></span>
                               </div>
-                              <input type="date" name="fecha_fin" class="form-control" #fecha_fin="ngModel"
-                              [ngModel]="today | date:'yyyy-MM-dd'">
+                              <input #fecha_fin="ngModel" [(ngModel)]="noticia.fecha_fin" class="form-control"
+                              name="fecha_fin"
+                              type="date"
+                              required>
 
                             </div>
                           </div>

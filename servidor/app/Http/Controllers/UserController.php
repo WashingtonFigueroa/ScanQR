@@ -52,7 +52,7 @@ class UserController extends Controller
         $qr->user_id = $user_id->id;
         $qr->codqr = $input['cuenta'];
         $qr->nombre = $input['nombre'];
-        $qr->tiempo = 2;
+        $qr->tiempo = 60;
         $qr->save();
         return response()->json([
             'token' => $user->createToken('qr')->accessToken,
@@ -128,9 +128,9 @@ class UserController extends Controller
             $user_id = User::where('cuenta', '=', $input['cuenta'])->first();
             $qr = new QR;
             $qr->user_id = $user_id->id;
-            $qr->codqr = $input['cuenta'];
+            $qr->codqr = $input['cuenta'] ;
             $qr->nombre = $input['nombre'];
-            $qr->tiempo = 2;
+            $qr->tiempo = 60;
             $qr->save();
             return response()->json(['code' => 200, 'status' => 'success', 'usuario' => $usuario], 201);
         }
@@ -144,26 +144,25 @@ class UserController extends Controller
         $user = User::find($id);
         $input = $request->all();       
         if ($validate->fails()) {
-            $user->update($input);
+             $user->update($input);
             // update data qr
-            $data = $request->all();
-            if ($data['cargo_id'] === 4) {
+          //  if ($data['cargo_id'] === 4) {
                 $qr = QR::where('user_id', '=', $id)->first();
-                $qr->codqr = $data['cuenta'];
-                $qr->nombre = $data['nombre'];
+             //   $qr->codqr = $data['cuenta'];
+                $qr->nombre = $input['nombre'];
                 $qr->save();
-            }
+          //  }
         } else {
             $input['password'] = bcrypt($input['password']);
             $user->update($input);
             // update data qr
-            $data = $request->all();
-            if ($data['cargo_id'] === 4) {
-                $qr = QR::where('user_id', '=', $id)->first();
-                $qr->codqr = $data['cuenta'];
-                $qr->nombre = $data['nombre'];
-                $qr->save();
-            }
+            // $data = $request->all();
+            // if ($data['cargo_id'] === 4) {
+                 $qr = QR::where('user_id', '=', $id)->first();
+            //     $qr->codqr = $data['cuenta'];
+                 $qr->nombre = $input['nombre'];
+                 $qr->save();
+            // }
         }
         return response()->json($user, 200);
     }

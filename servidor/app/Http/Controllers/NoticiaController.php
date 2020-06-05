@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Noticia;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Carbon\Carbon;
 use File;
 use Storage;
 use Validator;
@@ -13,6 +14,14 @@ class NoticiaController extends Controller
     public function index()
     {
         $noticias = Noticia::where('estado', 1)->orderBy('id', 'desc')->get();
+        return response()->json($noticias, 200);
+    }
+
+    public function noticia()
+    {
+        $fecha = Carbon::now();
+        $noticias = Noticia::where('fecha_fin', '>=',  $fecha )
+                            ->where('estado', 1)->orderBy('id', 'desc')->get();
         return response()->json($noticias, 200);
     }
 

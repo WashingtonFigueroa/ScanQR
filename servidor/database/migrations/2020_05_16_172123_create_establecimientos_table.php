@@ -31,6 +31,7 @@ class CreateEstablecimientosTable extends Migration
             $table->unsignedInteger('estancia');
             $table->string('cierre');
             $table->boolean('estado')->default(true);
+            $table->boolean('publicar')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

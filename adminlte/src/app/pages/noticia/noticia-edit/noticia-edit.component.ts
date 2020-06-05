@@ -82,9 +82,6 @@ export class NoticiaEditComponent implements OnInit {
     this.getEmpresas();
   }
    onSubmit(form) {
-    let date = JSON.stringify(this.today);
-    date = date.slice(1, 11);
-    this.noticia.fecha_fin  = date;
     this.noticiaService.update(this.token, this.noticia, this.noticia.id).subscribe(response => {
         this.toastr.success('Ok.', 'Datos Actualizados');
         form.reset();

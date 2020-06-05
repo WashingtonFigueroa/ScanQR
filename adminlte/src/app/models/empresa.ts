@@ -12,6 +12,7 @@ export class Empresa {
         public capacidad: number,
         public estancia: number,
         public cierre: string,
-        public estado: any
+        public estado: any,
+        public publicar: any
     ) {}
 }

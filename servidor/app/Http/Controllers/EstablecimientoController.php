@@ -17,6 +17,12 @@ class EstablecimientoController extends Controller
         return response()->json($establecimientos, 200);
     }
 
+    public function establecimientos()
+    {
+        $establecimientos = Establecimiento::where('publicar', true)->orderBy('id', 'desc')->get();
+        return response()->json($establecimientos, 200);
+    }
+
     public function store(Request $request)
     {
         $establecimiento = Establecimiento::create($request->all());

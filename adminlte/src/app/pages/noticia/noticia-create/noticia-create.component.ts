@@ -72,9 +72,6 @@ export class NoticiaCreateComponent implements OnInit {
   }
 
   onSubmit(form) {
-    let date = JSON.stringify(this.today);
-    date = date.slice(1, 11);
-    this.noticia.fecha_fin  = date;
     this.noticiaService.guardar(this.token, this.noticia).subscribe(response => {
         this.toastr.success('Ok.', 'Noticia Registrada');
         form.reset();

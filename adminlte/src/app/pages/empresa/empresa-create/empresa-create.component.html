@@ -156,31 +156,41 @@
                           valido</small>
                         </div>
                       </div>
-
-                      <div *ngIf=" title === 'Editar Establecimiento'" class="form-group btn-sm" >
-                        <label><small class="requeridos">☼</small>  Seleccione Estado:</label>    
+                      <div class="form-group btn-sm" >
+                        <label><small class="requeridos">☼</small>  Publicar:</label>    
                         <div class="input-group">
-                          <label class="container">Estado
+                          <label class="container">Seleccione
+                            <input  type="checkbox" checkbox="true" name="publicar"  #publicar="ngModel" [(ngModel)]="empresa.publicar">
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
+                      </div> 
+                      <div *ngIf=" title === 'Editar Establecimiento'" class="form-group btn-sm" >
+                        <label><small class="requeridos">☼</small>  Activar Estado:</label>    
+                        <div class="input-group">
+                          <label class="container">Seleccione
                             <input  type="checkbox" checkbox="true" name="estado"  #estado="ngModel" [(ngModel)]="empresa.estado">
                             <span class="checkmark"></span>
                           </label>
                         </div>
                       </div>     
-                      <br>
-                      <div class="contenedor-div botones-abajo-derecha">
-                        <button type="submit" class="btn btn-success btn-sm" [disabled]="!createEmpresaForm.form.valid">
-                          <i class="fas fa-save"></i>&nbsp;&nbsp; {{title}} </button>
-                          &nbsp;&nbsp; &nbsp;&nbsp;
-                        <button type="button" class="btn btn-danger btn-sm" routerLink="/empresa">
-                        <i class="fas fa-arrow-left"></i>&nbsp;&nbsp; Cancelar</button>
-                      </div>
+                      
                     </div>
                   </div>
                 </div>
               </div> 
-             
+              <br>
+              <br>
+              <div class="contenedor-div botones-abajo-derecha">
+                <button type="submit" class="btn btn-success btn-sm" [disabled]="!createEmpresaForm.form.valid">
+                  <i class="fas fa-save"></i>&nbsp;&nbsp; {{title}} </button>
+                  &nbsp;&nbsp; &nbsp;&nbsp;
+                <button type="button" class="btn btn-danger btn-sm" routerLink="/empresa">
+                <i class="fas fa-arrow-left"></i>&nbsp;&nbsp; Cancelar</button>
+                <hr>
+              </div>
             </form>
-          </div>
+          </div>       
         </div>
       </div>
     </div>

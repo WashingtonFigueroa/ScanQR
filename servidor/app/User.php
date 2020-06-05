@@ -30,6 +30,7 @@ class User extends Authenticatable
         'fecha_nacimiento',
         'image',
         'token',
+        'aceptacion'
     ];
 
     /**

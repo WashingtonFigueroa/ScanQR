@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         // Planes
+        Plan::create(['nombre' => 'Empresarial', 'detalle' => 'Administarcion de Empleados', 'estado' => true]);
         Plan::create(['nombre' => 'Establecimiento', 'detalle' => 'Capacidad maxima 4.000', 'estado' => true]);
         Plan::create(['nombre' => 'Centro Comercial', 'detalle' => 'Capacidad maxima 500.000', 'estado' => true]);
         // empresa
