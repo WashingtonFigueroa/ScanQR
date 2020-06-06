@@ -37,8 +37,16 @@ class HistorialController extends Controller
             ->pluck('id');
         $historiales = Historial::whereIn('cupo_id', $cupo_ids)
             ->whereRaw('historiales.ingreso = historiales.salida')
-            ->update(['salida' => Carbon::now()->toDateTimeString()]);
-        return response()->json($historiales, 200);
+            ->update([
+                'salida' => Carbon::now()->toDateTimeString(),
+                'estado' => 'SALIDA'
+            ]);
+        $data = [];
+        foreach ($historiales as $historial) {
+            $historial['tiempo'] = (int)Carbon::parse($historial['salida'])->diffInMinutes(Carbon::parse($historial['ingreso']));
+            array_push($data, $historial);
+        }
+        return response()->json($data, 200);
     }
 
     public function stats()
