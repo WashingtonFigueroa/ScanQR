@@ -9,6 +9,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Validator;
 
 class HistorialController extends Controller
@@ -35,24 +36,21 @@ class HistorialController extends Controller
         $cupo_ids = Cupo::where('establecimiento_id', $establecimiento_id)
             ->whereDate('fecha_fin', '>=', Carbon::now()->toDateString())
             ->pluck('id');
-        $historiales = Historial::whereIn('cupo_id', $cupo_ids)
+
+        Historial::whereIn('cupo_id', $cupo_ids)
             ->whereRaw('historiales.ingreso = historiales.salida')
             ->update([
                 'salida' => Carbon::now()->toDateTimeString(),
                 'estado' => 'SALIDA'
             ]);
-        $historiales2 = Historial::whereIn('cupo_id', $cupo_ids)
-            ->whereRaw('historiales.ingreso = historiales.salida')
-            ->get();
-        $data = [];
-        foreach ($historiales2 as $historial) {
-            $historial['tiempo'] = (int)Carbon::parse($historial['salida'])->diffInMinutes(Carbon::parse($historial['ingreso']));
-            $req = Historial::find($historial['id']);
-            $req->tiempo = $historial['tiempo'];
-            $req->save();
-            array_push($data, $historial);
+        $historiales = Historial::whereIn('cupo_id', $cupo_ids)->where('tiempo', 0)->get();
+        foreach ($historiales as $historial) {
+            Historial::find($historial['id'])
+                ->update([
+                    'tiempo' => (int)Carbon::parse($historial->salida)->diffInMinutes(Carbon::parse($historial->ingreso))
+                ]);
         }
-        return response()->json($data, 200);
+        return response()->json(null, 200);
     }
 
     public function stats()
