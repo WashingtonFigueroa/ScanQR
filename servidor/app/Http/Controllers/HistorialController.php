@@ -41,8 +41,11 @@ class HistorialController extends Controller
                 'salida' => Carbon::now()->toDateTimeString(),
                 'estado' => 'SALIDA'
             ]);
+        $historiales2 = Historial::whereIn('cupo_id', $cupo_ids)
+            ->whereRaw('historiales.ingreso = historiales.salida')
+            ->get();
         $data = [];
-        foreach ($historiales as $historial) {
+        foreach ($historiales2 as $historial) {
             $historial['tiempo'] = (int)Carbon::parse($historial['salida'])->diffInMinutes(Carbon::parse($historial['ingreso']));
             array_push($data, $historial);
         }
