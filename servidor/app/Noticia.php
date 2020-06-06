@@ -21,7 +21,7 @@ class Noticia extends Model
     ];
     protected $dates = ['deleted_at'];
 
-    protected $appends = ['establecimiento'];
+    protected $appends = ['establecimiento', 'logo'];
 
     public function establecimiento()
     {
@@ -30,5 +30,9 @@ class Noticia extends Model
 
     public function getEstablecimientoAttribute() {
         return Establecimiento::find($this->establecimiento_id)->nombre;
+    }
+
+    public function getLogoAttribute() {
+        return Establecimiento::find($this->establecimiento_id)->logo;
     }
 }

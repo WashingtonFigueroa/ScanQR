@@ -1,22 +1,44 @@
-<ion-header no-border>
-  <ion-toolbar>
+<ion-header  class="ion-text-center" color="tertiary" >
+  <ion-toolbar color="tertiary" >
     <ion-title>
       Sobre Nosotros
     </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)= "logout()"
-                  color="danger">
+                  color="dark">
         <ion-icon slot="icon-only" name="exit"></ion-icon>          
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large"></ion-title>
-    </ion-toolbar>
-  </ion-header>
-
+<ion-content class="ion-text-center">
+<br>
+    <img src="/assets/avatars/av-1.png">
+    <ion-card-content>
+      <ion-card-title>
+        Cody Pass
+        </ion-card-title>
+      <p>
+        Plataforma para el control de oforo de los establecimientos afiliados.
+      </p>
+    </ion-card-content>
+    <br>
+    <ion-card-content class="ion-text-left">
+      <ion-card-title>
+        <br>
+        Colaboradores
+        <hr>
+        <br>
+        </ion-card-title>
+    </ion-card-content>
+    <img src="/assets/avatars/bz.png" width="35%">
+    <br><br>
+    <br>
+    <img src="/assets/avatars/dtmowed.jpg" width="35%">
+    <hr>
+    <ion-footer>
+      <br><br>
+      Copyright © 2014 - 2020 <a href="https://www.dtmowed.com/" target="_blanck"> DT MOWED</a> | developers.
+    </ion-footer>
+    <br><br>
 </ion-content>

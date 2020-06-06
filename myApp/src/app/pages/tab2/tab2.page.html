@@ -6,29 +6,42 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
+
+<ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-grid  fixed>
-    <ion-row>
-      <ion-col size="12" size-lg="3" size-md="4" size-sm="6" size-xs="12"
-       *ngFor="let noticia of noticias; let i = index ">
-        <ion-card-header>
-
-          <ion-card-subtitle>
-            <span class="text-primary">{{ i + 1}}.</span>
-            <span class="noticia-source-name"> {{noticia.titulo}} </span>
-           
-          </ion-card-subtitle>
-        </ion-card-header>
-        <ion-img  *ngIf="noticia.image"
-                  class="tamanio-img"
-                  [src]="base + 'noticia/imagen/' +noticia.image" ></ion-img>
-        <ion-card-content>
-          <p>{{noticia.detalle}}</p>
-        </ion-card-content>
+  <ion-card *ngFor="let noticia of noticias">
+    <ion-item>
+      <ion-avatar item-start>
+        <ion-img  *ngIf="noticia.logo" class="tlogo" [src]="base + 'empresa/logo/' + noticia.logo" style="height: 35px;"></ion-img>
+      </ion-avatar>
+      &nbsp;&nbsp;
+      <h5>{{noticia.titulo}}</h5>
+    </ion-item>
+    <ion-img  *ngIf="noticia.image" class="tamanio-img" [src]="base + 'noticia/imagen/' +noticia.image" ></ion-img>
+    <ion-card-content>
+      <p>{{noticia.detalle}}</p>
+    </ion-card-content>
+    <!-- <ion-row>
+      <ion-col>
+        <button ion-button icon-start clear small>
+          <ion-icon name="thumbs-up"></ion-icon>
+          <div>12 Likes</div>
+        </button>
       </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content>
+      <ion-col>
+        <button ion-button icon-start clear small>
+          <ion-icon name="text"></ion-icon>
+          <div>4 Comments</div>
+        </button>
+      </ion-col>
+      <ion-col align-self-center text-center>
+        <ion-note>
+          11h ago
+        </ion-note>
+      </ion-col>
+    </ion-row> -->
+  </ion-card>
+</ion-content>  
+
