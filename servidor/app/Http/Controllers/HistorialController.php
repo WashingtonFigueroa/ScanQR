@@ -37,7 +37,7 @@ class HistorialController extends Controller
             ->pluck('id');
         $historiales = Historial::whereIn('cupo_id', $cupo_ids)
             ->whereRaw('historiales.ingreso = historiales.salida')
-            ->update('salida', Carbon::now()->toDateTimeString());
+            ->update(['salida', Carbon::now()->toDateTimeString()]);
         return response()->json($historiales, 200);
     }
 
