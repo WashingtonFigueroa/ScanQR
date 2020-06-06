@@ -47,6 +47,9 @@ class HistorialController extends Controller
         $data = [];
         foreach ($historiales2 as $historial) {
             $historial['tiempo'] = (int)Carbon::parse($historial['salida'])->diffInMinutes(Carbon::parse($historial['ingreso']));
+            $req = Historial::find($historial['id']);
+            $req->tiempo = $historial['tiempo'];
+            $req->save();
             array_push($data, $historial);
         }
         return response()->json($data, 200);
