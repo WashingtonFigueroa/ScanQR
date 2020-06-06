@@ -59,4 +59,8 @@ export class HistorialService {
       }
     });
   }
+
+  cerrarEstablecimiento() {
+    return this.http.post(`${this.servidor}cerrar-establecimiento`, null);
+  }
 }

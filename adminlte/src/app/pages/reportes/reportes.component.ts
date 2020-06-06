@@ -15,7 +15,7 @@ export class ReportesComponent implements OnInit {
 
   constructor(private historialService: HistorialService,
               private fb: FormBuilder) {
-                this.today = new Date();
+    this.today = new Date();
   }
 
   ngOnInit(): void {
@@ -46,5 +46,13 @@ export class ReportesComponent implements OnInit {
       });
   }
 
+  salir() {
+    if (confirm('¿Esta seguro de cerrar el establecimiento?')) {
+      this.historialService.cerrarEstablecimiento()
+        .subscribe(() => {
+          this.reload();
+        });
+    }
+  }
 
 }

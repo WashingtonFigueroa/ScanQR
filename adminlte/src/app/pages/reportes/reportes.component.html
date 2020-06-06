@@ -17,79 +17,85 @@
 
 <section class="content">
   <div class="container-fluid">
-  <div class="card card-info card-outline">
-    <div class="card-header">
-      Filtrar Ingresos
-    </div>
-    <div class="card-body">
-      <form [formGroup]="buscarGroup">
-        <div class="row">
-          <div class="col-lg-3">
-            <input type="date" formControlName="desde" name="desde" class="form-control" [ngModel]="today | date:'yyyy-MM-dd'">
+    <div class="card card-info card-outline">
+      <div class="card-header">
+        Filtrar Ingresos
+      </div>
+      <div class="card-body">
+        <form [formGroup]="buscarGroup">
+          <div class="row">
+            <div class="col-lg-3">
+              <input [ngModel]="today | date:'yyyy-MM-dd'" class="form-control" formControlName="desde" name="desde"
+                     type="date">
+            </div>
+            <div class="col-lg-3">
+              <input [ngModel]="today | date:'yyyy-MM-dd'" class="form-control" formControlName="hasta" name="hasta"
+                     type="date">
+            </div>
+            <div class="col-lg-2">
+              <select class="form-control" formControlName="estado" id="estado" name="estado">
+                <option selected value="TODOS">TODOS</option>
+                <option value="INGRESO">INGRESOS</option>
+                <option value="SALIDA">SALIDAS</option>
+                <option value="RETRASO">RETRASOS</option>
+              </select>
+            </div>
+            <div class="col-lg-2">
+              <input class="form-control" formControlName="codigo" name="codigo" placeholder="Buscar Cliente..."
+                     type="text">
+            </div>
+            <div class="col-lg-2 text-center">
+              <button (click)="buscar()" [disabled]="buscarGroup.invalid" class="btn btn-primary">
+                <span class="fa fa-search"></span>
+              </button>&nbsp;
+              <button (click)="reload()" [disabled]="buscarGroup.invalid" class="btn btn-success">
+                <span class="fa fa-sync-alt"></span>
+              </button>&nbsp;
+              <button (click)="salir()" class="btn btn-danger" pTooltip="Salir del establecimiento">
+                <span class="fa fa-power-off"></span>
+              </button>
+            </div>
           </div>
-          <div class="col-lg-3">
-            <input type="date" formControlName="hasta" name="hasta" class="form-control" [ngModel]="today | date:'yyyy-MM-dd'">
-          </div>
-          <div class="col-lg-2">
-            <select name="estado" id="estado" formControlName="estado" class="form-control" >
-              <option value="TODOS" selected>TODOS</option>
-              <option value="INGRESO">INGRESOS</option>
-              <option value="SALIDA">SALIDAS</option>
-              <option value="RETRASO">RETRASOS</option>
-            </select>
-          </div>
-          <div class="col-lg-2">
-            <input type="text" class="form-control" name="codigo" formControlName="codigo" placeholder="Buscar Cliente...">
-          </div>
-          <div class="col-lg-2 text-center">
-            <button class="btn btn-primary" (click)="buscar()" [disabled]="buscarGroup.invalid">
-              <span class="fa fa-search"></span>
-            </button> &nbsp;&nbsp;
-            <button class="btn btn-success" (click)="reload()" [disabled]="buscarGroup.invalid">
-              <span class="fa fa-sync-alt"></span>
-            </button>
-          </div>
-        </div>
-      </form>
-      <br>
-      <div class="table-hover table-responsive table-sm">
-        <table class="table table-striped">
-          <thead>
-          <tr>
-            <th>N.</th>
-            <th class="text-center">Código</th>
-            <th>Nombre</th>
-            <th>Ingreso</th>
-            <th>Salida</th>
-            <th>Salida Tentativa</th>
-            <th>Tiempo Presente</th>
-            <th>Estado</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let record of historial; let i = index">
-            <td>{{ i + 1 }}</td>
-            <td class="text-center">{{ record.qr_id }}</td>
-            <td>{{ record.nombre }}</td>
-            <td>{{ record.ingreso | date: 'dd/MM/y HH:mm:ss' }}</td>
-            <td>
-              <span *ngIf="record.ingreso === record.salida"> - </span>
-              <span *ngIf="record.ingreso !== record.salida">
+        </form>
+        <br>
+        <div class="table-hover table-responsive table-sm">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>N.</th>
+              <th class="text-center">Código</th>
+              <th>Nombre</th>
+              <th>Ingreso</th>
+              <th>Salida</th>
+              <th>Salida Tentativa</th>
+              <th>Tiempo Presente</th>
+              <th>Estado</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let record of historial; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td class="text-center">{{ record.qr_id }}</td>
+              <td>{{ record.nombre }}</td>
+              <td>{{ record.ingreso | date: 'dd/MM/y HH:mm:ss' }}</td>
+              <td>
+                <span *ngIf="record.ingreso === record.salida"> - </span>
+                <span *ngIf="record.ingreso !== record.salida">
               {{ record.salida | date: 'dd/MM/y HH:mm:ss'}}
               </span>
-            </td>
-            <td>{{ record.salida_tentativa | date: 'dd/MM/y HH:mm:ss'}}</td>
-            <td>{{ record.tiempo }} min.</td>
-            <td>
+              </td>
+              <td>{{ record.salida_tentativa | date: 'dd/MM/y HH:mm:ss'}}</td>
+              <td>{{ record.tiempo }} min.</td>
+              <td>
               <span [class.text-success]="record.estado === 'INGRESO'">
               {{ record.estado }}
               </span>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
-  </div> 
 </section>

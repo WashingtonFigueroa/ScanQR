@@ -56,7 +56,6 @@
         </div>
       </div>
     </div>
-
     <div *ngIf="identity.cargo_id !== 3" class="row">
       <div class="col-md-4">
         <div class="small-box bg-cyan">
@@ -92,33 +91,31 @@
         </div>
       </div>
     </div>
-      <div *ngIf="identity.cargo_id !== 3 && cargaGastoSaldo " class="col-md-12">
-          <div class="row">
-            <div class="col-md-4">
-              <div class="description-block border-right">
+    <div *ngIf="identity.cargo_id !== 3 && cargaGastoSaldo " class="col-md-12">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="description-block border-right">
                 <span class="description-percentage text-success"><i
                   class="fas fa-caret-down"></i> <h3>{{ cargaGastoSaldo.carga }}</h3></span>
-                <span class="description-text">Carga</span>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="description-block border-right">
+            <span class="description-text">Carga</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="description-block border-right">
                 <span class="description-percentage text-warning"><i
                   class="fas fa-caret-up"></i> <h3>{{ cargaGastoSaldo.gasto }}</h3></span>
-                <span class="description-text">Gasto</span>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="description-block border-right">
+            <span class="description-text">Gasto</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="description-block border-right">
                 <span class="description-percentage text-danger"><i
                   class="fas fa-caret-down"></i> <h3>{{ cargaGastoSaldo.saldo }}</h3></span>
-                <span class="description-text">Saldo</span>
-              </div>
-            </div>
+            <span class="description-text">Saldo</span>
           </div>
+        </div>
       </div>
- 
-
+    </div>
     <section class="content">
       <div class="container-fluid">
         <div class="card card-info card-outline">
@@ -150,6 +147,5 @@
         </div>
       </div>
     </section>
-    <br>
   </div>
 </section>

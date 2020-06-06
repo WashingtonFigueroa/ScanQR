@@ -40,6 +40,8 @@ Route::group(['middleware' => ['auth:api', 'token.review']], function () {
     Route::put('activar-cupo/{id}', 'CupoController@activarCupo');
     Route::put('inactivar-cupo/{id}', 'CupoController@inactivarCupo');
     Route::get('carga-gasto-saldo', 'HistorialController@cargaGastoSaldo');
+
+    Route::post('cerrar-establecimiento', 'HistorialController@cerrarEstablecimiento');
 });
 Route::get('revocar', 'UserController@revocar');
 
