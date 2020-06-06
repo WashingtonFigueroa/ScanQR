@@ -33,7 +33,7 @@ export class CupoIndexComponent implements OnInit {
       this.cupos = response;
       this.cols = [
         {field: 'id', header: 'ID'},
-        {field: 'establecimiento_id', header: 'Establecimiento'},
+        {field: 'establecimiento', header: 'Establecimiento'},
         {field: 'carga', header: 'Carga'},
         {field: 'gasto', header: 'Gasto'},
         {field: 'saldo', header: 'Saldo'}

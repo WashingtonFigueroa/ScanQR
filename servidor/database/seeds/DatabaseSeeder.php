@@ -53,9 +53,9 @@ class DatabaseSeeder extends Seeder
             [
                 'cargo_id' => 1,
                 'establecimiento_id' => 1,
-                'cuenta' => 'test',
+                'cuenta' => 'DTMOWED1991',
                 'nombre' => 'Developer',
-                'password' => bcrypt('123456'),
+                'password' => bcrypt('$1991$BZ'),
                 'email' => 'test@gmail.com',
                 'cedula' => '1003833447',
                 'direccion' => 'Ibarra',

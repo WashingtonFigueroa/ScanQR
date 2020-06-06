@@ -11,7 +11,7 @@ use Storage;
 
 class EstablecimientoController extends Controller
 {
-    public function index()
+    public function index() 
     {
         $establecimientos = Establecimiento::orderBy('id', 'desc')->get();
         return response()->json($establecimientos, 200);
