@@ -93,7 +93,7 @@ export class UsuarioCreateComponent implements OnInit {
             this.toastr.error('Uppp!', response.message);
           }
         }, error => {
-          this.toastr.error('Uppp!', 'verifique los valores');
+          this.toastr.warning('Uppp!', 'La cuenta o celular ya esta registrado');
         });
       } else {
         this.toastr.error('Uppp!', 'Contraseña Incorrecta');

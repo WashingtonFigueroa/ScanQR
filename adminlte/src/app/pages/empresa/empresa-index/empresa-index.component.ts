@@ -34,6 +34,7 @@ export class EmpresaIndexComponent implements OnInit {
         this.cols = [
             { field: 'id', header: 'ID' },
             { field: 'nombre', header: 'Nombre' },
+            { field: 'plan', header: 'plan' },
             { field: 'direccion', header: 'Dirección' },
             { field: 'telefono', header: 'Teléfono' },
             { field: 'estado', header: 'Estado' }

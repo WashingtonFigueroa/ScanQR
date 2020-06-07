@@ -33,7 +33,7 @@ export class NoticiaIndexComponent implements OnInit {
         this.noticias = response;
         this.cols = [
             { field: 'id', header: 'ID' },
-            { field: 'establecimiento_id', header: 'Establecimiento' },
+            { field: 'establecimiento', header: 'Establecimiento' },
             { field: 'titulo', header: 'Titulo' },
             { field: 'detalle', header: 'Detalle' }
         ];

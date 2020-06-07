@@ -108,7 +108,7 @@ export class UsuarioEditComponent implements OnInit {
       form.reset();
       this.router.navigate(['/usuario']);
     }, error => {
-      this.toastr.error('Uppp!', 'verifique los valores');
+      this.toastr.warning('Uppp!', 'La cuenta o celular ya esta registrado');
     });
   }
 

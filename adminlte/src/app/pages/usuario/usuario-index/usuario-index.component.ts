@@ -35,11 +35,12 @@ export class UsuarioIndexComponent implements OnInit {
         this.usuarios = response.usuarios;
         this.cols = [
             { field: 'cedula', header: 'Cedula' },
-            { field: 'name', header: 'Nombre' },
+            { field: 'nombre', header: 'Nombre' },
+            { field: 'establecimiento', header: 'Establecimiento' },
             { field: 'email', header: 'Email' },
             { field: 'direccion', header: 'Dirección' },
             { field: 'telefono', header: 'Teléfono' },
-            { field: 'fecha_nacimiento', header: 'fecha_nacimiento' },
+            { field: 'cargo.nombre', header: 'cargo' },
             { field: 'imagen', header: 'Foto' }
         ];
       } else {
@@ -56,14 +57,11 @@ export class UsuarioIndexComponent implements OnInit {
 
   deleteUsuario(id) {
     this.usuarioService.delete(this.token, id).subscribe(response => {
-      if (response.status === 'success') {
         this.toastr.success('Ok.', 'Usuario Suspendido');
         this. getUser();
-      } else {
-        this.toastr.error('Uppp!', response.message);
-      }
+     
     }, error => {
-      this.toastr.error('Uppp!', 'verifique los valores');
+      this.toastr.warning('Uppp!', 'La cuenta o celular ya esta registrado');
     });
   }
 }
